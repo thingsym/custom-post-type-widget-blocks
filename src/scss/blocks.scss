@@ -1,0 +1,10 @@
+@import "./base-styles/variables";
+@import "./base-styles/_breakpoints";
+@import "./base-styles/_mixins";
+
+
+@import "../blocks/calendar/style";
+@import "../blocks/categories/style";
+@import "../blocks/latest-comments/style";
+@import "../blocks/latest-posts/style";
+@import "../blocks/search/style";
