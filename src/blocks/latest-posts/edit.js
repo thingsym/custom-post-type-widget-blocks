@@ -46,16 +46,12 @@ class LatestPostsEdit extends Component {
 		this.setPostType = this.setPostType.bind( this );
 		this.state = {
 			categoriesList: [],
+			taxonomyState: undefined,
 		};
 	}
 
 	getPostTypeOptions() {
 		const postTypes = this.props.postTypes;
-
-		const selectOption = {
-			label: __( 'All', 'custom-post-type-widget-blocks' ),
-			value: 'any',
-		};
 
 		const postTypeOptions = map( postTypes, ( postType ) => {
 			return {
@@ -64,42 +60,59 @@ class LatestPostsEdit extends Component {
 			};
 		} );
 
-		return [ selectOption, ...postTypeOptions ];
+		return [ postTypeOptions ];
 	}
 
 	setPostType( postType ) {
 		const { setAttributes } = this.props;
 
 		setAttributes( { postType } );
+		setAttributes({ taxonomy: undefined });
+		setAttributes({ categories: undefined });
+	}
+
+	setTaxonomy() {
+		const { taxonomies, setAttributes } = this.props;
+
+		setAttributes({ taxonomyState: taxonomies[0].slug });
 	}
 
 	componentWillReceiveProps(nextProps) {
+		const { taxonomies } = nextProps;
 		const { postType } = nextProps.attributes;
-		// console.log(postType);
 
-		this.isStillMounted = true;
-		if ( postType === 'post' ) {
-			this.fetchRequest = apiFetch( {
-				path: addQueryArgs( `/wp/v2/categories`, CATEGORIES_LIST_QUERY ),
-			} )
-				.then( ( categoriesList ) => {
-					if ( this.isStillMounted ) {
-						this.setState( { categoriesList } );
-					}
-				} )
-				.catch( () => {
-					if ( this.isStillMounted ) {
-						this.setState( { categoriesList: [] } );
-					}
-				} );
-		}
-		else {
-			this.setState( { categoriesList: [] } );
+		if (postType === 'post') {
+			this.fetchRequest = apiFetch({
+				path: addQueryArgs(`/wp/v2/categories`, CATEGORIES_LIST_QUERY),
+			})
+				.then((categoriesList) => {
+					this.setState({ categoriesList });
+					this.setState({ taxonomyState: 'category' });
+				})
+				.catch(() => {
+					this.setState({ categoriesList: [] });
+					this.setState({ taxonomyState: undefined });
+				});
+		} else if (postType != 'any') {
+			if (taxonomies) {
+				const rest_base = taxonomies[0].rest_base;
+				this.fetchRequest = apiFetch({
+					path: addQueryArgs(`/wp/v2/${rest_base}`),
+				})
+					.then((categoriesList) => {
+						this.setState({ categoriesList });
+						this.setState({ taxonomyState: taxonomies[0].slug });
+					})
+					.catch(() => {
+						this.setState({ categoriesList: [] });
+						this.setState({ taxonomyState: undefined });
+					});
+			}
 		}
 	}
 
 	componentWillUnmount() {
-		this.isStillMounted = false;
+		// this.isStillMounted = false;
 	}
 
 	render() {
@@ -111,7 +124,7 @@ class LatestPostsEdit extends Component {
 			defaultImageWidth,
 			defaultImageHeight,
 		} = this.props;
-		const { categoriesList } = this.state;
+		const { categoriesList, taxonomyState } = this.state;
 		const {
 			displayFeaturedImage,
 			displayPostContentRadio,
@@ -130,7 +143,7 @@ class LatestPostsEdit extends Component {
 			featuredImageSizeHeight,
 		} = attributes;
 		const postTypeOptions = this.getPostTypeOptions();
-		const { postType } = this.props.attributes;
+		const { postType, taxonomy } = this.props.attributes;
 
 		const inspectorControls = (
 			<InspectorControls>
@@ -260,6 +273,9 @@ class LatestPostsEdit extends Component {
 						}
 						onCategoryChange={ ( value ) =>
 							setAttributes( {
+								taxonomy: taxonomyState
+									? taxonomyState
+									: undefined,
 								categories: '' !== value ? value : undefined,
 							} )
 						}
@@ -455,38 +471,45 @@ class LatestPostsEdit extends Component {
 export default withSelect( ( select, props ) => {
 	const {
 		postType,
+		taxonomy,
+		categories,
 		featuredImageSizeSlug,
 		postsToShow,
 		order,
 		orderBy,
-		categories,
 	} = props.attributes;
-	const { getEntityRecords, getPostTypes, getMedia } = select( 'core' );
+	const { getEntityRecords, getPostTypes, getTaxonomies, getMedia } = select( 'core' );
 	const { getSettings } = select( 'core/block-editor' );
 	const { imageSizes, imageDimensions } = getSettings();
 
 	const postTypes = filter( getPostTypes(), { 'viewable': true, 'hierarchical': false } );
 	remove( postTypes, { 'slug': 'attachment' } );
+	const taxonomies = filter(getTaxonomies(), {
+		types: [postType],
+		hierarchical: true,
+	});
 
-	const latestPostsQuery = pickBy(
-		{
+	let latestPostsQuery;
+
+	if (postType === 'post') {
+		latestPostsQuery = {
 			categories,
 			order,
 			orderby: orderBy,
 			per_page: postsToShow,
-		},
-		( value ) => ! isUndefined( value )
-	);
-
-	if ( postType === 'any' ) {
-		// const selectEditor = select( 'core/editor' );
-		// const postTypeSlug = selectEditor.getEditedPostAttribute( 'type' );
-		// const selectCore = select( 'core' );
-		// const postTypeAll = selectCore.getPostType( postTypeSlug );
-		// console.log(postType);
+		};
+	} else {
+		latestPostsQuery = {
+			order,
+			orderby: orderBy,
+			per_page: postsToShow,
+		};
+		latestPostsQuery[taxonomy] = categories;
 	}
 
-	const posts = getEntityRecords( 'postType', postType, latestPostsQuery );
+	latestPostsQuery = pickBy(latestPostsQuery, (value) => !isUndefined(value));
+
+	const posts = getEntityRecords('postType', postType, latestPostsQuery);
 	const imageSizeOptions = imageSizes
 		.filter( ( { slug } ) => slug !== 'full' )
 		.map( ( { name, slug } ) => ( { value: slug, label: name } ) );
