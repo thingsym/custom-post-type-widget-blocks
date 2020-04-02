@@ -42,7 +42,7 @@ spl_autoload_register(
 		}
 		elseif ( preg_match( '/^blocks\/custom-post-type-widget-blocks-/', $relative_class ) ) {
 			// load blocks class from /dist/php
-			$relative_class = preg_replace( '/^blocks\/custom-post-type-widget-blocks-(.*?)$/', 'dist/php/class-$1', $relative_class );
+			$relative_class = preg_replace( '/^blocks\/(custom-post-type-widget-blocks-.*?)$/', 'dist/php/class-$1', $relative_class );
 		}
 
 		$path = plugin_dir_path( __Custom_Post_Type_Widget_Blocks__ ) . $relative_class . '.php';
