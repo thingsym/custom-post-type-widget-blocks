@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( '__Custom_Post_Type_Widget_Blocks__', __FILE__ );
+define( '__CUSTOM_POST_TYPE_WIDGET_BLOCKS__', __FILE__ );
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/autoload.php';
 
