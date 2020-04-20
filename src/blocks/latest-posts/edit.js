@@ -60,7 +60,7 @@ class LatestPostsEdit extends Component {
 			};
 		} );
 
-		return [ postTypeOptions ];
+		return [...postTypeOptions];
 	}
 
 	setPostType( postType ) {
