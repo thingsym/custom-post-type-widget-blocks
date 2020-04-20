@@ -19,11 +19,11 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 			'custom-post-type-widget-blocks/latest-posts',
 			[
 				'attributes'      => [
-					'postType'     => [
+					'postType'                => [
 						'type'    => 'string',
 						'default' => 'post',
 					],
-					'taxonomy'      => [
+					'taxonomy'                => [
 						'type'    => 'string',
 						'default' => 'category',
 					],
@@ -118,11 +118,11 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 					$args['tax_query'] = [
 						[
 							'taxonomy' => $attributes['taxonomy'],
-							'field' => 'term_id',
-							'terms' => [
-								$attributes['categories']
+							'field'    => 'term_id',
+							'terms'    => [
+								$attributes['categories'],
 							],
-						]
+						],
 					];
 				}
 			}

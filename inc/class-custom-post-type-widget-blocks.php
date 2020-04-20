@@ -73,13 +73,13 @@ class Custom_Post_Type_Widget_Blocks {
 	 */
 	public function add_block_categories( $categories ) {
 		return array_merge(
-				$categories,
+			$categories,
+			[
 				[
-					[
-						'slug'  => 'custom-post-type-widget-blocks',
-						'title' => __( 'Custom Post Type Widget Blocks', 'custom-post-type-widget-blocks' ),
-					],
-				]
+					'slug'  => 'custom-post-type-widget-blocks',
+					'title' => __( 'Custom Post Type Widget Blocks', 'custom-post-type-widget-blocks' ),
+				],
+			]
 		);
 	}
 
@@ -125,13 +125,13 @@ class Custom_Post_Type_Widget_Blocks {
 	public function init() {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Categories;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Comments;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Posts;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Search;
-		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Tag_Cloud;
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Categories();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Comments();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Posts();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Search();
+		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Tag_Cloud();
 	}
 
 }

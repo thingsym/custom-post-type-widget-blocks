@@ -18,8 +18,8 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		register_block_type(
 			'custom-post-type-widget-blocks/archives',
 			[
-					'attributes'      => [
-						'postType'     => [
+				'attributes'      => [
+					'postType'          => [
 						'type'    => 'string',
 						'default' => 'post',
 					],

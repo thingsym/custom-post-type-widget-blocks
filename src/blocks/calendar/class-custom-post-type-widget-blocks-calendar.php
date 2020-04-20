@@ -19,7 +19,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			'custom-post-type-widget-blocks/calendar',
 			[
 				'attributes'      => [
-					'postType'     => [
+					'postType'  => [
 						'type'    => 'string',
 						'default' => 'post',
 					],
@@ -254,6 +254,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			if ( in_array( $day, $daywithpost ) ) {
 				// any posts today?
 				$date_format      = date( _x( 'F j, Y', 'daily archives date format' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
+				/* translators: label: 1: date format */
 				$label            = sprintf( __( 'Posts published on %s', 'custom-post-type-widget-blocks' ), $date_format );
 				$calendar_output .= sprintf(
 					'<a href="%s" aria-label="%s">%s</a>',
@@ -288,9 +289,9 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		} else {
 			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-prev">&nbsp;</span>';
 		}
-	
+
 		$calendar_output .= "\n\t\t" . '<span class="pad">&nbsp;</span>';
-	
+
 		if ( $next ) {
 			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-next"><a href="' . get_month_link( $next->year, $next->month ) . '">' .
 				$wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) .
@@ -298,7 +299,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		} else {
 			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-next">&nbsp;</span>';
 		}
-	
+
 		$calendar_output .= '
 		</nav>';
 

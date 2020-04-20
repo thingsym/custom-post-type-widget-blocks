@@ -19,16 +19,16 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			'custom-post-type-widget-blocks/categories',
 			[
 				'attributes'      => [
+					'taxonomy'          => [
+						'type'    => 'string',
+						'default' => 'category',
+					],
 					'align'             => [
 						'type' => 'string',
 						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
 					],
 					'className'         => [
 						'type' => 'string',
-					],
-					'taxonomy'      => [
-						'type'    => 'string',
-						'default' => 'category',
 					],
 					'displayAsDropdown' => [
 						'type'    => 'boolean',
@@ -89,8 +89,8 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$args['value_field']      = 'slug';
 			$wrapper_markup           = '<div class="%1$s">%2$s</div>';
 			$items_markup             = '<form action="' . esc_url( home_url() ) . '" method="get">';
-			$items_markup             .= wp_dropdown_categories( $args );
-			$items_markup             .= '</form>';
+			$items_markup            .= wp_dropdown_categories( $args );
+			$items_markup            .= '</form>';
 			$type                     = 'dropdown';
 
 			if ( ! is_admin() ) {

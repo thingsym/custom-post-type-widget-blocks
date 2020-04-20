@@ -19,7 +19,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 			'custom-post-type-widget-blocks/latest-comments',
 			[
 				'attributes'      => [
-					'postType'     => [
+					'postType'       => [
 						'type'    => 'string',
 						'default' => 'any',
 					],

@@ -19,16 +19,16 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 			'custom-post-type-widget-blocks/tag-cloud',
 			[
 				'attributes'      => [
+					'taxonomy'      => [
+						'type'    => 'string',
+						'default' => 'post_tag',
+					],
 					'align'         => [
 						'type' => 'string',
 						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
 					],
 					'className'     => [
 						'type' => 'string',
-					],
-					'taxonomy'      => [
-						'type'    => 'string',
-						'default' => 'post_tag',
 					],
 					'showTagCounts' => [
 						'type'    => 'boolean',

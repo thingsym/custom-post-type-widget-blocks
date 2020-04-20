@@ -19,7 +19,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 			'custom-post-type-widget-blocks/search',
 			[
 				'attributes'      => [
-					'postType'     => [
+					'postType'    => [
 						'type'    => 'string',
 						'default' => 'any',
 					],
