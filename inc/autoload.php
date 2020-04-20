@@ -18,7 +18,7 @@
  */
 spl_autoload_register(
 	function( $class ) {
-		/* theme-specific namespace prefix */
+		/* plugin-specific namespace prefix */
 		$prefix = 'Custom_Post_Type_Widget_Blocks\\';
 		$len    = strlen( $prefix );
 
