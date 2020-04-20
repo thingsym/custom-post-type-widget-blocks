@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-17T11:00:55+00:00\n"
+"POT-Creation-Date: 2020-04-02T09:35:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
@@ -35,99 +35,100 @@ msgstr ""
 msgid "http://www.thingslabo.com/"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:66
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:66
 msgid "Archives"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:91
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:91
 msgid "Select Year"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:94
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:94
 msgid "Select Month"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:97
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:97
 msgid "Select Day"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:100
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:100
 msgid "Select Week"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:103
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:103
 msgid "Select Post"
 msgstr ""
 
-#: src/blocks/archives/class-archives.php:149
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:149
 msgid "No archives to show."
 msgstr ""
 
-#: src/blocks/calendar/class-calendar.php:285
+#. translators: label: 1: date format
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:258
 msgid "Posts published on %s"
 msgstr ""
 
-#: src/blocks/categories/class-categories.php:87
+#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:87
 msgid "Select Category"
 msgstr ""
 
-#: src/blocks/latest-comments/class-latest-comments.php:66
-#: src/blocks/latest-posts/class-latest-posts.php:148
-#: src/blocks/latest-posts/edit.js:392
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:66
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:167
+#: src/blocks/latest-posts/edit.js:469
 msgid "(no title)"
 msgstr ""
 
 #. translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment
-#: src/blocks/latest-comments/class-latest-comments.php:128
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:128
 msgid "%1$s on %2$s"
 msgstr ""
 
-#: src/blocks/latest-comments/class-latest-comments.php:176
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:176
 msgid "No comments to show."
 msgstr ""
 
-#: src/blocks/latest-posts/class-latest-posts.php:178
-#: src/blocks/latest-posts/edit.js:426
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:197
+#: src/blocks/latest-posts/edit.js:499
 msgid "Read more"
 msgstr ""
 
-#: src/blocks/search/class-search.php:35
-#: src/blocks/search/class-search.php:43
-#: src/blocks/search/class-search.php:68
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:35
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:43
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:68
 msgid "Search"
 msgstr ""
 
 #. translators: %s: taxonomy name
-#: src/blocks/tag-cloud/class-tag-cloud.php:65
+#: src/blocks/tag-cloud/class-custom-post-type-widget-blocks-tag-cloud.php:65
 msgid "Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display here at the moment."
 msgstr ""
 
-#: src/blocks/archives/edit.js:27
+#: src/blocks/archives/edit.js:32
 #: src/blocks/calendar/edit.js:37
 #: src/blocks/categories/edit.js:38
-#: src/blocks/tag-cloud/edit.js:32
+#: src/blocks/tag-cloud/edit.js:37
 msgid "- Select -"
 msgstr ""
 
-#: src/blocks/archives/edit.js:56
+#: src/blocks/archives/edit.js:66
 msgid "Archives settings"
 msgstr ""
 
-#: src/blocks/archives/edit.js:58
-#: src/blocks/calendar/edit.js:85
-#: src/blocks/latest-comments/edit.js:106
-#: src/blocks/latest-posts/edit.js:245
-#: src/blocks/search/edit.js:56
+#: src/blocks/archives/edit.js:72
+#: src/blocks/calendar/edit.js:90
+#: src/blocks/latest-comments/edit.js:109
+#: src/blocks/latest-posts/edit.js:305
+#: src/blocks/search/edit.js:66
 msgid "Post Type"
 msgstr ""
 
-#: src/blocks/archives/edit.js:64
-#: src/blocks/categories/edit.js:213
+#: src/blocks/archives/edit.js:81
+#: src/blocks/categories/edit.js:219
 msgid "Display as Dropdown"
 msgstr ""
 
-#: src/blocks/archives/edit.js:73
-#: src/blocks/categories/edit.js:223
+#: src/blocks/archives/edit.js:93
+#: src/blocks/categories/edit.js:235
 msgid "Show Post Counts"
 msgstr ""
 
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Display a monthly archive of your posts."
 msgstr ""
 
-#: src/blocks/calendar/edit.js:83
+#: src/blocks/calendar/edit.js:84
 msgid "Calendar settings"
 msgstr ""
 
@@ -151,33 +152,33 @@ msgstr ""
 msgid "A calendar of your site’s posts."
 msgstr ""
 
-#: src/blocks/calendar/index.js:19
+#: src/blocks/calendar/index.js:23
 msgid "posts"
 msgstr ""
 
-#: src/blocks/calendar/index.js:19
+#: src/blocks/calendar/index.js:24
 msgid "archive"
 msgstr ""
 
-#: src/blocks/categories/edit.js:101
+#: src/blocks/categories/edit.js:99
 msgid "(Untitled)"
 msgstr ""
 
-#: src/blocks/categories/edit.js:166
-#: src/blocks/categories/edit.js:235
+#: src/blocks/categories/edit.js:162
+#: src/blocks/categories/edit.js:252
 msgid "Categories"
 msgstr ""
 
-#: src/blocks/categories/edit.js:205
+#: src/blocks/categories/edit.js:207
 msgid "Categories settings"
 msgstr ""
 
-#: src/blocks/categories/edit.js:207
-#: src/blocks/tag-cloud/edit.js:69
+#: src/blocks/categories/edit.js:213
+#: src/blocks/tag-cloud/edit.js:79
 msgid "Taxonomy"
 msgstr ""
 
-#: src/blocks/categories/edit.js:218
+#: src/blocks/categories/edit.js:227
 msgid "Show Hierarchy"
 msgstr ""
 
@@ -185,33 +186,32 @@ msgstr ""
 msgid "Categories (Custom Post Type)"
 msgstr ""
 
-#: src/blocks/categories/index.js:16
+#: src/blocks/categories/index.js:19
 msgid "Display a list of all categories."
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:58
-#: src/blocks/latest-posts/edit.js:56
+#: src/blocks/latest-comments/edit.js:56
 #: src/blocks/search/edit.js:27
 msgid "All"
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:104
+#: src/blocks/latest-comments/edit.js:103
 msgid "Latest comments settings"
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:112
+#: src/blocks/latest-comments/edit.js:118
 msgid "Display Avatar"
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:117
+#: src/blocks/latest-comments/edit.js:126
 msgid "Display Date"
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:122
+#: src/blocks/latest-comments/edit.js:134
 msgid "Display Excerpt"
 msgstr ""
 
-#: src/blocks/latest-comments/edit.js:127
+#: src/blocks/latest-comments/edit.js:142
 msgid "Number of Comments"
 msgstr ""
 
@@ -219,79 +219,79 @@ msgstr ""
 msgid "Latest Comments (Custom Post Type)"
 msgstr ""
 
-#: src/blocks/latest-comments/index.js:16
+#: src/blocks/latest-comments/index.js:19
 msgid "Display a list of your most recent comments."
 msgstr ""
 
-#: src/blocks/latest-comments/index.js:19
+#: src/blocks/latest-comments/index.js:25
 msgid "recent comments"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:137
+#: src/blocks/latest-posts/edit.js:151
 msgid "Post content settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:139
+#: src/blocks/latest-posts/edit.js:157
 msgid "Post Content"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:147
+#: src/blocks/latest-posts/edit.js:168
 msgid "Show:"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:150
+#: src/blocks/latest-posts/edit.js:175
 msgid "Excerpt"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:152
+#: src/blocks/latest-posts/edit.js:182
 msgid "Full Post"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:166
+#: src/blocks/latest-posts/edit.js:199
 msgid "Max number of words in excerpt"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:177
+#: src/blocks/latest-posts/edit.js:214
 msgid "Post meta settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:179
+#: src/blocks/latest-posts/edit.js:220
 msgid "Display post date"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:187
+#: src/blocks/latest-posts/edit.js:232
 msgid "Featured Image Settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:189
+#: src/blocks/latest-posts/edit.js:238
 msgid "Display featured image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:226
+#: src/blocks/latest-posts/edit.js:278
 msgid "Image Alignment"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:243
+#: src/blocks/latest-posts/edit.js:299
 msgid "Sorting and filtering"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:272
+#: src/blocks/latest-posts/edit.js:338
 msgid "Columns"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:300
+#: src/blocks/latest-posts/edit.js:369
 msgid "Latest Posts"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:305
+#: src/blocks/latest-posts/edit.js:377
 msgid "No posts found."
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:321
+#: src/blocks/latest-posts/edit.js:396
 msgid "List view"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:327
+#: src/blocks/latest-posts/edit.js:402
 msgid "Grid view"
 msgstr ""
 
@@ -299,39 +299,39 @@ msgstr ""
 msgid "Latest Posts (Custom Post Type)"
 msgstr ""
 
-#: src/blocks/latest-posts/index.js:16
+#: src/blocks/latest-posts/index.js:19
 msgid "Display a list of your most recent posts."
 msgstr ""
 
-#: src/blocks/latest-posts/index.js:19
+#: src/blocks/latest-posts/index.js:25
 msgid "recent posts"
 msgstr ""
 
-#: src/blocks/search/edit.js:54
+#: src/blocks/search/edit.js:60
 msgid "Search settings"
 msgstr ""
 
-#: src/blocks/search/edit.js:71
+#: src/blocks/search/edit.js:84
 msgid "Label text"
 msgstr ""
 
-#: src/blocks/search/edit.js:72
+#: src/blocks/search/edit.js:88
 msgid "Add label…"
 msgstr ""
 
-#: src/blocks/search/edit.js:79
+#: src/blocks/search/edit.js:98
 msgid "Optional placeholder text"
 msgstr ""
 
-#: src/blocks/search/edit.js:84
+#: src/blocks/search/edit.js:108
 msgid "Optional placeholder…"
 msgstr ""
 
-#: src/blocks/search/edit.js:93
+#: src/blocks/search/edit.js:120
 msgid "Button text"
 msgstr ""
 
-#: src/blocks/search/edit.js:94
+#: src/blocks/search/edit.js:124
 msgid "Add button text…"
 msgstr ""
 
@@ -343,15 +343,15 @@ msgstr ""
 msgid "Help visitors find your content."
 msgstr ""
 
-#: src/blocks/search/index.js:19
+#: src/blocks/search/index.js:22
 msgid "find"
 msgstr ""
 
-#: src/blocks/tag-cloud/edit.js:67
+#: src/blocks/tag-cloud/edit.js:73
 msgid "Tag Cloud settings"
 msgstr ""
 
-#: src/blocks/tag-cloud/edit.js:75
+#: src/blocks/tag-cloud/edit.js:85
 msgid "Show post counts"
 msgstr ""
 
