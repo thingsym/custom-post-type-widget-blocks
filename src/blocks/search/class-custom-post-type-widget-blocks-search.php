@@ -51,7 +51,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 	public function render_callback( $attributes ) {
 		static $instance_id = 0;
 
-		$input_id      = 'wp-block-custom-post-type-widget-blocks-search__input-' . ++$instance_id;
+		$input_id      = 'wp-block-custom-post-type-widget-blocks-search__input-' . ( ++$instance_id );
 		$label_markup  = '';
 		$button_markup = '';
 
