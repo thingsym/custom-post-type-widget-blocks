@@ -7,7 +7,12 @@ import { map, filter } from 'lodash';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import { PanelBody, ToggleControl, SelectControl, Disabled } from '@wordpress/components';
+import {
+	PanelBody,
+	ToggleControl,
+	SelectControl,
+	Disabled,
+} from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
@@ -15,46 +20,46 @@ import ServerSideRender from '@wordpress/server-side-render';
 
 class TagCloudEdit extends Component {
 	constructor() {
-		super( ...arguments );
+		super(...arguments);
 
 		this.state = {
-			editing: ! this.props.attributes.taxonomy,
+			editing: !this.props.attributes.taxonomy,
 		};
 
-		this.setTaxonomy = this.setTaxonomy.bind( this );
-		this.toggleShowTagCounts = this.toggleShowTagCounts.bind( this );
+		this.setTaxonomy = this.setTaxonomy.bind(this);
+		this.toggleShowTagCounts = this.toggleShowTagCounts.bind(this);
 	}
 
 	getTaxonomyOptions() {
 		const taxonomies = this.props.taxonomies;
 
 		const selectOption = {
-			label: __( '- Select -', 'custom-post-type-widget-blocks' ),
+			label: __('- Select -', 'custom-post-type-widget-blocks'),
 			value: '',
 			disabled: true,
 		};
 
-		const taxonomyOptions = map( taxonomies, ( taxonomy ) => {
+		const taxonomyOptions = map(taxonomies, (taxonomy) => {
 			return {
 				value: taxonomy.slug,
 				label: taxonomy.name,
 			};
-		} );
+		});
 
-		return [ selectOption, ...taxonomyOptions ];
+		return [selectOption, ...taxonomyOptions];
 	}
 
-	setTaxonomy( taxonomy ) {
+	setTaxonomy(taxonomy) {
 		const { setAttributes } = this.props;
 
-		setAttributes( { taxonomy } );
+		setAttributes({ taxonomy });
 	}
 
 	toggleShowTagCounts() {
 		const { attributes, setAttributes } = this.props;
 		const { showTagCounts } = attributes;
 
-		setAttributes( { showTagCounts: ! showTagCounts } );
+		setAttributes({ showTagCounts: !showTagCounts });
 	}
 
 	render() {
@@ -64,17 +69,25 @@ class TagCloudEdit extends Component {
 
 		const inspectorControls = (
 			<InspectorControls>
-				<PanelBody title={ __( 'Tag Cloud settings', 'custom-post-type-widget-blocks' ) }>
+				<PanelBody
+					title={__(
+						'Tag Cloud settings',
+						'custom-post-type-widget-blocks'
+					)}
+				>
 					<SelectControl
-						label={ __( 'Taxonomy', 'custom-post-type-widget-blocks' ) }
-						options={ taxonomyOptions }
-						value={ taxonomy }
-						onChange={ this.setTaxonomy }
+						label={__('Taxonomy', 'custom-post-type-widget-blocks')}
+						options={taxonomyOptions}
+						value={taxonomy}
+						onChange={this.setTaxonomy}
 					/>
 					<ToggleControl
-						label={ __( 'Show post counts', 'custom-post-type-widget-blocks' ) }
-						checked={ showTagCounts }
-						onChange={ this.toggleShowTagCounts }
+						label={__(
+							'Show post counts',
+							'custom-post-type-widget-blocks'
+						)}
+						checked={showTagCounts}
+						onChange={this.toggleShowTagCounts}
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -82,12 +95,12 @@ class TagCloudEdit extends Component {
 
 		return (
 			<>
-				{ inspectorControls }
+				{inspectorControls}
 				<Disabled>
 					<ServerSideRender
 						key="tag-cloud"
 						block="custom-post-type-widget-blocks/tag-cloud"
-						attributes={ attributes }
+						attributes={attributes}
 					/>
 				</Disabled>
 			</>
@@ -95,12 +108,15 @@ class TagCloudEdit extends Component {
 	}
 }
 
-export default withSelect( ( select ) => {
-	const { getTaxonomies } = select( 'core' );
+export default withSelect((select) => {
+	const { getTaxonomies } = select('core');
 
-	const taxonomies = filter( getTaxonomies(), { 'show_cloud': true, 'hierarchical': false } );
+	const taxonomies = filter(getTaxonomies(), {
+		show_cloud: true,
+		hierarchical: false,
+	});
 
 	return {
 		taxonomies: taxonomies,
 	};
-} )( TagCloudEdit );
+})(TagCloudEdit);

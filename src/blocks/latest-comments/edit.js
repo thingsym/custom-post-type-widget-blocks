@@ -34,18 +34,16 @@ const MAX_COMMENTS = 100;
 
 class LatestComments extends Component {
 	constructor() {
-		super( ...arguments );
+		super(...arguments);
 
-		this.setPostType = this.setPostType.bind( this );
-		this.setCommentsToShow = this.setCommentsToShow.bind( this );
+		this.setPostType = this.setPostType.bind(this);
+		this.setCommentsToShow = this.setCommentsToShow.bind(this);
 
 		// Create toggles for each attribute; we create them here rather than
 		// passing `this.createToggleAttribute( 'displayAvatar' )` directly to
 		// `onChange` to avoid re-renders.
-		this.toggleDisplayAvatar = this.createToggleAttribute(
-			'displayAvatar'
-		);
-		this.toggleDisplayDate = this.createToggleAttribute( 'displayDate' );
+		this.toggleDisplayAvatar = this.createToggleAttribute('displayAvatar');
+		this.toggleDisplayDate = this.createToggleAttribute('displayDate');
 		this.toggleDisplayExcerpt = this.createToggleAttribute(
 			'displayExcerpt'
 		);
@@ -55,37 +53,37 @@ class LatestComments extends Component {
 		const postTypes = this.props.postTypes;
 
 		const selectOption = {
-			label: __( 'All', 'custom-post-type-widget-blocks' ),
+			label: __('All', 'custom-post-type-widget-blocks'),
 			value: 'any',
 		};
 
-		const postTypeOptions = map( postTypes, ( postType ) => {
+		const postTypeOptions = map(postTypes, (postType) => {
 			return {
 				value: postType.slug,
 				label: postType.name,
 			};
-		} );
+		});
 
-		return [ selectOption, ...postTypeOptions ];
+		return [selectOption, ...postTypeOptions];
 	}
 
-	setPostType( postType ) {
+	setPostType(postType) {
 		const { setAttributes } = this.props;
 
-		setAttributes( { postType } );
+		setAttributes({ postType });
 	}
 
-	createToggleAttribute( propName ) {
+	createToggleAttribute(propName) {
 		return () => {
-			const value = this.props.attributes[ propName ];
+			const value = this.props.attributes[propName];
 			const { setAttributes } = this.props;
 
-			setAttributes( { [ propName ]: ! value } );
+			setAttributes({ [propName]: !value });
 		};
 	}
 
-	setCommentsToShow( commentsToShow ) {
-		this.props.setAttributes( { commentsToShow } );
+	setCommentsToShow(commentsToShow) {
+		this.props.setAttributes({ commentsToShow });
 	}
 
 	render() {
@@ -101,34 +99,54 @@ class LatestComments extends Component {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Latest comments settings', 'custom-post-type-widget-blocks' ) }>
+					<PanelBody
+						title={__(
+							'Latest comments settings',
+							'custom-post-type-widget-blocks'
+						)}
+					>
 						<SelectControl
-							label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
-							options={ postTypeOptions }
-							value={ postType }
-							onChange={ this.setPostType }
+							label={__(
+								'Post Type',
+								'custom-post-type-widget-blocks'
+							)}
+							options={postTypeOptions}
+							value={postType}
+							onChange={this.setPostType}
 						/>
 						<ToggleControl
-							label={ __( 'Display Avatar', 'custom-post-type-widget-blocks' ) }
-							checked={ displayAvatar }
-							onChange={ this.toggleDisplayAvatar }
+							label={__(
+								'Display Avatar',
+								'custom-post-type-widget-blocks'
+							)}
+							checked={displayAvatar}
+							onChange={this.toggleDisplayAvatar}
 						/>
 						<ToggleControl
-							label={ __( 'Display Date', 'custom-post-type-widget-blocks' ) }
-							checked={ displayDate }
-							onChange={ this.toggleDisplayDate }
+							label={__(
+								'Display Date',
+								'custom-post-type-widget-blocks'
+							)}
+							checked={displayDate}
+							onChange={this.toggleDisplayDate}
 						/>
 						<ToggleControl
-							label={ __( 'Display Excerpt', 'custom-post-type-widget-blocks' ) }
-							checked={ displayExcerpt }
-							onChange={ this.toggleDisplayExcerpt }
+							label={__(
+								'Display Excerpt',
+								'custom-post-type-widget-blocks'
+							)}
+							checked={displayExcerpt}
+							onChange={this.toggleDisplayExcerpt}
 						/>
 						<RangeControl
-							label={ __( 'Number of Comments', 'custom-post-type-widget-blocks' ) }
-							value={ commentsToShow }
-							onChange={ this.setCommentsToShow }
-							min={ MIN_COMMENTS }
-							max={ MAX_COMMENTS }
+							label={__(
+								'Number of Comments',
+								'custom-post-type-widget-blocks'
+							)}
+							value={commentsToShow}
+							onChange={this.setCommentsToShow}
+							min={MIN_COMMENTS}
+							max={MAX_COMMENTS}
 							required
 						/>
 					</PanelBody>
@@ -136,7 +154,7 @@ class LatestComments extends Component {
 				<Disabled>
 					<ServerSideRender
 						block="custom-post-type-widget-blocks/latest-comments"
-						attributes={ this.props.attributes }
+						attributes={this.props.attributes}
 					/>
 				</Disabled>
 			</>
@@ -144,13 +162,16 @@ class LatestComments extends Component {
 	}
 }
 
-export default withSelect( ( select ) => {
-	const { getPostTypes } = select( 'core' );
+export default withSelect((select) => {
+	const { getPostTypes } = select('core');
 
-	const postTypes = filter( getPostTypes(), { 'viewable': true, 'hierarchical': false } );
-	remove( postTypes, { 'slug': 'attachment' } );
+	const postTypes = filter(getPostTypes(), {
+		viewable: true,
+		hierarchical: false,
+	});
+	remove(postTypes, { slug: 'attachment' });
 
 	return {
 		postTypes: postTypes,
 	};
-} )( LatestComments );
+})(LatestComments);

@@ -15,48 +15,61 @@ import { InspectorControls } from '@wordpress/block-editor';
 
 class SearchEdit extends Component {
 	constructor() {
-		super( ...arguments );
+		super(...arguments);
 
-		this.setPostType = this.setPostType.bind( this );
+		this.setPostType = this.setPostType.bind(this);
 	}
 
 	getPostTypeOptions() {
 		const postTypes = this.props.postTypes;
 
 		const selectOption = {
-			label: __( 'All', 'custom-post-type-widget-blocks' ),
+			label: __('All', 'custom-post-type-widget-blocks'),
 			value: 'any',
 		};
 
-		const postTypeOptions = map( postTypes, ( postType ) => {
+		const postTypeOptions = map(postTypes, (postType) => {
 			return {
 				value: postType.slug,
 				label: postType.name,
 			};
-		} );
+		});
 
-		return [ selectOption, ...postTypeOptions ];
+		return [selectOption, ...postTypeOptions];
 	}
 
-	setPostType( postType ) {
+	setPostType(postType) {
 		const { setAttributes } = this.props;
 
-		setAttributes( { postType } );
+		setAttributes({ postType });
 	}
 
 	render() {
 		const { className, setAttributes } = this.props;
-		const { postType, label, placeholder, buttonText } = this.props.attributes;
+		const {
+			postType,
+			label,
+			placeholder,
+			buttonText,
+		} = this.props.attributes;
 		const postTypeOptions = this.getPostTypeOptions();
 
 		const inspectorControls = (
 			<InspectorControls>
-				<PanelBody title={ __( 'Search settings', 'custom-post-type-widget-blocks' ) }>
+				<PanelBody
+					title={__(
+						'Search settings',
+						'custom-post-type-widget-blocks'
+					)}
+				>
 					<SelectControl
-						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
-						options={ postTypeOptions }
-						value={ postType }
-						onChange={ this.setPostType }
+						label={__(
+							'Post Type',
+							'custom-post-type-widget-blocks'
+						)}
+						options={postTypeOptions}
+						value={postType}
+						onChange={this.setPostType}
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -64,37 +77,57 @@ class SearchEdit extends Component {
 
 		return (
 			<>
-				{ inspectorControls }
-				<div className={ className }>
+				{inspectorControls}
+				<div className={className}>
 					<RichText
 						className="wp-block-custom-post-type-widget-blocks-search__label"
-						aria-label={ __( 'Label text', 'custom-post-type-widget-blocks' ) }
-						placeholder={ __( 'Add label…', 'custom-post-type-widget-blocks' ) }
+						aria-label={__(
+							'Label text',
+							'custom-post-type-widget-blocks'
+						)}
+						placeholder={__(
+							'Add label…',
+							'custom-post-type-widget-blocks'
+						)}
 						withoutInteractiveFormatting
-						value={ label }
-						onChange={ ( html ) => setAttributes( { label: html } ) }
+						value={label}
+						onChange={(html) => setAttributes({ label: html })}
 					/>
 					<input
 						className="wp-block-custom-post-type-widget-blocks-search__input"
-						aria-label={ __( 'Optional placeholder text', 'custom-post-type-widget-blocks' ) }
+						aria-label={__(
+							'Optional placeholder text',
+							'custom-post-type-widget-blocks'
+						)}
 						// We hide the placeholder field's placeholder when there is a value. This
 						// stops screen readers from reading the placeholder field's placeholder
 						// which is confusing.
 						placeholder={
-							placeholder ? undefined : __( 'Optional placeholder…', 'custom-post-type-widget-blocks' )
+							placeholder
+								? undefined
+								: __(
+										'Optional placeholder…',
+										'custom-post-type-widget-blocks'
+								  )
 						}
-						value={ placeholder }
-						onChange={ ( event ) =>
-							setAttributes( { placeholder: event.target.value } )
+						value={placeholder}
+						onChange={(event) =>
+							setAttributes({ placeholder: event.target.value })
 						}
 					/>
 					<RichText
 						className="wp-block-custom-post-type-widget-blocks-search__button"
-						aria-label={ __( 'Button text', 'custom-post-type-widget-blocks' ) }
-						placeholder={ __( 'Add button text…', 'custom-post-type-widget-blocks' ) }
+						aria-label={__(
+							'Button text',
+							'custom-post-type-widget-blocks'
+						)}
+						placeholder={__(
+							'Add button text…',
+							'custom-post-type-widget-blocks'
+						)}
 						withoutInteractiveFormatting
-						value={ buttonText }
-						onChange={ ( html ) => setAttributes( { buttonText: html } ) }
+						value={buttonText}
+						onChange={(html) => setAttributes({ buttonText: html })}
 					/>
 				</div>
 			</>
@@ -102,13 +135,16 @@ class SearchEdit extends Component {
 	}
 }
 
-export default withSelect( ( select ) => {
-	const { getPostTypes } = select( 'core' );
+export default withSelect((select) => {
+	const { getPostTypes } = select('core');
 
-	const postTypes = filter( getPostTypes(), { 'viewable': true, 'hierarchical': false } );
-	remove( postTypes, { 'slug': 'attachment' } );
+	const postTypes = filter(getPostTypes(), {
+		viewable: true,
+		hierarchical: false,
+	});
+	remove(postTypes, { slug: 'attachment' });
 
 	return {
 		postTypes: postTypes,
 	};
-} )( SearchEdit );
+})(SearchEdit);
