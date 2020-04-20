@@ -101,9 +101,9 @@ class Custom_Post_Type_Widget_Blocks {
 				'wp-i18n',
 				'wp-polyfill',
 				'wp-server-side-render',
-				'wp-url'
+				'wp-url',
 			],
-			'',
+			'20200408',
 			true
 		);
 	}
@@ -111,14 +111,20 @@ class Custom_Post_Type_Widget_Blocks {
 	public function enqueue_block_editor_styles() {
 		wp_enqueue_style(
 			'custom-post-type-widget-blocks-editor-style',
-			plugins_url( 'dist/css/block-editor-style.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ )
+			plugins_url( 'dist/css/block-editor-style.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ),
+			false,
+			'20200408',
+			'all'
 		);
 	}
 
 	public function enqueue_styles() {
 		wp_enqueue_style(
 			'custom-post-type-widget-blocks-style',
-			plugins_url( 'dist/css/blocks.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ )
+			plugins_url( 'dist/css/blocks.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ),
+			false,
+			'20200408',
+			'all'
 		);
 	}
 
