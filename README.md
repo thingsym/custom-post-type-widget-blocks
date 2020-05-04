@@ -68,6 +68,36 @@ Custom Post Type Widget Blocks is hosted on the WordPress Plugin Directory.
 
 For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.com/thingsym/custom-post-type-widget-blocks).
 
+## Build development environment
+
+```console
+cd /path/to/custom-post-type-widget-blocks
+
+# Install package
+npm intall
+
+# Show tasks list
+npm run
+
+# Build plugin
+npm run build
+```
+
+### PHP unit testing with PHPUnit
+
+```console
+cd /path/to/custom-post-type-widget-blocks
+
+# Install package
+composer intall
+
+# Show tasks list
+composer run --list
+
+# Run test
+npm run phpunit
+```
+
 ## Contribution
 
 ### Patches and Bug Fixes
@@ -82,8 +112,9 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
-- [1.0.0]
-	- Initial release
+### [1.0.0]
+
+- Initial release
 
 ## License
 
