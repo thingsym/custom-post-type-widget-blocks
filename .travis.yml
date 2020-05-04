@@ -1,4 +1,4 @@
-sudo: false
+os: linux
 dist: xenial
 
 language: php
@@ -29,13 +29,16 @@ env:
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require "phpunit/phpunit=4.8.*|6.*"
+  - composer install
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
       phpenv config-rm xdebug.ini
     else
       echo "xdebug.ini does not exist"
     fi
+  # For building plugin
+  - npm install
+  - npm run build
 
 script:
-  - phpunit
+  - composer run phpunit
