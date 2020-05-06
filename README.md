@@ -112,10 +112,15 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
-### [1.0.0]
+### [1.0.1] - 2020.05.06 - for plugin review
 
-- Initial release
+- remove prefix `__` with define name
+- add LICENSE file
+
+### [1.0.0] - 2020.05.04
+
+- initial release
 
 ## License
 
-Licensed under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
+Licensed under [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html).
