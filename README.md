@@ -112,6 +112,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.0.1] - 2020.05.06 - for plugin review
+
+- remove prefix `__` with define name
+- add LICENSE file
+
 ### [1.0.0] - 2020.05.04
 
 - initial release
