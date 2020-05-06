@@ -39,7 +39,7 @@ class Custom_Post_Type_Widget_Blocks {
 		load_plugin_textdomain(
 			'custom-post-type-widget-blocks',
 			false,
-			dirname( plugin_basename( __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ) ) . '/languages'
+			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
 		);
 	}
 
@@ -57,7 +57,7 @@ class Custom_Post_Type_Widget_Blocks {
 			wp_set_script_translations(
 				'custom-post-type-widget-blocks-script',
 				'custom-post-type-widget-blocks',
-				plugin_dir_path( __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ) . '/languages'
+				plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/languages'
 			);
 		}
 	}
@@ -86,7 +86,7 @@ class Custom_Post_Type_Widget_Blocks {
 	public function enqueue_blocks_scripts() {
 		wp_enqueue_script(
 			'custom-post-type-widget-blocks-script',
-			plugins_url( 'dist/js/blocks.js', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ),
+			plugins_url( 'dist/js/blocks.js', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			[
 				'lodash',
 				'moment',
@@ -111,7 +111,7 @@ class Custom_Post_Type_Widget_Blocks {
 	public function enqueue_block_editor_styles() {
 		wp_enqueue_style(
 			'custom-post-type-widget-blocks-editor-style',
-			plugins_url( 'dist/css/block-editor-style.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ),
+			plugins_url( 'dist/css/block-editor-style.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			false,
 			'20200408',
 			'all'
@@ -121,7 +121,7 @@ class Custom_Post_Type_Widget_Blocks {
 	public function enqueue_styles() {
 		wp_enqueue_style(
 			'custom-post-type-widget-blocks-style',
-			plugins_url( 'dist/css/blocks.min.css', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ ),
+			plugins_url( 'dist/css/blocks.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			false,
 			'20200408',
 			'all'

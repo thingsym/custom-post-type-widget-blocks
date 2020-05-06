@@ -20,7 +20,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function basic() {
-		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', __CUSTOM_POST_TYPE_WIDGET_BLOCKS__ );
+		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) );
 	}
 
