@@ -68,9 +68,20 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$dropdown_id = esc_attr( uniqid( 'wp-block-custom-post-type-widget-blocks-archives-' ) );
 			$title       = __( 'Archives', 'custom-post-type-widget-blocks' );
 
-			/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
+			/**
+			 * Filters the arguments for the Archives widget drop-down.
+			 *
+			 * Filter hook: custom_post_type_widget_blocks/archive/widget_archives_dropdown_args
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_get_archives()
+			 *
+			 * @param array  $args     An array of Archives widget drop-down arguments.
+			 */
 			$dropdown_args = apply_filters(
-				'widget_archives_dropdown_args',
+				'custom_post_type_widget_blocks/archives/widget_archives_dropdown_args',
 				[
 					'post_type'       => $attributes['postType'],
 					'type'            => 'monthly',
@@ -122,9 +133,20 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 		$class .= ' wp-block-custom-post-type-widget-blocks-archives-list';
 
-		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
+		/**
+		 * Filters the arguments for the Archives widget.
+		 *
+		 * Filter hook: custom_post_type_widget_blocks/archive/widget_archives_args
+		 *
+		 * @since 2.8.0
+		 * @since 4.9.0 Added the `$instance` parameter.
+		 *
+		 * @see wp_get_archives()
+		 *
+		 * @param array  $args     An array of Archives option arguments.
+		 */
 		$archives_args = apply_filters(
-			'widget_archives_args',
+			'custom_post_type_widget_blocks/archives/widget_archives_args',
 			[
 				'post_type'       => $attributes['postType'],
 				'type'            => 'monthly',

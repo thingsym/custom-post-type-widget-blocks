@@ -72,10 +72,22 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 	}
 
 	public function render_callback( $attributes ) {
-		// This filter is documented in wp-includes/widgets/class-wp-widget-recent-comments.php.
+
+		/**
+		 * Filters the arguments for the Latest Comments widget.
+		 *
+		 * Filter hook: custom_post_type_widget_blocks/latest-comments/widget_comments_args
+		 *
+		 * @since 3.4.0
+		 * @since 4.9.0 Added the `$instance` parameter.
+		 *
+		 * @see WP_Comment_Query::query() for information on accepted arguments.
+		 *
+		 * @param array  $args An array of arguments used to retrieve the recent comments.
+		 */
 		$comments = get_comments(
 			apply_filters(
-				'widget_comments_args',
+				'custom_post_type_widget_blocks/latest-comments/widget_comments_args',
 				[
 					'post_type'   => $attributes['postType'],
 					'number'      => $attributes['commentsToShow'],

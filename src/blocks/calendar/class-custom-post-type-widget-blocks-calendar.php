@@ -106,8 +106,14 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$cache = wp_cache_get( 'get_calendar', 'calendar' );
 
 		if ( $cache && is_array( $cache ) && isset( $cache[ $key ] ) ) {
-			/** This filter is documented in wp-includes/general-template.php */
-			$output = apply_filters( 'get_calendar', $cache[ $key ] );
+			/**
+			* Filters the HTML calendar output.
+			*
+			* @since 1.1.0
+			*
+			* @param string $calendar_output HTML output of the calendar.
+			*/
+			$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $cache[ $key ] );
 
 			if ( $echo ) {
 				echo $output;
@@ -308,6 +314,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$cache[ $key ] = $calendar_output;
 		wp_cache_set( 'get_calendar', $cache, 'calendar' );
+		$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $calendar_output );
 
 		if ( $echo ) {
 			echo $calendar_output;
