@@ -103,7 +103,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$posttype = $this->posttype;
 
 		$key   = md5( $posttype . $m . $monthnum . $year );
-		$cache = wp_cache_get( 'get_calendar', 'calendar' );
+		$cache = wp_cache_get( 'get_custom_post_type_calendar', 'calendar' );
 
 		if ( $cache && is_array( $cache ) && isset( $cache[ $key ] ) ) {
 			/**
@@ -132,7 +132,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
 			if ( ! $gotsome ) {
 				$cache[ $key ] = '';
-				wp_cache_set( 'get_calendar', $cache, 'calendar' );
+				wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
 				return;
 			}
 		}
@@ -313,7 +313,8 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		</nav>';
 
 		$cache[ $key ] = $calendar_output;
-		wp_cache_set( 'get_calendar', $cache, 'calendar' );
+		wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
+
 		$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $calendar_output );
 
 		if ( $echo ) {
