@@ -23,7 +23,6 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 
 		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'load_block_editor_translations' ] );
 	}
 
 	/**
@@ -44,7 +43,7 @@ class Custom_Post_Type_Widget_Blocks {
 	}
 
 	/**
-	 * Load block editor translations
+	 * Set block editor translations
 	 *
 	 * @access public
 	 *
@@ -52,10 +51,10 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @since 1.0.0
 	 */
-	public function load_block_editor_translations() {
+	public function set_block_editor_translations() {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
-				'custom-post-type-widget-blocks-script',
+				'custom-post-type-widget-blocks-editor-script',
 				'custom-post-type-widget-blocks',
 				CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
 			);
@@ -121,6 +120,7 @@ class Custom_Post_Type_Widget_Blocks {
 		}
 
 		add_action( 'init', [ $this, 'load_textdomain' ] );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
 
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
