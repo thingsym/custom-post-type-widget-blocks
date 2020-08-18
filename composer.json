@@ -4,8 +4,8 @@
   "require": {},
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
-    "wp-coding-standards/wpcs": "2.*",
-    "phpmd/phpmd": "2.*",
+    "wp-coding-standards/wpcs": "*",
+    "phpmd/phpmd": "*",
     "phpstan/phpstan": "*",
     "phpunit/phpunit": "^7"
   },
@@ -14,7 +14,7 @@
     "phpcs": "phpcs -p -s -v -n ./ --standard=./phpcs.ruleset.xml --extensions=php",
     "phpcs:warning": "phpcs -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php",
     "format:phpcbf": "phpcbf -p -s -v ./ --standard=./phpcs.ruleset.xml --extensions=php",
-    "phpmd": "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /tests,/vendor,/node_modules",
+    "phpmd": "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /languages,/tests,/vendor,/node_modules",
     "phpstan": "phpstan analyse",
     "phpunit": "phpunit",
     "coverage": "phpunit --coverage-html ./tests/report",

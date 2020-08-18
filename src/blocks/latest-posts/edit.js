@@ -19,6 +19,7 @@ import {
 	ToggleControl,
 	ToolbarGroup,
 	SelectControl,
+	Disabled,
 } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -413,116 +414,129 @@ class LatestPostsEdit extends Component {
 				<BlockControls>
 					<ToolbarGroup controls={layoutControls} />
 				</BlockControls>
-				<ul
-					className={classnames(this.props.className, {
-						'wp-block-custom-post-type-widget-blocks-latest-posts__list': true,
-						'is-grid': postLayout === 'grid',
-						'has-dates': displayPostDate,
-						[`columns-${columns}`]: postLayout === 'grid',
-					})}
-				>
-					{displayPosts.map((post, i) => {
-						const titleTrimmed = post.title.rendered.trim();
-						let excerpt = post.hasOwnProperty('excerpt')
-							? post.excerpt.rendered
-							: '';
+				<Disabled>
+					<ul
+						className={classnames(this.props.className, {
+							'wp-block-custom-post-type-widget-blocks-latest-posts__list': true,
+							'is-grid': postLayout === 'grid',
+							'has-dates': displayPostDate,
+							[`columns-${columns}`]: postLayout === 'grid',
+						})}
+					>
+						{displayPosts.map((post, i) => {
+							const titleTrimmed = post.title.rendered.trim();
+							let excerpt = post.hasOwnProperty('excerpt')
+								? post.excerpt.rendered
+								: '';
 
-						const excerptElement = document.createElement('div');
-						excerptElement.innerHTML = excerpt;
+							const excerptElement = document.createElement(
+								'div'
+							);
+							excerptElement.innerHTML = excerpt;
 
-						excerpt =
-							excerptElement.textContent ||
-							excerptElement.innerText ||
-							'';
+							excerpt =
+								excerptElement.textContent ||
+								excerptElement.innerText ||
+								'';
 
-						const imageSourceUrl = post.featuredImageSourceUrl;
+							const imageSourceUrl = post.featuredImageSourceUrl;
 
-						const imageClasses = classnames({
-							'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image': true,
-							[`align${featuredImageAlign}`]: !!featuredImageAlign,
-						});
+							const imageClasses = classnames({
+								'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image': true,
+								[`align${featuredImageAlign}`]: !!featuredImageAlign,
+							});
 
-						return (
-							<li key={i}>
-								{displayFeaturedImage && (
-									<div className={imageClasses}>
-										{imageSourceUrl && (
-											<img
-												src={imageSourceUrl}
-												alt=""
-												style={{
-													maxWidth: featuredImageSizeWidth,
-													maxHeight: featuredImageSizeHeight,
-												}}
-											/>
-										)}
-									</div>
-								)}
-								<a
-									href={post.link}
-									target="_blank"
-									rel="noreferrer noopener"
-								>
-									{titleTrimmed ? (
-										<RawHTML>{titleTrimmed}</RawHTML>
-									) : (
-										__(
-											'(no title)',
-											'custom-post-type-widget-blocks'
-										)
+							return (
+								<li key={i}>
+									{displayFeaturedImage && (
+										<div className={imageClasses}>
+											{imageSourceUrl && (
+												<img
+													src={imageSourceUrl}
+													alt=""
+													style={{
+														maxWidth: featuredImageSizeWidth,
+														maxHeight: featuredImageSizeHeight,
+													}}
+												/>
+											)}
+										</div>
 									)}
-								</a>
-								{displayPostDate && post.date_gmt && (
-									<time
-										dateTime={format('c', post.date_gmt)}
-										className="wp-block-custom-post-type-widget-blocks-latest-posts__post-date"
+									<a
+										href={post.link}
+										target="_blank"
+										rel="noreferrer noopener"
 									>
-										{dateI18n(dateFormat, post.date_gmt)}
-									</time>
-								)}
-								{displayPostContent &&
-									displayPostContentRadio === 'excerpt' && (
-										<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
-											<RawHTML key="html">
-												{excerptLength <
-												excerpt.trim().split(' ').length
-													? excerpt
-															.trim()
-															.split(
-																' ',
-																excerptLength
-															)
-															.join(' ') +
-													  ' ... <a href=' +
-													  post.link +
-													  'target="_blank" rel="noopener noreferrer">' +
-													  __(
-															'Read more',
-															'custom-post-type-widget-blocks'
-													  ) +
-													  '</a>'
-													: excerpt
-															.trim()
-															.split(
-																' ',
-																excerptLength
-															)
-															.join(' ')}
-											</RawHTML>
-										</div>
+										{titleTrimmed ? (
+											<RawHTML>{titleTrimmed}</RawHTML>
+										) : (
+											__(
+												'(no title)',
+												'custom-post-type-widget-blocks'
+											)
+										)}
+									</a>
+									{displayPostDate && post.date_gmt && (
+										<time
+											dateTime={format(
+												'c',
+												post.date_gmt
+											)}
+											className="wp-block-custom-post-type-widget-blocks-latest-posts__post-date"
+										>
+											{dateI18n(
+												dateFormat,
+												post.date_gmt
+											)}
+										</time>
 									)}
-								{displayPostContent &&
-									displayPostContentRadio === 'full_post' && (
-										<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content">
-											<RawHTML key="html">
-												{post.content.raw.trim()}
-											</RawHTML>
-										</div>
-									)}
-							</li>
-						);
-					})}
-				</ul>
+									{displayPostContent &&
+										displayPostContentRadio ===
+											'excerpt' && (
+											<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
+												<RawHTML key="html">
+													{excerptLength <
+													excerpt.trim().split(' ')
+														.length
+														? excerpt
+																.trim()
+																.split(
+																	' ',
+																	excerptLength
+																)
+																.join(' ') +
+														  ' ... <a href=' +
+														  post.link +
+														  'target="_blank" rel="noopener noreferrer">' +
+														  __(
+																'Read more',
+																'custom-post-type-widget-blocks'
+														  ) +
+														  '</a>'
+														: excerpt
+																.trim()
+																.split(
+																	' ',
+																	excerptLength
+																)
+																.join(' ')}
+												</RawHTML>
+											</div>
+										)}
+									{displayPostContent &&
+										displayPostContentRadio ===
+											'full_post' && (
+											<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content">
+												<RawHTML key="html">
+													{post.content.raw.trim()}
+												</RawHTML>
+											</div>
+										)}
+								</li>
+							);
+						})}
+					</ul>
+				</Disabled>
 			</>
 		);
 	}

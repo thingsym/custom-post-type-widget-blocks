@@ -2,13 +2,13 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
-Stable tag: 1.0.1
-Tested up to: 5.4
+Stable tag: 1.1.0
+Tested up to: 5.5
 Requires at least: 5.4
 Requires PHP: 7.1
 License: GPL2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: block editor, gutenberg, widget, widgets, custom post type, taxonomy
+Tags: block, block editor, gutenberg, widget, widgets, custom post type, taxonomy
 
 Custom Post Type Widgets for the Block Editor (Gutenberg). This WordPress plugin adds default Custom Post Type Widget to the Block Editor.
 
@@ -19,8 +19,8 @@ You can filter by registered Custom Post Type or Taxonomy on the Block Editor.
 
 = Compatibility =
 
-- WordPress version 5.4 later
-- Gutenberg version 7.5 later
+- WordPress version 5.4 or later
+- Gutenberg version 7.5 or later
 
 = Descriptions of Widget Blocks =
 
@@ -51,6 +51,12 @@ display a list of the your most used tags in a tag cloud.
 = Search (Custom Post Type) =
 
 A search form for your site.
+
+= Hooks =
+
+Custom Post Type Widgets has its own hooks. See the reference for details.
+
+Reference: [https://github.com/thingsym/custom-post-type-widget-blocks#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
 
 = Test Matrix =
 
@@ -87,6 +93,23 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.1.0 =
+* update japanese translation
+* update pot
+* imporve code with phpcs, phpmd and phpstan
+* update testunit configuration
+* add Disabled to latest posts block
+* add unstable__bootstrapServerSideBlockDefinitions
+* fix test case
+* change wp cache name
+* add hooks
+* change hook tags
+* add loading asset to register_block_type argument
+* change asset loading function from wp_enqueue_* to wp_register_*
+* add checking register_block_type function
+* change wp_enqueue_script dependency setting to use asset file
+* add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 
 = 1.0.1 =
 * remove prefix `__` with define name

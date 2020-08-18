@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the Custom Post Type Widget Blocks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.0.1\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widget-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-02T09:35:51+00:00\n"
+"POT-Creation-Date: 2020-08-18T07:06:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
 
 #. Plugin Name of the plugin
-#: inc/class-custom-post-type-widget-blocks.php:80
+#: inc/class-custom-post-type-widget-blocks.php:79
 msgid "Custom Post Type Widget Blocks"
 msgstr "Custom Post Type Widget Blocks"
 
@@ -35,71 +35,86 @@ msgstr "thingsym"
 msgid "http://www.thingslabo.com/"
 msgstr "http://www.thingslabo.com/"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:66
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:84
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:91
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:120
 msgid "Select Year"
 msgstr "年を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:94
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:123
 msgid "Select Month"
 msgstr "月を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:97
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:126
 msgid "Select Day"
 msgstr "日を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:100
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:129
 msgid "Select Week"
 msgstr "週を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:103
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:132
 msgid "Select Post"
 msgstr "投稿を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:149
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:189
 msgid "No archives to show."
 msgstr "アーカイブがありません。"
 
-#. translators: label: 1: date format
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:258
-msgid "Posts published on %s"
-msgstr "Posts published on %s"
+#. translators: Calendar caption: 1: month name, 2: 4-digit year
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:206
+msgctxt "calendar caption"
+msgid "%1$s %2$s"
+msgstr "%2$s年%1$s"
 
-#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:87
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:276
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr "Y年n月j日"
+
+#. translators: label: 1: date format
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:278
+msgid "Posts published on %s"
+msgstr "%s に投稿を公開"
+
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:303
+msgid "Previous and next months"
+msgstr "前と次の月"
+
+#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:105
 msgid "Select Category"
 msgstr "カテゴリーを選択"
 
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:66
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:167
-#: src/blocks/latest-posts/edit.js:469
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:74
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:187
+#: src/blocks/latest-posts/edit.js:473
 msgid "(no title)"
 msgstr "(タイトルなし)"
 
 #. translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:128
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:148
 msgid "%1$s on %2$s"
-msgstr "%1$s on %2$s"
+msgstr "%2$s に %1$s より"
 
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:176
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:196
 msgid "No comments to show."
 msgstr "コメントはありません。"
 
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:197
-#: src/blocks/latest-posts/edit.js:499
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:217
+#: src/blocks/latest-posts/edit.js:511
 msgid "Read more"
 msgstr "続きを読む"
 
-#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:35
-#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:43
-#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:68
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:51
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:59
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:87
 msgid "Search"
 msgstr "検索"
 
 #. translators: %s: taxonomy name
-#: src/blocks/tag-cloud/class-custom-post-type-widget-blocks-tag-cloud.php:65
+#: src/blocks/tag-cloud/class-custom-post-type-widget-blocks-tag-cloud.php:86
 msgid "Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display here at the moment."
 msgstr "サイトには%sがないため、表示するものはありません。"
 
@@ -117,7 +132,7 @@ msgstr "アーカイブ設定"
 #: src/blocks/archives/edit.js:72
 #: src/blocks/calendar/edit.js:90
 #: src/blocks/latest-comments/edit.js:109
-#: src/blocks/latest-posts/edit.js:305
+#: src/blocks/latest-posts/edit.js:306
 #: src/blocks/search/edit.js:66
 msgid "Post Type"
 msgstr "ポストタイプ"
@@ -227,71 +242,71 @@ msgstr "最新のコメントを表示します。"
 msgid "recent comments"
 msgstr "最新のコメント"
 
-#: src/blocks/latest-posts/edit.js:151
+#: src/blocks/latest-posts/edit.js:152
 msgid "Post content settings"
 msgstr "投稿コンテンツ設定"
 
-#: src/blocks/latest-posts/edit.js:157
+#: src/blocks/latest-posts/edit.js:158
 msgid "Post Content"
 msgstr "投稿コンテンツ"
 
-#: src/blocks/latest-posts/edit.js:168
+#: src/blocks/latest-posts/edit.js:169
 msgid "Show:"
 msgstr "表示:"
 
-#: src/blocks/latest-posts/edit.js:175
+#: src/blocks/latest-posts/edit.js:176
 msgid "Excerpt"
 msgstr "抜粋"
 
-#: src/blocks/latest-posts/edit.js:182
+#: src/blocks/latest-posts/edit.js:183
 msgid "Full Post"
 msgstr "全文"
 
-#: src/blocks/latest-posts/edit.js:199
+#: src/blocks/latest-posts/edit.js:200
 msgid "Max number of words in excerpt"
 msgstr "抜粋内の最大単語数"
 
-#: src/blocks/latest-posts/edit.js:214
+#: src/blocks/latest-posts/edit.js:215
 msgid "Post meta settings"
 msgstr "投稿メタ設定"
 
-#: src/blocks/latest-posts/edit.js:220
+#: src/blocks/latest-posts/edit.js:221
 msgid "Display post date"
 msgstr "投稿日を表示"
 
-#: src/blocks/latest-posts/edit.js:232
+#: src/blocks/latest-posts/edit.js:233
 msgid "Featured Image Settings"
 msgstr "アイキャッチ画像設定"
 
-#: src/blocks/latest-posts/edit.js:238
+#: src/blocks/latest-posts/edit.js:239
 msgid "Display featured image"
 msgstr "アイキャッチ画像を表示"
 
-#: src/blocks/latest-posts/edit.js:278
+#: src/blocks/latest-posts/edit.js:279
 msgid "Image Alignment"
 msgstr "画像の配置"
 
-#: src/blocks/latest-posts/edit.js:299
+#: src/blocks/latest-posts/edit.js:300
 msgid "Sorting and filtering"
 msgstr "並び替えと絞り込み"
 
-#: src/blocks/latest-posts/edit.js:338
+#: src/blocks/latest-posts/edit.js:339
 msgid "Columns"
 msgstr "カラム"
 
-#: src/blocks/latest-posts/edit.js:369
+#: src/blocks/latest-posts/edit.js:370
 msgid "Latest Posts"
 msgstr "最新の記事"
 
-#: src/blocks/latest-posts/edit.js:377
+#: src/blocks/latest-posts/edit.js:378
 msgid "No posts found."
 msgstr "投稿が見つかりませんでした。"
 
-#: src/blocks/latest-posts/edit.js:396
+#: src/blocks/latest-posts/edit.js:397
 msgid "List view"
 msgstr "リスト表示"
 
-#: src/blocks/latest-posts/edit.js:402
+#: src/blocks/latest-posts/edit.js:403
 msgid "Grid view"
 msgstr "グリット表示"
 

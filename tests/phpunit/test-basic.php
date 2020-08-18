@@ -32,10 +32,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'init' ] ) );
 		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
 
-		$this->assertEquals( 10, has_filter( 'enqueue_block_assets', [ $this->custom_post_type_widget_blocks, 'enqueue_styles' ] ) );
-		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'enqueue_blocks_scripts' ] ) );
-		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'enqueue_block_editor_styles' ] ) );
-		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'load_block_editor_translations' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_styles' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_scripts' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_styles' ] ) );
 	}
 
 	/**
@@ -46,6 +45,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 		$this->custom_post_type_widget_blocks->init();
 
 		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
+		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
 
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives' ) );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar' ) );
@@ -91,27 +91,27 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
-	public function enqueue_blocks_scripts() {
-		$this->custom_post_type_widget_blocks->enqueue_blocks_scripts();
-		$this->assertTrue( wp_script_is( 'custom-post-type-widget-blocks-script' ) );
+	public function register_block_editor_scripts() {
+		$this->custom_post_type_widget_blocks->register_block_editor_scripts();
+		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-editor-script', wp_scripts()->registered );
 	}
 
 	/**
 	 * @test
 	 * @group basic
 	 */
-	public function enqueue_block_editor_styles() {
-		$this->custom_post_type_widget_blocks->enqueue_block_editor_styles();
-		$this->assertTrue( wp_style_is( 'custom-post-type-widget-blocks-editor-style' ) );
+	public function register_block_editor_styles() {
+		$this->custom_post_type_widget_blocks->register_block_editor_styles();
+		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-editor-style', wp_styles()->registered );
 	}
 
 	/**
 	 * @test
 	 * @group basic
 	 */
-	public function enqueue_styles() {
-		$this->custom_post_type_widget_blocks->enqueue_styles();
-		$this->assertTrue( wp_style_is( 'custom-post-type-widget-blocks-style' ) );
+	public function register_styles() {
+		$this->custom_post_type_widget_blocks->register_styles();
+		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-style', wp_styles()->registered );
 	}
 
 	/**

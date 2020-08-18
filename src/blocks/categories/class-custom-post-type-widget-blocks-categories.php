@@ -9,7 +9,23 @@
 
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
+/**
+ * Core class Custom_Post_Type_Widget_Blocks_Categories
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widget_Blocks_Categories {
+	/**
+	 * Ensure that the ID attribute only appears in the markup once
+	 *
+	 * @since 1.0.2
+	 *
+	 * @static
+	 * @access private
+	 * @var int
+	 */
+	private static $block_id = 0;
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
@@ -44,6 +60,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 					],
 				],
 				'render_callback' => [ $this, 'render_callback' ],
+				'editor_script' => 'custom-post-type-widget-blocks-editor-script',
+				'editor_style'  => 'custom-post-type-widget-blocks-editor-style',
+				'style'         => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -69,8 +88,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	}
 
 	public function render_callback( $attributes ) {
-		static $block_id = 0;
-		$block_id++;
+		self::$block_id++;
 
 		$args = [
 			'echo'         => false,
@@ -82,14 +100,26 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 		];
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
-			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . $block_id;
+			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . self::$block_id;
 			$args['id']               = $id;
 			$args['show_option_none'] = __( 'Select Category', 'custom-post-type-widget-blocks' );
 			$args['name']             = 'category' === $attributes['taxonomy'] ? 'category_name' : $attributes['taxonomy'];
 			$args['value_field']      = 'slug';
 			$wrapper_markup           = '<div class="%1$s">%2$s</div>';
 			$items_markup             = '<form action="' . esc_url( home_url() ) . '" method="get">';
-			$items_markup            .= wp_dropdown_categories( $args );
+			/**
+			 * Filters the arguments for the Categories widget drop-down.
+			 *
+			 * Filter hook: custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_dropdown_categories()
+			 *
+			 * @param array  $cat_args An array of Categories widget drop-down arguments.
+			 */
+			$items_markup            .= wp_dropdown_categories( apply_filters( 'custom_post_type_widget_blocks/categories/widget_categories_dropdown_args', $args ) );
 			$items_markup            .= '</form>';
 			$type                     = 'dropdown';
 
@@ -98,7 +128,21 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			}
 		} else {
 			$wrapper_markup = '<ul class="%1$s">%2$s</ul>';
-			$items_markup   = wp_list_categories( $args );
+			/**
+			 * Filters the arguments for the Categories widget.
+			 *
+			 * Filter hook: custom_post_type_widget_blocks/categories/widget_categories_args
+			 *
+			 * @see wp_list_categories()
+			 *
+			 * @param array  $args An array of Categories widget arguments.
+			 */
+			$items_markup   = wp_list_categories(
+				apply_filters(
+					'custom_post_type_widget_blocks/categories/widget_categories_args',
+					$args
+				)
+			);
 			$type           = 'list';
 		}
 

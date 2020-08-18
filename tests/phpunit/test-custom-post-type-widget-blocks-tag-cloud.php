@@ -29,7 +29,19 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 	 * @group custom_post_type_widget_blocks_tag_cloud
 	 */
 	function register_block_type() {
-		$this->assertContains( 'custom-post-type-widget-blocks/tag-cloud', get_dynamic_block_names() );
+		$block_name = 'custom-post-type-widget-blocks/tag-cloud';
+
+		$block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
+		$this->assertArrayHasKey( $block_name, $block_types );
+
+		$block_type = $block_types[ $block_name ];
+		$this->assertTrue( $block_type->is_dynamic() );
+
+		$this->assertContains( $block_name, get_dynamic_block_names() );
+
+		$this->assertEquals( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
+		$this->assertEquals( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
+		$this->assertEquals( 'custom-post-type-widget-blocks-style', $block_type->style );
 	}
 
 	/**
