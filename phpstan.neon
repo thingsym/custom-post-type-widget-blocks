@@ -1,8 +1,9 @@
 parameters:
-  level: max
-  paths: 
+  level: 5
+  paths:
     - ./
   excludes_analyse:
+    - ./src
     - ./tests
     - ./vendor
     - ./node_modules
