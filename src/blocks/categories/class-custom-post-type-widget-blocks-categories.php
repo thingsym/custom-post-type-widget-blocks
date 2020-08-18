@@ -92,7 +92,19 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$args['value_field']      = 'slug';
 			$wrapper_markup           = '<div class="%1$s">%2$s</div>';
 			$items_markup             = '<form action="' . esc_url( home_url() ) . '" method="get">';
-			$items_markup            .= wp_dropdown_categories( $args );
+			/**
+			 * Filters the arguments for the Categories widget drop-down.
+			 *
+			 * Filter hook: custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_dropdown_categories()
+			 *
+			 * @param array  $cat_args An array of Categories widget drop-down arguments.
+			 */
+			$items_markup            .= wp_dropdown_categories( apply_filters( 'custom_post_type_widget_blocks/categories/widget_categories_dropdown_args', $args ) );
 			$items_markup            .= '</form>';
 			$type                     = 'dropdown';
 
@@ -101,7 +113,21 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			}
 		} else {
 			$wrapper_markup = '<ul class="%1$s">%2$s</ul>';
-			$items_markup   = wp_list_categories( $args );
+			/**
+			 * Filters the arguments for the Categories widget.
+			 *
+			 * Filter hook: custom_post_type_widget_blocks/categories/widget_categories_args
+			 *
+			 * @see wp_list_categories()
+			 *
+			 * @param array  $args An array of Categories widget arguments.
+			 */
+			$items_markup   = wp_list_categories(
+				apply_filters(
+					'custom_post_type_widget_blocks/categories/widget_categories_args',
+					$args
+				)
+			);
 			$type           = 'list';
 		}
 

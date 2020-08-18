@@ -131,7 +131,19 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 			}
 		}
 
-		$recent_posts = get_posts( $args );
+			/**
+		 * Filters the arguments for the Recent Posts widget.
+		 *
+		 * Filter hook: custom_post_type_widget_blocks/latest_posts/widget_posts_args
+		 *
+		 * @since 3.4.0
+		 * @since 4.9.0 Added the `$instance` parameter.
+		 *
+		 * @see WP_Query::get_posts()
+		 *
+		 * @param array  $args     An array of arguments used to retrieve the recent posts.
+		 */
+		$recent_posts = get_posts( apply_filters( 'custom_post_type_widget_blocks/latest_posts/widget_posts_args', $args ) );
 
 		$list_items_markup = '';
 

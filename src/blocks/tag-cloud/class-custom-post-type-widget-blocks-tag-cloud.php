@@ -58,7 +58,20 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 			'show_count' => $attributes['showTagCounts'],
 		];
 
-		$tag_cloud = wp_tag_cloud( $args );
+		/**
+		 * Filters the taxonomy used in the Tag Cloud widget.
+		 *
+		 * Filter hook: custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args
+		 *
+		 * @since 2.8.0
+		 * @since 3.0.0 Added taxonomy drop-down.
+		 * @since 4.9.0 Added the `$instance` parameter.
+		 *
+		 * @see wp_tag_cloud()
+		 *
+		 * @param array $args     Args used for the tag cloud widget.
+		 */
+		$tag_cloud = wp_tag_cloud( apply_filters( 'custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args', $args ) );
 
 		if ( ! $tag_cloud ) {
 			$labels    = get_taxonomy_labels( get_taxonomy( $attributes['taxonomy'] ) );
