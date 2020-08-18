@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Stable tag: 1.0.1
-Tested up to: 5.4
+Tested up to: 5.5
 Requires at least: 5.4
 Requires PHP: 7.1
 License: GPL2 or later
