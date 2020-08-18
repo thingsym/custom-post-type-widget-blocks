@@ -116,6 +116,10 @@ class Custom_Post_Type_Widget_Blocks {
 	}
 
 	public function init() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
