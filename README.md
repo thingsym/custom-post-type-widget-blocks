@@ -126,6 +126,24 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.1.0] - 2020.08.18
+
+- update japanese translation
+- update pot
+- imporve code with phpcs, phpmd and phpstan
+- update testunit configuration
+- add Disabled to latest posts block
+- add unstable__bootstrapServerSideBlockDefinitions
+- fix test case
+- change wp cache name
+- add hooks
+- change hook tags
+- add loading asset to register_block_type argument
+- change asset loading function from wp_enqueue_* to wp_register_*
+- add checking register_block_type function
+- change wp_enqueue_script dependency setting to use asset file
+- add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+
 ### [1.0.1] - 2020.05.06 - for plugin review
 
 - remove prefix `__` with define name

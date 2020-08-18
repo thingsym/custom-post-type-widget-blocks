@@ -2,8 +2,8 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
-Stable tag: 1.0.1
-Tested up to: 5.4
+Stable tag: 1.1.0
+Tested up to: 5.5
 Requires at least: 5.4
 Requires PHP: 7.1
 License: GPL2 or later
@@ -93,6 +93,23 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.1.0 =
+* update japanese translation
+* update pot
+* imporve code with phpcs, phpmd and phpstan
+* update testunit configuration
+* add Disabled to latest posts block
+* add unstable__bootstrapServerSideBlockDefinitions
+* fix test case
+* change wp cache name
+* add hooks
+* change hook tags
+* add loading asset to register_block_type argument
+* change asset loading function from wp_enqueue_* to wp_register_*
+* add checking register_block_type function
+* change wp_enqueue_script dependency setting to use asset file
+* add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 
 = 1.0.1 =
 * remove prefix `__` with define name
