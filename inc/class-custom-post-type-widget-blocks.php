@@ -84,26 +84,13 @@ class Custom_Post_Type_Widget_Blocks {
 	}
 
 	public function enqueue_blocks_scripts() {
+		$asset_file = include( CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php' );
+
 		wp_enqueue_script(
 			'custom-post-type-widget-blocks-script',
 			plugins_url( 'dist/js/blocks.js', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
-			[
-				'lodash',
-				'moment',
-				'wp-api-fetch',
-				'wp-block-editor',
-				'wp-blocks',
-				'wp-components',
-				'wp-compose',
-				'wp-data',
-				'wp-date',
-				'wp-element',
-				'wp-i18n',
-				'wp-polyfill',
-				'wp-server-side-render',
-				'wp-url',
-			],
-			'20200408',
+			$asset_file['dependencies'],
+			$asset_file['version'],
 			true
 		);
 	}
