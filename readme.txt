@@ -8,7 +8,7 @@ Requires at least: 5.4
 Requires PHP: 7.1
 License: GPL2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: block editor, gutenberg, widget, widgets, custom post type, taxonomy
+Tags: block, block editor, gutenberg, widget, widgets, custom post type, taxonomy
 
 Custom Post Type Widgets for the Block Editor (Gutenberg). This WordPress plugin adds default Custom Post Type Widget to the Block Editor.
 
@@ -19,8 +19,8 @@ You can filter by registered Custom Post Type or Taxonomy on the Block Editor.
 
 = Compatibility =
 
-- WordPress version 5.4 later
-- Gutenberg version 7.5 later
+- WordPress version 5.4 or later
+- Gutenberg version 7.5 or later
 
 = Descriptions of Widget Blocks =
 
@@ -51,6 +51,12 @@ display a list of the your most used tags in a tag cloud.
 = Search (Custom Post Type) =
 
 A search form for your site.
+
+= Hooks =
+
+Custom Post Type Widgets has its own hooks. See the reference for details.
+
+Reference: [https://github.com/thingsym/custom-post-type-widget-blocks#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
 
 = Test Matrix =
 
