@@ -39,7 +39,7 @@ class Custom_Post_Type_Widget_Blocks {
 		load_plugin_textdomain(
 			'custom-post-type-widget-blocks',
 			false,
-			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
+			CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
 		);
 	}
 
@@ -57,7 +57,7 @@ class Custom_Post_Type_Widget_Blocks {
 			wp_set_script_translations(
 				'custom-post-type-widget-blocks-script',
 				'custom-post-type-widget-blocks',
-				plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/languages'
+				CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
 			);
 		}
 	}
