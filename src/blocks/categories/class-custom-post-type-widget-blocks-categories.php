@@ -10,6 +10,17 @@
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
 class Custom_Post_Type_Widget_Blocks_Categories {
+	/**
+	 * Ensure that the ID attribute only appears in the markup once
+	 *
+	 * @since 1.0.2
+	 *
+	 * @static
+	 * @access private
+	 * @var int
+	 */
+	private static $block_id = 0;
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
@@ -72,8 +83,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	}
 
 	public function render_callback( $attributes ) {
-		static $block_id = 0;
-		$block_id++;
+		self::$block_id++;
 
 		$args = [
 			'echo'         => false,
@@ -85,7 +95,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 		];
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
-			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . $block_id;
+			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . self::$block_id;
 			$args['id']               = $id;
 			$args['show_option_none'] = __( 'Select Category', 'custom-post-type-widget-blocks' );
 			$args['name']             = 'category' === $attributes['taxonomy'] ? 'category_name' : $attributes['taxonomy'];

@@ -10,6 +10,17 @@
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
 class Custom_Post_Type_Widget_Blocks_Search {
+	/**
+	 * Ensure that the ID attribute only appears in the markup once
+	 *
+	 * @since 1.0.2
+	 *
+	 * @static
+	 * @access private
+	 * @var int
+	 */
+	private static $block_id = 0;
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
@@ -52,9 +63,9 @@ class Custom_Post_Type_Widget_Blocks_Search {
 	}
 
 	public function render_callback( $attributes ) {
-		static $instance_id = 0;
+		self::$block_id++;
 
-		$input_id      = 'wp-block-custom-post-type-widget-blocks-search__input-' . ( ++$instance_id );
+		$input_id      = 'wp-block-custom-post-type-widget-blocks-search__input-' . self::$block_id;
 		$label_markup  = '';
 		$button_markup = '';
 
