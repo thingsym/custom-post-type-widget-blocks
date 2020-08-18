@@ -16,13 +16,13 @@ namespace Custom_Post_Type_Widget_Blocks;
  */
 class Custom_Post_Type_Widget_Blocks {
 	public function __construct() {
+		add_action( 'init', [ $this, 'register_styles' ] );
+		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
+		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
+
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 
 		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
-
-		add_action( 'enqueue_block_assets', [ $this, 'enqueue_styles' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_blocks_scripts' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_styles' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'load_block_editor_translations' ] );
 	}
 
@@ -83,11 +83,11 @@ class Custom_Post_Type_Widget_Blocks {
 		);
 	}
 
-	public function enqueue_blocks_scripts() {
+	public function register_block_editor_scripts() {
 		$asset_file = include( CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php' );
 
-		wp_enqueue_script(
-			'custom-post-type-widget-blocks-script',
+		wp_register_script(
+			'custom-post-type-widget-blocks-editor-script',
 			plugins_url( 'dist/js/blocks.js', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			$asset_file['dependencies'],
 			$asset_file['version'],
@@ -95,21 +95,21 @@ class Custom_Post_Type_Widget_Blocks {
 		);
 	}
 
-	public function enqueue_block_editor_styles() {
-		wp_enqueue_style(
+	public function register_block_editor_styles() {
+		wp_register_style(
 			'custom-post-type-widget-blocks-editor-style',
 			plugins_url( 'dist/css/block-editor-style.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
-			false,
+			[],
 			'20200408',
 			'all'
 		);
 	}
 
-	public function enqueue_styles() {
-		wp_enqueue_style(
+	public function register_styles() {
+		wp_register_style(
 			'custom-post-type-widget-blocks-style',
 			plugins_url( 'dist/css/blocks.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
-			false,
+			[],
 			'20200408',
 			'all'
 		);
