@@ -9,6 +9,11 @@
 
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
+/**
+ * Core class Custom_Post_Type_Widget_Blocks_Tag_Cloud
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
@@ -45,8 +50,8 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 
 	public function render_callback( $attributes ) {
 		$class = isset( $attributes['align'] ) ?
-		"wp-block-custom-post-type-widget-blocks-tag-cloud align{$attributes['align']}" :
-		'wp-block-custom-post-type-widget-blocks-tag-cloud';
+			"wp-block-custom-post-type-widget-blocks-tag-cloud align{$attributes['align']}" :
+			'wp-block-custom-post-type-widget-blocks-tag-cloud';
 
 		if ( isset( $attributes['className'] ) ) {
 			$class .= ' ' . $attributes['className'];

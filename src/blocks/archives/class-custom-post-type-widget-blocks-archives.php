@@ -9,7 +9,22 @@
 
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
+/**
+ * Core class Custom_Post_Type_Widget_Blocks_Archives
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widget_Blocks_Archives {
+	/**
+	 * Posttype
+	 *
+	 * @since 1.0.2
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $posttype;
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}

@@ -13,10 +13,16 @@
  * from /dist/php/class-foo.php:
  *     new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Foo;
  *
- * @param string $class The fully-qualified class name.
+ * @param string|mixed
  * @return void
  */
 spl_autoload_register(
+	/**
+	 * Registed autoload function
+	 *
+	 * @param string $class The fully-qualified class name.
+	 * @return void
+	 */
 	function( $class ) {
 		/* plugin-specific namespace prefix */
 		$prefix = 'Custom_Post_Type_Widget_Blocks\\';
@@ -37,11 +43,11 @@ spl_autoload_register(
 		$relative_class = str_replace( '_', '-', $relative_class );
 
 		if ( preg_match( '/^custom-post-type-widget-blocks$/', $relative_class ) ) {
-			// load main class from /inc
+			// load main class from /inc.
 			$relative_class = preg_replace( '/^(.*)$/', 'inc/class-$1', $relative_class );
 		}
 		elseif ( preg_match( '/^blocks\/custom-post-type-widget-blocks-/', $relative_class ) ) {
-			// load blocks class from /dist/php
+			// load blocks class from /dist/php.
 			$relative_class = preg_replace( '/^blocks\/(custom-post-type-widget-blocks-.*?)$/', 'dist/php/class-$1', $relative_class );
 		}
 

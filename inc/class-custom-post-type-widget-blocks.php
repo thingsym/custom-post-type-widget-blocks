@@ -66,7 +66,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return array
 	 *
 	 * @since 1.0.0
 	 */

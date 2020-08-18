@@ -9,6 +9,11 @@
 
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
+/**
+ * Core class Custom_Post_Type_Widget_Blocks_Calendar
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widget_Blocks_Calendar {
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
@@ -58,9 +63,9 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				strpos( $permalink_structure, '%monthnum%' ) !== false &&
 				strpos( $permalink_structure, '%year%' ) !== false
 			) {
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$monthnum = $attributes['month'];
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$year = $attributes['year'];
 			}
 		}
@@ -80,20 +85,19 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
 		remove_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ] );
 
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$monthnum = $previous_monthnum;
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$year = $previous_year;
 
 		return $output;
 	}
 
 	/**
-	 * Extend the get_calendar.
+	 * Extend the get_calendar for custom post type.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string  $calendar_output
 	 * @param boolean $initial
 	 * @param boolean $echo
 	 */
@@ -116,6 +120,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $cache[ $key ] );
 
 			if ( $echo ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $output;
 				return;
 			}
@@ -129,7 +134,12 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
-			$gotsome = $wpdb->get_var( "SELECT 1 as test FROM $wpdb->posts WHERE post_type = '$posttype' AND post_status = 'publish' LIMIT 1" );
+			$gotsome = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT 1 as test FROM $wpdb->posts WHERE post_type = %s AND post_status = 'publish' LIMIT 1",
+					array( $posttype )
+				)
+			);
 			if ( ! $gotsome ) {
 				$cache[ $key ] = '';
 				wp_cache_set( 'get_custom_post_type_calendar', $cache, 'calendar' );
@@ -141,19 +151,20 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$w = (int) $_GET['w'];
 		}
 
-		// week_begins = 0 stands for Sunday
+		// week_begins = 0 stands for Sunday.
 		$week_begins = (int) get_option( 'start_of_week' );
 
-		// Let's figure out when we are
+		// Let's figure out when we are.
 		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
 			$thismonth = zeroise( intval( $monthnum ), 2 );
 			$thisyear  = (int) $year;
 		}
 		elseif ( ! empty( $w ) ) {
-			// We need to get the month from MySQL
+			// We need to get the month from MySQL.
 			$thisyear = (int) substr( $m, 0, 4 );
-			// it seems MySQL's weeks disagree with PHP's
+			// it seems MySQL's weeks disagree with PHP's.
 			$d         = ( ( $w - 1 ) * 7 ) + 6;
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
 		}
 		elseif ( ! empty( $m ) ) {
@@ -173,7 +184,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$unixmonth = mktime( 0, 0, 0, $thismonth, 1, $thisyear );
 		$last_day  = date( 't', $unixmonth );
 
-		// Get the next and previous month and year with at least one post
+		// Get the next and previous month and year with at least one post.
 		$previous = $wpdb->get_row(
 			"SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
 			FROM $wpdb->posts
@@ -192,7 +203,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		);
 
 		/* translators: Calendar caption: 1: month name, 2: 4-digit year */
-		$calendar_caption = _x( '%1$s %2$s', 'calendar caption' );
+		$calendar_caption = _x( '%1$s %2$s', 'calendar caption', 'custom-post-type-widget-blocks' );
 		$calendar_output  = '<table class="wp-calendar wp-calendar-table">
 		<caption>' . sprintf(
 			$calendar_caption,
@@ -222,7 +233,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$daywithpost = [];
 
-		// Get days with posts
+		// Get days with posts.
 		$dayswithposts = $wpdb->get_results(
 			"SELECT DISTINCT DAYOFMONTH(post_date)
 			FROM $wpdb->posts WHERE post_date >= '{$thisyear}-{$thismonth}-01 00:00:00'
@@ -236,7 +247,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 		}
 
-		// See how much we should pad in the beginning
+		// See how much we should pad in the beginning.
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
 		if ( 0 != $pad ) {
 			$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
@@ -262,7 +273,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 			if ( in_array( $day, $daywithpost ) ) {
 				// any posts today?
-				$date_format      = date( _x( 'F j, Y', 'daily archives date format' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
+				$date_format      = date( _x( 'F j, Y', 'daily archives date format', 'custom-post-type-widget-blocks' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
 				/* translators: label: 1: date format */
 				$label            = sprintf( __( 'Posts published on %s', 'custom-post-type-widget-blocks' ), $date_format );
 				$calendar_output .= sprintf(
@@ -289,7 +300,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
 
-		$calendar_output .= '<nav aria-label="' . __( 'Previous and next months' ) . '" class="wp-calendar-nav">';
+		$calendar_output .= '<nav aria-label="' . __( 'Previous and next months', 'custom-post-type-widget-blocks' ) . '" class="wp-calendar-nav">';
 
 		if ( $previous ) {
 			$calendar_output .= "\n\t\t" . '<span class="wp-calendar-nav-prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '">&laquo; ' .
@@ -318,7 +329,9 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $calendar_output );
 
 		if ( $echo ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $calendar_output;
+			return;
 		}
 		else {
 			return $calendar_output;

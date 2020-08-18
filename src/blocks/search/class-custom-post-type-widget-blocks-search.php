@@ -9,6 +9,11 @@
 
 namespace Custom_Post_Type_Widget_Blocks\Blocks;
 
+/**
+ * Core class Custom_Post_Type_Widget_Blocks_Search
+ *
+ * @since 1.0.0
+ */
 class Custom_Post_Type_Widget_Blocks_Search {
 	/**
 	 * Ensure that the ID attribute only appears in the markup once
