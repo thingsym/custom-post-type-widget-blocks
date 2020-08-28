@@ -3,7 +3,11 @@
 /**
  * External dependencies
  */
-import { map, filter, remove } from 'lodash';
+import {
+	map,
+	filter,
+	remove,
+} from 'lodash';
 
 /**
  * WordPress dependencies
@@ -12,7 +16,10 @@ import { Component } from '@wordpress/element';
 import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import {
+	PanelBody,
+	SelectControl,
+} from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 
 class SearchEdit extends Component {

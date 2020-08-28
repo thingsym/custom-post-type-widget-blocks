@@ -3,7 +3,12 @@
 /**
  * External dependencies
  */
-import { map, filter, times, unescape } from 'lodash';
+import {
+	map,
+	filter,
+	times,
+	unescape,
+} from 'lodash';
 
 /**
  * WordPress dependencies
@@ -16,7 +21,10 @@ import {
 	SelectControl,
 	Disabled,
 } from '@wordpress/components';
-import { compose, withInstanceId } from '@wordpress/compose';
+import {
+	compose,
+	withInstanceId,
+} from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';

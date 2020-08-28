@@ -3,13 +3,23 @@
 /**
  * External dependencies
  */
-import { get, isUndefined, pickBy, map, filter, remove } from 'lodash';
+import {
+	get,
+	isUndefined,
+	pickBy,
+	map,
+	filter,
+	remove,
+} from 'lodash';
 import classnames from 'classnames';
 
 /**
  * WordPress dependencies
  */
-import { Component, RawHTML } from '@wordpress/element';
+import {
+	Component,
+	RawHTML,
+} from '@wordpress/element';
 import {
 	BaseControl,
 	PanelBody,
@@ -26,7 +36,11 @@ import {
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { __ } from '@wordpress/i18n';
-import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
+import {
+	dateI18n,
+	format,
+	__experimentalGetSettings,
+} from '@wordpress/date';
 import {
 	InspectorControls,
 	BlockAlignmentToolbar,

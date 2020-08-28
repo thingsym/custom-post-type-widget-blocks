@@ -3,14 +3,22 @@
 /**
  * External dependencies
  */
-import { map, filter, remove } from 'lodash';
+import {
+	map,
+	filter,
+	remove,
+} from 'lodash';
 import moment from 'moment';
 import memoize from 'memize';
 
 /**
  * WordPress dependencies
  */
-import { PanelBody, SelectControl, Disabled } from '@wordpress/components';
+import {
+	PanelBody,
+	SelectControl,
+	Disabled,
+} from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
