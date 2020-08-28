@@ -16,7 +16,7 @@
  * @param string|mixed
  * @return void
  */
-spl_autoload_register(
+spl_autoload_register( // @phpstan-ignore-line
 	/**
 	 * Registed autoload function
 	 *

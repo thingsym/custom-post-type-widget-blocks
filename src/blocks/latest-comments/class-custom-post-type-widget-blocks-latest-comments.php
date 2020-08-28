@@ -154,6 +154,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 					$list_items_markup .= sprintf(
 						'<time datetime="%1$s" class="wp-block-custom-post-type-widget-blocks-latest-comments__comment-date">%2$s</time>',
 						esc_attr( get_comment_date( 'c', $comment ) ),
+						/* @phpstan-ignore-next-line */
 						date_i18n( get_option( 'date_format' ), get_comment_date( 'U', $comment ) )
 					);
 				}
