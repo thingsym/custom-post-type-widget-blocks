@@ -23,4 +23,6 @@ define( 'CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH', plugin_dir_path( CUSTOM_POST_TYPE
 
 require_once CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'inc/autoload.php';
 
-new \Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks();
+if ( class_exists( 'Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) ) {
+	new \Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks();
+}
