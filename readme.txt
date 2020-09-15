@@ -2,7 +2,7 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Tested up to: 5.5
 Requires at least: 5.4
 Requires PHP: 7.1
@@ -93,6 +93,12 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.1.1 =
+* check class exists
+* imporve code with phpcs, phpmd and phpstan
+* reformat
+* add strict mode
 
 = 1.1.0 =
 * update japanese translation

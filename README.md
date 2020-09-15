@@ -126,6 +126,13 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.1.1] - 2020.09.15
+
+- check class exists
+- imporve code with phpcs, phpmd and phpstan
+- reformat
+- add strict mode
+
 ### [1.1.0] - 2020.08.18
 
 - update japanese translation
