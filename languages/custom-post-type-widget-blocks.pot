@@ -32,7 +32,7 @@ msgid "thingsym"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://www.thingslabo.com/"
+msgid "https://www.thingslabo.com/"
 msgstr ""
 
 #: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:84
