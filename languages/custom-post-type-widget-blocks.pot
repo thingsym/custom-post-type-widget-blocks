@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Custom Post Type Widget Blocks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.1.0\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widget-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgid "thingsym"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://www.thingslabo.com/"
+msgid "https://www.thingslabo.com/"
 msgstr ""
 
 #: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:84

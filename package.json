@@ -1,6 +1,6 @@
 {
   "name": "custom-post-type-widget-blocks",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Custom Post Type Widgets for Block Editor (Gutenberg).",
   "author": "Thingsym",
   "license": "GPL-2.0-or-later",
@@ -37,34 +37,22 @@
     "@wordpress/jest-preset-default": "^6.2.0",
     "@wordpress/scripts": "^12.1.1",
     "autoprefixer": "^9.8.6",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
     "cpy-cli": "^3.1.1",
-    "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
     "eslint": "^7.7.0",
     "eslint-config-wordpress": "^2.0.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
-    "jest": "^26.4.0",
+    "jest": "^26.4.2",
     "jest-puppeteer": "^4.4.0",
-    "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "po2json": "^1.0.0-alpha",
     "postcss-cli": "^7.1.1",
-    "prettier": "^2.0.5",
-    "puppeteer": "^5.2.1",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-scss": "^3.18.0",
-    "webpack": "4.44.1"
+    "stylelint-scss": "^3.18.0"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"
@@ -93,7 +81,8 @@
     "extends": [
       "stylelint-config-recommended",
       "stylelint-scss",
-      "stylelint-config-recommended-scss"
+      "stylelint-config-recommended-scss",
+      "stylelint-config-wordpress"
     ],
     "rules": {
       "no-descending-specificity": null,
@@ -141,8 +130,6 @@
     "sass:blocks:style:minify": "node-sass src/scss/blocks.scss dist/css/blocks.min.css --output-style expanded && postcss --use autoprefixer --use cssnano --no-map -r dist/css/blocks.min.css",
     "sass:editor:style": "node-sass src/scss/block-editor-style.scss dist/css/block-editor-style.css --output-style expanded && postcss --use autoprefixer --no-map -r dist/css/block-editor-style.css",
     "sass:editor:style:minify": "node-sass src/scss/block-editor-style.scss dist/css/block-editor-style.min.css --output-style expanded && postcss --use autoprefixer --use cssnano --no-map -r dist/css/block-editor-style.min.css",
-    "webpack": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
-    "deprecated:build:js": "npm-run-all -p webpack",
     "build:js": "wp-scripts build src/js/blocks --output-path=dist/js",
     "build:css": "run-p sass:**",
     "build:php": "cpy 'src/blocks/**/*.php' 'dist/php/'",

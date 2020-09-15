@@ -41,12 +41,12 @@
   <arg value="sp"/>
 
   <!-- Include the WordPress ruleset, with exclusions. -->
-	<rule ref="WordPress.WP.I18n">
-		<properties>
-			<!-- Value: replace the text domain used. -->
-			<property name="text_domain" type="array" value="custom-post-type-widget-blocks" />
-		</properties>
-	</rule>
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <!-- Value: replace the text domain used. -->
+      <property name="text_domain" type="array" value="custom-post-type-widget-blocks" />
+    </properties>
+  </rule>
 
   <rule ref="WordPress">
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />

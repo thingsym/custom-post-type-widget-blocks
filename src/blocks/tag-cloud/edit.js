@@ -1,7 +1,12 @@
+'use strict';
+
 /**
  * External dependencies
  */
-import { map, filter } from 'lodash';
+import {
+	map,
+	filter,
+} from 'lodash';
 
 /**
  * WordPress dependencies
