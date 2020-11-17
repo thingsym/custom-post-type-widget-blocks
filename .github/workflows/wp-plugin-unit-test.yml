@@ -51,6 +51,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Install gettext library
+        run: sudo apt-get install gettext
+
       - name: Start MySQL
         # See https://github.blog/changelog/2020-02-21-github-actions-breaking-change-ubuntu-virtual-environments-will-no-longer-start-the-mysql-service-automatically/
         run: sudo /etc/init.d/mysql start
