@@ -41,6 +41,7 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 
 		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+		add_action( 'plugins_loaded', [ $this, 'load_dynamic_blocks' ] );
 	}
 
 	/**
@@ -170,6 +171,11 @@ class Custom_Post_Type_Widget_Blocks {
 
 		add_action( 'init', [ $this, 'load_plugin_data' ] );
 		add_action( 'init', [ $this, 'load_asset_file' ] );
+	public function load_dynamic_blocks() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Categories();
