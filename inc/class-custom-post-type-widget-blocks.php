@@ -20,6 +20,15 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @access public
 	 *
+	 * @var array|null $plugin_data
+	 */
+	public $plugin_data;
+
+	/**
+	 * Public value.
+	 *
+	 * @access public
+	 *
 	 * @var array|null $asset_file
 	 */
 	public $asset_file;
@@ -32,6 +41,23 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 
 		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+	}
+
+	/**
+	 * Load plugin data
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.1.2
+	 */
+	public function load_plugin_data() {
+		if ( !function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		$this->plugin_data = get_plugin_data( CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 	}
 
 	/**
@@ -119,7 +145,7 @@ class Custom_Post_Type_Widget_Blocks {
 			'custom-post-type-widget-blocks-editor-style',
 			plugins_url( 'dist/css/block-editor-style.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			[],
-			'20200408',
+			$this->plugin_data['Version'],
 			'all'
 		);
 	}
@@ -129,7 +155,7 @@ class Custom_Post_Type_Widget_Blocks {
 			'custom-post-type-widget-blocks-style',
 			plugins_url( 'dist/css/blocks.min.css', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
 			[],
-			'20200408',
+			$this->plugin_data['Version'],
 			'all'
 		);
 	}
@@ -142,6 +168,7 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
 
+		add_action( 'init', [ $this, 'load_plugin_data' ] );
 		add_action( 'init', [ $this, 'load_asset_file' ] );
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
