@@ -15,6 +15,15 @@ namespace Custom_Post_Type_Widget_Blocks;
  * @since 1.0.0
  */
 class Custom_Post_Type_Widget_Blocks {
+	/**
+	 * Public value.
+	 *
+	 * @access public
+	 *
+	 * @var array|null $asset_file
+	 */
+	public $asset_file;
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_styles' ] );
 		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
@@ -23,6 +32,19 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 
 		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+	}
+
+	/**
+	 * Load asset file
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.1.2
+	 */
+	public function load_asset_file() {
+		$this->asset_file = include( CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php' );
 	}
 
 	/**
@@ -83,13 +105,11 @@ class Custom_Post_Type_Widget_Blocks {
 	}
 
 	public function register_block_editor_scripts() {
-		$asset_file = include( CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php' );
-
 		wp_register_script(
 			'custom-post-type-widget-blocks-editor-script',
 			plugins_url( 'dist/js/blocks.js', CUSTOM_POST_TYPE_WIDGET_BLOCKS ),
-			$asset_file['dependencies'],
-			$asset_file['version'],
+			$this->asset_file['dependencies'],
+			$this->asset_file['version'],
 			true
 		);
 	}
@@ -122,6 +142,7 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
 
+		add_action( 'init', [ $this, 'load_asset_file' ] );
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Categories();
