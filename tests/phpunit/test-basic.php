@@ -22,6 +22,8 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	function basic() {
 		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) );
+
+		$this->assertRegExp( '#' . plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH );
 	}
 
 	/**
@@ -30,11 +32,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 */
 	function constructor() {
 		$this->assertEquals( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'init' ] ) );
-		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
-
-		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_styles' ] ) );
-		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_scripts' ] ) );
-		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_styles' ] ) );
+		$this->assertEquals( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_dynamic_blocks' ] ) );
 	}
 
 	/**
@@ -44,8 +42,25 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	function init() {
 		$this->custom_post_type_widget_blocks->init();
 
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_styles' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_scripts' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_styles' ] ) );
+
 		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
 		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
+
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'load_plugin_data' ] ) );
+		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'load_asset_file' ] ) );
+
+		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	function load_dynamic_blocks() {
+		$this->custom_post_type_widget_blocks->load_dynamic_blocks();
 
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives' ) );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar' ) );
@@ -60,15 +75,38 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
-	public function load_textdomain() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	public function load_plugin_data() {
+		$this->custom_post_type_widget_blocks->load_plugin_data();
+		$result = $this->custom_post_type_widget_blocks->plugin_data;
+
+		$this->assertTrue( is_array( $result ) );
 	}
 
 	/**
 	 * @test
 	 * @group basic
 	 */
-	public function load_block_editor_translations() {
+	public function load_asset_file() {
+		$this->custom_post_type_widget_blocks->load_asset_file();
+		$result = $this->custom_post_type_widget_blocks->asset_file;
+
+		$this->assertTrue( is_array( $result ) );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function load_textdomain() {
+		$result = $this->custom_post_type_widget_blocks->load_textdomain();
+		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function set_block_editor_translations() {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
