@@ -182,7 +182,6 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		$classnames = esc_attr( $class );
 
 		if ( empty( $archives ) ) {
-
 			return sprintf(
 				'<div class="%1$s">%2$s</div>',
 				$classnames,
