@@ -31,6 +31,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function constructor() {
+		$this->assertEquals( 10, has_filter( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_plugin_data' ] ) );
+		$this->assertEquals( 10, has_filter( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_asset_file' ] ) );
+
 		$this->assertEquals( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'init' ] ) );
 		$this->assertEquals( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_dynamic_blocks' ] ) );
 	}
@@ -48,9 +51,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 
 		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
 		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
-
-		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'load_plugin_data' ] ) );
-		$this->assertEquals( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'load_asset_file' ] ) );
 
 		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
 	}
@@ -130,6 +130,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function register_block_editor_scripts() {
+		$this->custom_post_type_widget_blocks->load_asset_file();
 		$this->custom_post_type_widget_blocks->register_block_editor_scripts();
 		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-editor-script', wp_scripts()->registered );
 	}
@@ -139,6 +140,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function register_block_editor_styles() {
+		$this->custom_post_type_widget_blocks->load_plugin_data();
 		$this->custom_post_type_widget_blocks->register_block_editor_styles();
 		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-editor-style', wp_styles()->registered );
 	}
@@ -148,6 +150,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function register_styles() {
+		$this->custom_post_type_widget_blocks->load_plugin_data();
 		$this->custom_post_type_widget_blocks->register_styles();
 		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-style', wp_styles()->registered );
 	}
