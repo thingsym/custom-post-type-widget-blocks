@@ -126,6 +126,16 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.2.0] - 2020.11.23
+
+* fix test case
+* move hooks
+* add load_dynamic_blocks method
+* add load_plugin_data method, change version number with wp_enqueue_*
+* add load_asset_file method
+* remove .travis.yml, change CI/CD to Github Actions
+* add workflow for unit test
+
 ### [1.1.1] - 2020.09.15
 
 - check class exists

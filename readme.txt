@@ -2,7 +2,7 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 Tested up to: 5.5
 Requires at least: 5.4
 Requires PHP: 7.1
@@ -93,6 +93,15 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.2.0 =
+* fix test case
+* move hooks
+* add load_dynamic_blocks method
+* add load_plugin_data method, change version number with wp_enqueue_*
+* add load_asset_file method
+* remove .travis.yml, change CI/CD to Github Actions
+* add workflow for unit test
 
 = 1.1.1 =
 * check class exists
