@@ -53,6 +53,8 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
 
 		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
+
+		$this->assertEquals( 10, has_filter( 'plugin_row_meta', array( $this->custom_post_type_widget_blocks, 'plugin_metadata_links' ) ) );
 	}
 
 	/**
@@ -100,6 +102,14 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	public function load_textdomain() {
 		$result = $this->custom_post_type_widget_blocks->load_textdomain();
 		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function plugin_metadata_links() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
