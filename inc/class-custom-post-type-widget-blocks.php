@@ -41,6 +41,21 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'load_dynamic_blocks' ] );
 	}
 
+	public function init() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
+		add_action( 'init', [ $this, 'load_textdomain' ] );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
+
+		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
+		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
+		add_action( 'init', [ $this, 'register_styles' ] );
+
+		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+	}
+
 	/**
 	 * Load plugin data
 	 *
@@ -156,21 +171,6 @@ class Custom_Post_Type_Widget_Blocks {
 			$this->plugin_data['Version'],
 			'all'
 		);
-	}
-
-	public function init() {
-		if ( ! function_exists( 'register_block_type' ) ) {
-			return;
-		}
-
-		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
-		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
-		add_action( 'init', [ $this, 'register_styles' ] );
-
-		add_action( 'init', [ $this, 'load_textdomain' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
-
-		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
 	}
 
 	public function load_dynamic_blocks() {
