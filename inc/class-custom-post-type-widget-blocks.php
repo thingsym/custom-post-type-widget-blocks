@@ -68,7 +68,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 * @since 1.1.2
 	 */
 	public function load_plugin_data() {
-		if ( !function_exists( 'get_plugin_data' ) ) {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 
