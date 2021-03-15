@@ -80,7 +80,7 @@ Custom Post Type Widget Blocks is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.com/thingsym/custom-post-type-widget-blocks).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
 
 ## Build development environment
 

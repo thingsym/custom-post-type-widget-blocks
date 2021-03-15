@@ -61,7 +61,7 @@ Reference: [https://github.com/thingsym/custom-post-type-widget-blocks#hooks](ht
 
 = Test Matrix =
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widget-blocks).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
 
 = Contribution =
 
