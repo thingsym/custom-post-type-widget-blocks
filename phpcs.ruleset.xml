@@ -50,16 +50,29 @@
 
   <rule ref="WordPress">
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
-    <exclude name="Squiz.Commenting.FunctionComment.Missing" />
-    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
-    <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
-    <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
+    <exclude name="WordPress.Arrays.ArrayDeclaration.NoComma" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf" />
-    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
-    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-    <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    <exclude name="Squiz.Commenting.VariableComment.Missing" />
+    <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
+    <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
 
+    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
     <exclude name="WordPress.DateTime.RestrictedFunctions.date_date"/>
+
+    <exclude name="Squiz.Commenting.FileComment.Missing" />
+    <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
+    <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineBefore" />
+    <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+    <exclude name="Squiz.Commenting.InlineComment.SpacingAfter" />
+
+    <exclude name="Squiz.Commenting.ClassComment" />
+    <exclude name="Squiz.Commenting.FunctionComment" />
+    <exclude name="Generic.Commenting.DocComment" />
+
+    <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+  </rule>
+
+  <rule ref="PHPCompatibilityWP">
+    <config name="testVersion" value="5.6-"/>
   </rule>
 </ruleset>

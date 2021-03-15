@@ -3,9 +3,8 @@ parameters:
   paths:
     - ./
   excludes_analyse:
-    - ./src
     - ./tests
     - ./vendor
     - ./node_modules
-  autoload_files:
+  bootstrapFiles:
     - ./tests/phpunit/bootstrap.php
