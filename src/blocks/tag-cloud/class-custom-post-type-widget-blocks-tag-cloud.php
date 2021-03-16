@@ -41,9 +41,9 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 					],
 				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script' => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'  => 'custom-post-type-widget-blocks-editor-style',
-				'style'         => 'custom-post-type-widget-blocks-style',
+				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
+				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
+				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}

@@ -41,6 +41,23 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'plugins_loaded', [ $this, 'load_dynamic_blocks' ] );
 	}
 
+	public function init() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
+		add_action( 'init', [ $this, 'load_textdomain' ] );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
+
+		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
+		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
+		add_action( 'init', [ $this, 'register_styles' ] );
+
+		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
+	}
+
 	/**
 	 * Load plugin data
 	 *
@@ -51,8 +68,8 @@ class Custom_Post_Type_Widget_Blocks {
 	 * @since 1.1.2
 	 */
 	public function load_plugin_data() {
-		if ( !function_exists( 'get_plugin_data' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		$this->plugin_data = get_plugin_data( CUSTOM_POST_TYPE_WIDGET_BLOCKS );
@@ -68,7 +85,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 * @since 1.1.2
 	 */
 	public function load_asset_file() {
-		$this->asset_file = include( CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php' );
+		$this->asset_file = include plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'dist/js/blocks.asset.php';
 	}
 
 	/**
@@ -84,8 +101,32 @@ class Custom_Post_Type_Widget_Blocks {
 		load_plugin_textdomain(
 			'custom-post-type-widget-blocks',
 			false,
-			CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
+			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
 		);
+	}
+
+	/**
+	 * Set links below a plugin on the Plugins page.
+	 *
+	 * Hooks to plugin_row_meta
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
+	 *
+	 * @access public
+	 *
+	 * @param array  $links  An array of the plugin's metadata.
+	 * @param string $file   Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array $links
+	 *
+	 * @since 1.2.1
+	 */
+	public function plugin_metadata_links( $links, $file ) {
+		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 	/**
@@ -102,7 +143,7 @@ class Custom_Post_Type_Widget_Blocks {
 			wp_set_script_translations(
 				'custom-post-type-widget-blocks-editor-script',
 				'custom-post-type-widget-blocks',
-				CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
+				plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'languages'
 			);
 		}
 	}
@@ -156,21 +197,6 @@ class Custom_Post_Type_Widget_Blocks {
 			$this->plugin_data['Version'],
 			'all'
 		);
-	}
-
-	public function init() {
-		if ( ! function_exists( 'register_block_type' ) ) {
-			return;
-		}
-
-		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
-		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
-		add_action( 'init', [ $this, 'register_styles' ] );
-
-		add_action( 'init', [ $this, 'load_textdomain' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
-
-		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
 	}
 
 	public function load_dynamic_blocks() {

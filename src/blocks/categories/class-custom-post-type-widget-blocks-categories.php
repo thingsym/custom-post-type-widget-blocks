@@ -60,9 +60,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 					],
 				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script' => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'  => 'custom-post-type-widget-blocks-editor-style',
-				'style'         => 'custom-post-type-widget-blocks-style',
+				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
+				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
+				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -119,9 +119,10 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			 *
 			 * @param array  $cat_args An array of Categories widget drop-down arguments.
 			 */
-			$items_markup            .= wp_dropdown_categories( apply_filters( 'custom_post_type_widget_blocks/categories/widget_categories_dropdown_args', $args ) );
-			$items_markup            .= '</form>';
-			$type                     = 'dropdown';
+			$items_markup .= wp_dropdown_categories( apply_filters( 'custom_post_type_widget_blocks/categories/widget_categories_dropdown_args', $args ) );
+			$items_markup .= '</form>';
+
+			$type = 'dropdown';
 
 			if ( ! is_admin() ) {
 				$wrapper_markup .= $this->build_dropdown_script( $id );
@@ -137,13 +138,13 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			 *
 			 * @param array  $args An array of Categories widget arguments.
 			 */
-			$items_markup   = wp_list_categories(
+			$items_markup = wp_list_categories(
 				apply_filters(
 					'custom_post_type_widget_blocks/categories/widget_categories_args',
 					$args
 				)
 			);
-			$type           = 'list';
+			$type         = 'list';
 		}
 
 		$class = "wp-block-custom-post-type-widget-blocks-categories wp-block-custom-post-type-widget-blocks-categories-{$type}";

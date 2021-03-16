@@ -16,16 +16,16 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
+
       matrix:
         os: [ ubuntu-18.04 ]
         php: [ '7.1', '7.2', '7.3', '7.4' ]
         wordpress: [ latest, nightly, '5.4' ]
-        multisite: [ 0, 1 ]
 
     env:
       PHP_VERSION: ${{ matrix.php }}
       WP_VERSION: ${{ matrix.wordpress }}
-      WP_MULTISITE: ${{ matrix.multisite }}
 
     steps:
       - uses: actions/checkout@v2

@@ -80,7 +80,7 @@ Custom Post Type Widget Blocks is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.com/thingsym/custom-post-type-widget-blocks).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
 
 ## Build development environment
 
@@ -126,15 +126,28 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.2.1] - 2021.03.16
+
+- fix npm scripts
+- remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+- update japanese translation
+- update pot
+- improve code with phpcs
+- add test case
+- add sponsor link
+- update wordpress-test-matrix
+- add FUNDING.yml
+- add donate link
+
 ### [1.2.0] - 2020.11.23
 
-* fix test case
-* move hooks
-* add load_dynamic_blocks method
-* add load_plugin_data method, change version number with wp_enqueue_*
-* add load_asset_file method
-* remove .travis.yml, change CI/CD to Github Actions
-* add workflow for unit test
+- fix test case
+- move hooks
+- add load_dynamic_blocks method
+- add load_plugin_data method, change version number with wp_enqueue_*
+- add load_asset_file method
+- remove .travis.yml, change CI/CD to Github Actions
+- add workflow for unit test
 
 ### [1.1.1] - 2020.09.15
 

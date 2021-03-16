@@ -2,8 +2,9 @@
 
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
+Donate link: https://github.com/sponsors/thingsym
 Stable tag: 1.2.0
-Tested up to: 5.5
+Tested up to: 5.7.0
 Requires at least: 5.4
 Requires PHP: 7.1
 License: GPL2 or later
@@ -60,7 +61,7 @@ Reference: [https://github.com/thingsym/custom-post-type-widget-blocks#hooks](ht
 
 = Test Matrix =
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/custom-post-type-widget-blocks).
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
 
 = Contribution =
 
@@ -93,6 +94,18 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.2.1 =
+* fix npm scripts
+* remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+* update japanese translation
+* update pot
+* improve code with phpcs
+* add test case
+* add sponsor link
+* update wordpress-test-matrix
+* add FUNDING.yml
+* add donate link
 
 = 1.2.0 =
 * fix test case

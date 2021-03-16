@@ -5,9 +5,6 @@
  * @package Custom_Post_Type_Widget_Blocks
  */
 
-/**
- * Sample test case.
- */
 class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 
 	public function setUp() {
