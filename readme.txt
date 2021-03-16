@@ -95,6 +95,18 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
+= 1.2.1 =
+* fix npm scripts
+* remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+* update japanese translation
+* update pot
+* improve code with phpcs
+* add test case
+* add sponsor link
+* update wordpress-test-matrix
+* add FUNDING.yml
+* add donate link
+
 = 1.2.0 =
 * fix test case
 * move hooks
