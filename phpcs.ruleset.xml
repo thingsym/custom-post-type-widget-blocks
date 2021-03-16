@@ -58,6 +58,7 @@
 
     <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
     <exclude name="WordPress.DateTime.RestrictedFunctions.date_date"/>
+    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
 
     <exclude name="Squiz.Commenting.FileComment.Missing" />
     <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
