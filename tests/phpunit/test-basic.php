@@ -22,8 +22,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	function basic() {
 		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) );
-
-		$this->assertRegExp( '#' . plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH );
 	}
 
 	/**

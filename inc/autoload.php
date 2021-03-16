@@ -51,7 +51,7 @@ spl_autoload_register( // @phpstan-ignore-line
 			$relative_class = preg_replace( '/^blocks\/(custom-post-type-widget-blocks-.*?)$/', 'dist/php/class-$1', $relative_class );
 		}
 
-		$path = CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . $relative_class . '.php';
+		$path = plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . $relative_class . '.php';
 
 		if ( file_exists( $path ) ) {
 			require_once $path;

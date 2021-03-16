@@ -85,7 +85,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 * @since 1.1.2
 	 */
 	public function load_asset_file() {
-		$this->asset_file = include CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . 'dist/js/blocks.asset.php';
+		$this->asset_file = include plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'dist/js/blocks.asset.php';
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Custom_Post_Type_Widget_Blocks {
 		load_plugin_textdomain(
 			'custom-post-type-widget-blocks',
 			false,
-			CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
+			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
 		);
 	}
 
@@ -143,7 +143,7 @@ class Custom_Post_Type_Widget_Blocks {
 			wp_set_script_translations(
 				'custom-post-type-widget-blocks-editor-script',
 				'custom-post-type-widget-blocks',
-				CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH . '/languages'
+				plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'languages'
 			);
 		}
 	}
