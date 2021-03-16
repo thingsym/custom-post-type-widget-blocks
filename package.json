@@ -131,7 +131,7 @@
     "sass:editor:style": "node-sass src/scss/block-editor-style.scss dist/css/block-editor-style.css --output-style expanded && postcss --use autoprefixer --no-map -r dist/css/block-editor-style.css",
     "sass:editor:style:minify": "node-sass src/scss/block-editor-style.scss dist/css/block-editor-style.min.css --output-style expanded && postcss --use autoprefixer --use cssnano --no-map -r dist/css/block-editor-style.min.css",
     "build:js": "wp-scripts build src/js/blocks --output-path=dist/js",
-    "build:css": "run-p sass:**",
+    "build:css": "run-s sass:**",
     "build:php": "cpy 'src/blocks/**/*.php' 'dist/php/'",
     "build:i18n": "run-s msgfmt:* po2json:*",
     "build": "run-p build:*",
@@ -147,7 +147,7 @@
     "test": "run-p test:jest",
     "format:js": "wp-scripts format-js ./src/blocks",
     "watch": "wp-scripts start src/js/blocks --output-path=dist/js",
-    "archive:package": "mkdir -p ./custom-post-type-widget-blocks && cpy '**/*' '!./.DS_Store' '!./bin' '!./vendor' '!./composer.json' '!./composer.lock' '!./node_modules' '!./package.json' '!./package-lock.json' '!./phpcs.ruleset.xml' '!./phpmd.ruleset.xml' '!./phpstan.neon' '!./phpunit.xml' '!./webpack.config.js' '!./src' '!./tests' '!./custom-post-type-widget-blocks-v*.zip' './custom-post-type-widget-blocks' --parents",
+    "archive:package": "mkdir -p ./custom-post-type-widget-blocks && cpy '**/*' '!./.DS_Store' '!./bin' '!./vendor' '!./composer.json' '!./composer.lock' '!./node_modules' '!./package.json' '!./package-lock.json' '!./phpcs.ruleset.xml' '!./phpmd.ruleset.xml' '!./phpstan.neon' '!./phpunit.xml' '!./README.md' '!./webpack.config.js' '!./src' '!./tests' '!./custom-post-type-widget-blocks-v*.zip' './custom-post-type-widget-blocks' --parents",
     "archive:zip": "zip -9 -qmr custom-post-type-widget-blocks-v$npm_package_version.zip ./custom-post-type-widget-blocks",
     "archive": "run-s build archive:package archive:zip"
   }
