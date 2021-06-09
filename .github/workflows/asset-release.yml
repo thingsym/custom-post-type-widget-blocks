@@ -1,0 +1,53 @@
+name: Release asset
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Release asset
+    runs-on: ubuntu-18.04
+
+    env:
+      PHP_VERSION: '7.4'
+      WP_VERSION: latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install gettext library
+        run: sudo apt-get install gettext
+
+      - name: Install Node.js package dependencies
+        run: npm install
+
+      - name: Build a plugin
+        run: npm run build
+
+      - name: Build a package
+        run: npm run archive
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: 'custom-post-type-widget-blocks-v*.*.*.zip'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
