@@ -80,15 +80,20 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 		}
 
-		$custom_class_name = empty( $attributes['className'] ) ? '' : ' ' . $attributes['className'];
-		$align_class_name  = empty( $attributes['align'] ) ? '' : ' ' . "align{$attributes['align']}";
-
 		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
 		add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
 
+		$class = 'wp-block-custom-post-type-widget-blocks-calendar wp-block-calendar';
+		if ( isset( $attributes['className'] ) ) {
+			$class .= ' ' . $attributes['className'];
+		}
+		if ( isset( $attributes['align'] ) ) {
+			$class .= ' align' . $attributes['align'];
+		}
+
 		$output = sprintf(
 			'<div class="%1$s">%2$s</div>',
-			esc_attr( 'wp-block-custom-post-type-widget-blocks-calendar' . $custom_class_name . $align_class_name ),
+			$class,
 			$this->get_custom_post_type_calendar( true, false )
 		);
 
