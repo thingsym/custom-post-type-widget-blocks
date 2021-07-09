@@ -1,6 +1,8 @@
+.wp-block-custom-post-type-widget-blocks-latest-comments {
+	padding-left: 0;
+}
+
 .wp-block-custom-post-type-widget-blocks-latest-comments__comment {
-	font-size: 15px;
-	line-height: 1.1;
 	list-style: none;
 	margin-bottom: 1em;
 
@@ -21,9 +23,9 @@
 }
 
 .wp-block-custom-post-type-widget-blocks-latest-comments__comment-excerpt p {
-	font-size: 14px;
+	font-size: .875em;
 	line-height: 1.8;
-	margin: 5px 0 20px;
+	margin: .36em 0 1.4em;
 }
 
 .wp-block-custom-post-type-widget-blocks-latest-comments__comment-date {
