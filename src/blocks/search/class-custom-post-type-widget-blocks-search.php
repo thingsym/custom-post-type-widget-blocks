@@ -106,7 +106,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 			);
 		}
 
-		$class = 'wp-block-custom-post-type-widget-blocks-search';
+		$class = 'wp-block-custom-post-type-widget-blocks-search wp-block-search';
 		if ( isset( $attributes['className'] ) ) {
 			$class .= ' ' . $attributes['className'];
 		}

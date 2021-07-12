@@ -109,7 +109,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 
 			foreach ( $comments as $comment ) {
-				$list_items_markup .= '<li class="wp-block-custom-post-type-widget-blocks-latest-comments__comment">';
+				$list_items_markup .= '<li class="wp-block-custom-post-type-widget-blocks-latest-comments__comment wp-block-latest-comments__comment">';
 				if ( $attributes['displayAvatar'] ) {
 					$avatar = get_avatar(
 						$comment,
@@ -166,7 +166,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 			}
 		}
 
-		$class = 'wp-block-custom-post-type-widget-blocks-latest-comments';
+		$class = 'wp-block-custom-post-type-widget-blocks-latest-comments wp-block-latest-comments';
 		if ( ! empty( $attributes['className'] ) ) {
 			$class .= ' ' . $attributes['className'];
 		}

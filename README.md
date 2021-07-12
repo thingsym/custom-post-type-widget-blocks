@@ -126,62 +126,73 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.2.2] - 2021.07.12
+
+* update dependencies with package.json
+* fix .editorconfig
+* ReferenceError: Cannot access 'A' before initialization
+* exclude README.md in package
+* fix latest comments layout
+* fix class name
+* add node-sass with package.json
+* add asset-release workflow
+
 ### [1.2.1] - 2021.03.16
 
-- fix npm scripts
-- remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
-- update japanese translation
-- update pot
-- improve code with phpcs
-- add test case
-- add sponsor link
-- update wordpress-test-matrix
-- add FUNDING.yml
-- add donate link
+* fix npm scripts
+* remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+* update japanese translation
+* update pot
+* improve code with phpcs
+* add test case
+* add sponsor link
+* update wordpress-test-matrix
+* add FUNDING.yml
+* add donate link
 
 ### [1.2.0] - 2020.11.23
 
-- fix test case
-- move hooks
-- add load_dynamic_blocks method
-- add load_plugin_data method, change version number with wp_enqueue_*
-- add load_asset_file method
-- remove .travis.yml, change CI/CD to Github Actions
-- add workflow for unit test
+* fix test case
+* move hooks
+* add load_dynamic_blocks method
+* add load_plugin_data method, change version number with wp_enqueue_*
+* add load_asset_file method
+* remove .travis.yml, change CI/CD to Github Actions
+* add workflow for unit test
 
 ### [1.1.1] - 2020.09.15
 
-- check class exists
-- imporve code with phpcs, phpmd and phpstan
-- reformat
-- add strict mode
+* check class exists
+* imporve code with phpcs, phpmd and phpstan
+* reformat
+* add strict mode
 
 ### [1.1.0] - 2020.08.18
 
-- update japanese translation
-- update pot
-- imporve code with phpcs, phpmd and phpstan
-- update testunit configuration
-- add Disabled to latest posts block
-- add unstable__bootstrapServerSideBlockDefinitions
-- fix test case
-- change wp cache name
-- add hooks
-- change hook tags
-- add loading asset to register_block_type argument
-- change asset loading function from wp_enqueue_* to wp_register_*
-- add checking register_block_type function
-- change wp_enqueue_script dependency setting to use asset file
-- add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
+* update japanese translation
+* update pot
+* imporve code with phpcs, phpmd and phpstan
+* update testunit configuration
+* add Disabled to latest posts block
+* add unstable__bootstrapServerSideBlockDefinitions
+* fix test case
+* change wp cache name
+* add hooks
+* change hook tags
+* add loading asset to register_block_type argument
+* change asset loading function from wp_enqueue_* to wp_register_*
+* add checking register_block_type function
+* change wp_enqueue_script dependency setting to use asset file
+* add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 
 ### [1.0.1] - 2020.05.06 - for plugin review
 
-- remove prefix `__` with define name
-- add LICENSE file
+* remove prefix `__` with define name
+* add LICENSE file
 
 ### [1.0.0] - 2020.05.04
 
-- initial release
+* initial release
 
 ## License
 
