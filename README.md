@@ -126,6 +126,17 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.2.2] - 2021.07.12
+
+* update dependencies with package.json
+* fix .editorconfig
+* ReferenceError: Cannot access 'A' before initialization
+* exclude README.md in package
+* fix latest comments layout
+* fix class name
+* add node-sass with package.json
+* add asset-release workflow
+
 ### [1.2.1] - 2021.03.16
 
 * fix npm scripts
