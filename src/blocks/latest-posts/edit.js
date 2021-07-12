@@ -159,8 +159,11 @@ class LatestPostsEdit extends Component {
 			featuredImageSizeWidth,
 			featuredImageSizeHeight,
 		} = attributes;
+
 		const postTypeOptions = this.getPostTypeOptions();
 		const { postType, taxonomy } = this.props.attributes;
+
+		const hasPosts = !! latestPosts?.length;
 
 		const inspectorControls = (
 			<InspectorControls>
@@ -362,7 +365,7 @@ class LatestPostsEdit extends Component {
 							}
 							min={2}
 							max={
-								!hasPosts
+								! hasPosts
 									? MAX_POSTS_COLUMNS
 									: Math.min(
 											MAX_POSTS_COLUMNS,
@@ -376,8 +379,7 @@ class LatestPostsEdit extends Component {
 			</InspectorControls>
 		);
 
-		const hasPosts = Array.isArray(latestPosts) && latestPosts.length;
-		if (!hasPosts) {
+		if (! hasPosts) {
 			return (
 				<>
 					{inspectorControls}
