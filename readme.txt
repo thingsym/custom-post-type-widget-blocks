@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Tested up to: 5.7.0
 Requires at least: 5.4
 Requires PHP: 7.1
@@ -94,6 +94,16 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.2.2 =
+* update dependencies with package.json
+* fix .editorconfig
+* ReferenceError: Cannot access 'A' before initialization
+* exclude README.md in package
+* fix latest comments layout
+* fix class name
+* add node-sass with package.json
+* add asset-release workflow
 
 = 1.2.1 =
 * fix npm scripts
