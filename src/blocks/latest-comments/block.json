@@ -1,0 +1,40 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/latest-comments",
+  "title": "Latest Comments (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "Display a list of your most recent comments.",
+  "keywords": [ "recent comments" ],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "any"
+    },
+    "commentsToShow": {
+      "type": "number",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 100
+    },
+    "displayAvatar": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayDate": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayExcerpt": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "align": true,
+    "html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

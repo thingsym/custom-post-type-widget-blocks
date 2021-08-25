@@ -11,117 +11,84 @@ import {
 /**
  * WordPress dependencies
  */
-import { Component } from '@wordpress/element';
 import {
+	Disabled,
 	PanelBody,
 	ToggleControl,
-	SelectControl,
-	Disabled,
+	SelectControl
 } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
+import { store as coreStore } from '@wordpress/core-data';
 
-class TagCloudEdit extends Component {
-	constructor() {
-		super(...arguments);
+export default function TagCloudEdit( { attributes, setAttributes } ) {
+	const { taxonomy, showTagCounts } = attributes;
 
-		this.state = {
-			editing: !this.props.attributes.taxonomy,
+	const { taxonomies } = useSelect( ( select ) => {
+		return {
+			taxonomies: select( coreStore ).getTaxonomies( { per_page: -1 } ),
 		};
+	}, [] );
 
-		this.setTaxonomy = this.setTaxonomy.bind(this);
-		this.toggleShowTagCounts = this.toggleShowTagCounts.bind(this);
-	}
-
-	getTaxonomyOptions() {
-		const taxonomies = this.props.taxonomies;
-
+	const getTaxonomyOptions = () => {
 		const selectOption = {
 			label: __('- Select -', 'custom-post-type-widget-blocks'),
 			value: '',
 			disabled: true,
 		};
 
-		const taxonomyOptions = map(taxonomies, (taxonomy) => {
-			return {
-				value: taxonomy.slug,
-				label: taxonomy.name,
-			};
-		});
-
-		return [selectOption, ...taxonomyOptions];
-	}
-
-	setTaxonomy(taxonomy) {
-		const { setAttributes } = this.props;
-
-		setAttributes({ taxonomy });
-	}
-
-	toggleShowTagCounts() {
-		const { attributes, setAttributes } = this.props;
-		const { showTagCounts } = attributes;
-
-		setAttributes({ showTagCounts: !showTagCounts });
-	}
-
-	render() {
-		const { attributes } = this.props;
-		const { taxonomy, showTagCounts } = attributes;
-		const taxonomyOptions = this.getTaxonomyOptions();
-
-		const inspectorControls = (
-			<InspectorControls>
-				<PanelBody
-					title={__(
-						'Tag Cloud settings',
-						'custom-post-type-widget-blocks'
-					)}
-				>
-					<SelectControl
-						label={__('Taxonomy', 'custom-post-type-widget-blocks')}
-						options={taxonomyOptions}
-						value={taxonomy}
-						onChange={this.setTaxonomy}
-					/>
-					<ToggleControl
-						label={__(
-							'Show post counts',
-							'custom-post-type-widget-blocks'
-						)}
-						checked={showTagCounts}
-						onChange={this.toggleShowTagCounts}
-					/>
-				</PanelBody>
-			</InspectorControls>
+		const taxonomyOptions = map(
+			filter( taxonomies, {
+				show_cloud: true,
+				hierarchical: false,
+			} ),
+			( item ) => {
+				return {
+					value: item.slug,
+					label: item.name,
+				};
+			}
 		);
 
-		return (
-			<>
-				{inspectorControls}
+		return [ selectOption, ...taxonomyOptions ];
+	};
+
+	const inspectorControls = (
+		<InspectorControls>
+			<PanelBody title={ __( 'Tag Cloud settings', 'custom-post-type-widget-blocks' ) } >
+				<SelectControl
+					label={ __( 'Taxonomy', 'custom-post-type-widget-blocks' ) }
+					options={ getTaxonomyOptions() }
+					value={ taxonomy }
+					onChange={ ( selectedTaxonomy ) =>
+						setAttributes( { taxonomy: selectedTaxonomy } )
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Show post counts', 'custom-post-type-widget-blocks' ) }
+					checked={ showTagCounts }
+					onChange={ () =>
+						setAttributes( { showTagCounts: ! showTagCounts } )
+					}
+				/>
+			</PanelBody>
+		</InspectorControls>
+	);
+
+	return (
+		<>
+			{ inspectorControls }
+			<div { ...useBlockProps() }>
 				<Disabled>
 					<ServerSideRender
 						key="tag-cloud"
 						block="custom-post-type-widget-blocks/tag-cloud"
-						attributes={attributes}
+						attributes={ attributes }
 					/>
 				</Disabled>
-			</>
-		);
-	}
+			</div>
+		</>
+	);
 }
-
-export default withSelect((select) => {
-	const { getTaxonomies } = select('core');
-
-	const taxonomies = filter(getTaxonomies(), {
-		show_cloud: true,
-		hierarchical: false,
-	});
-
-	return {
-		taxonomies: taxonomies,
-	};
-})(TagCloudEdit);

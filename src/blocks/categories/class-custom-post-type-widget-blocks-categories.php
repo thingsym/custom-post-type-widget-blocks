@@ -21,48 +21,25 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	 * @since 1.0.2
 	 *
 	 * @static
-	 * @access private
+	 * @access public
 	 * @var int
 	 */
-	private static $block_id = 0;
+	public static $block_id = 0;
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
 
+	/**
+	 * register block_type from metadata
+	 *
+	 * @since 1.3.0
+	 */
 	public function register_block_type() {
 		register_block_type(
-			'custom-post-type-widget-blocks/categories',
+			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/categories',
 			[
-				'attributes'      => [
-					'taxonomy'          => [
-						'type'    => 'string',
-						'default' => 'category',
-					],
-					'align'             => [
-						'type' => 'string',
-						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
-					],
-					'className'         => [
-						'type' => 'string',
-					],
-					'displayAsDropdown' => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-					'showHierarchy'     => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-					'showPostCounts'    => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
-				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -73,9 +50,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 		<script type='text/javascript'>
 		/* <![CDATA[ */
 		( function() {
-			var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
+			var dropdown = document.getElementById( '<?php echo esc_js( $dropdown_id ); ?>' );
 			function onCatChange() {
-				if ( dropdown.options[dropdown.selectedIndex].value ) {
+				if ( dropdown.options[ dropdown.selectedIndex ].value != -1 ) {
 					return dropdown.form.submit();
 				}
 			}

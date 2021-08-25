@@ -29,35 +29,16 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
 
+	/**
+	 * register block_type from metadata
+	 *
+	 * @since 1.3.0
+	 */
 	public function register_block_type() {
-		register_block_type(
-			'custom-post-type-widget-blocks/archives',
+		register_block_type_from_metadata(
+			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/archives',
 			[
-				'attributes'      => [
-					'postType'          => [
-						'type'    => 'string',
-						'default' => 'post',
-					],
-					'align'             => [
-						'type' => 'string',
-						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
-					],
-					'className'         => [
-						'type' => 'string',
-					],
-					'displayAsDropdown' => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-					'showPostCounts'    => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
-				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -67,14 +48,6 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		$this->posttype  = $attributes['postType'];
 
 		$class = 'wp-block-custom-post-type-widget-blocks-archives';
-
-		if ( isset( $attributes['align'] ) ) {
-			$class .= " align{$attributes['align']}";
-		}
-
-		if ( isset( $attributes['className'] ) ) {
-			$class .= " {$attributes['className']}";
-		}
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
@@ -181,17 +154,19 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 		$classnames = esc_attr( $class );
 
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classnames ) );
+
 		if ( empty( $archives ) ) {
 			return sprintf(
-				'<div class="%1$s">%2$s</div>',
-				$classnames,
+				'<div %1$s>%2$s</div>',
+				$wrapper_attributes,
 				__( 'No archives to show.', 'custom-post-type-widget-blocks' )
 			);
 		}
 
 		return sprintf(
-			'<ul class="%1$s">%2$s</ul>',
-			$classnames,
+			'<ul %1$s>%2$s</ul>',
+			$wrapper_attributes,
 			$archives
 		);
 	}

@@ -1,0 +1,30 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/archives",
+  "title": "Archives (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "Display a monthly archive of your posts.",
+  "keywords": [],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "displayAsDropdown": {
+      "type": "boolean",
+      "default": false
+    },
+    "showPostCounts": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "align": true,
+    "html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

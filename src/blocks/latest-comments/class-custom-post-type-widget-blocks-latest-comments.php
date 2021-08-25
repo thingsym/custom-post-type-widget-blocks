@@ -19,51 +19,16 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
 
+	/**
+	 * register block_type from metadata
+	 *
+	 * @since 1.3.0
+	 */
 	public function register_block_type() {
 		register_block_type(
-			'custom-post-type-widget-blocks/latest-comments',
+			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/latest-comments',
 			[
-				'attributes'      => [
-					'postType'       => [
-						'type'    => 'string',
-						'default' => 'any',
-					],
-					'align'          => [
-						'type' => 'string',
-						'enum' => [
-							'left',
-							'center',
-							'right',
-							'wide',
-							'full',
-						],
-					],
-					'className'      => [
-						'type' => 'string',
-					],
-					'commentsToShow' => [
-						'type'    => 'number',
-						'default' => 5,
-						'minimum' => 1,
-						'maximum' => 100,
-					],
-					'displayAvatar'  => [
-						'type'    => 'boolean',
-						'default' => true,
-					],
-					'displayDate'    => [
-						'type'    => 'boolean',
-						'default' => true,
-					],
-					'displayExcerpt' => [
-						'type'    => 'boolean',
-						'default' => true,
-					],
-				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
-				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -166,34 +131,30 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 			}
 		}
 
-		$class = 'wp-block-custom-post-type-widget-blocks-latest-comments wp-block-latest-comments';
-		if ( ! empty( $attributes['className'] ) ) {
-			$class .= ' ' . $attributes['className'];
-		}
-		if ( isset( $attributes['align'] ) ) {
-			$class .= " align{$attributes['align']}";
-		}
+		$classnames[] = 'wp-block-latest-comments';
+
 		if ( $attributes['displayAvatar'] ) {
-			$class .= ' has-avatars';
+			$classnames[] = 'has-avatars';
 		}
 		if ( $attributes['displayDate'] ) {
-			$class .= ' has-dates';
+			$classnames[] = 'has-dates';
 		}
 		if ( $attributes['displayExcerpt'] ) {
-			$class .= ' has-excerpts';
+			$classnames[] = 'has-excerpts';
 		}
 		if ( empty( $comments ) ) {
-			$class .= ' no-comments';
+			$classnames[] = 'no-comments';
 		}
-		$classnames = esc_attr( $class );
+
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 
 		return ! empty( $comments ) ? sprintf(
-			'<ol class="%1$s">%2$s</ol>',
-			$classnames,
+			'<ol %1$s>%2$s</ol>',
+			$wrapper_attributes,
 			$list_items_markup
 		) : sprintf(
-			'<div class="%1$s">%2$s</div>',
-			$classnames,
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
 			__( 'No comments to show.', 'custom-post-type-widget-blocks' )
 		);
 	}

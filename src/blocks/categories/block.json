@@ -1,0 +1,34 @@
+{
+  "apiVersion": 1,
+  "name": "custom-post-type-widget-blocks/categories",
+  "title": "Categories (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "Display a list of all categories.",
+  "keywords": [],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "taxonomy": {
+      "type": "string",
+      "default": "category"
+    },
+    "displayAsDropdown": {
+      "type": "boolean",
+      "default": false
+    },
+    "showHierarchy": {
+      "type": "boolean",
+      "default": false
+    },
+    "showPostCounts": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "align": true,
+    "html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

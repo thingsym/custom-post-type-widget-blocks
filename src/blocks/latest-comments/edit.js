@@ -12,7 +12,7 @@ import {
 /**
  * WordPress dependencies
  */
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
 	Disabled,
 	PanelBody,
@@ -20,10 +20,10 @@ import {
 	ToggleControl,
 	SelectControl,
 } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
-import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Minimum number of comments a user can show using this block.
@@ -38,146 +38,99 @@ const MIN_COMMENTS = 1;
  */
 const MAX_COMMENTS = 100;
 
-class LatestComments extends Component {
-	constructor() {
-		super(...arguments);
+export default function LatestComments( { attributes, setAttributes } ) {
+	const {
+		postType,
+		commentsToShow,
+		displayAvatar,
+		displayDate,
+		displayExcerpt,
+	} = attributes;
 
-		this.setPostType = this.setPostType.bind(this);
-		this.setCommentsToShow = this.setCommentsToShow.bind(this);
+	const { postTypes } = useSelect( ( select ) => {
+		return {
+			postTypes: select( coreStore ).getPostTypes(),
+		};
+	}, [] );
 
-		// Create toggles for each attribute; we create them here rather than
-		// passing `this.createToggleAttribute( 'displayAvatar' )` directly to
-		// `onChange` to avoid re-renders.
-		this.toggleDisplayAvatar = this.createToggleAttribute('displayAvatar');
-		this.toggleDisplayDate = this.createToggleAttribute('displayDate');
-		this.toggleDisplayExcerpt = this.createToggleAttribute(
-			'displayExcerpt'
-		);
-	}
-
-	getPostTypeOptions() {
-		const postTypes = this.props.postTypes;
-
+	const getPostTypeOptions = () => {
 		const selectOption = {
-			label: __('All', 'custom-post-type-widget-blocks'),
+			label: __( 'All', 'custom-post-type-widget-blocks' ),
 			value: 'any',
 		};
 
-		const postTypeOptions = map(postTypes, (postType) => {
-			return {
-				value: postType.slug,
-				label: postType.name,
-			};
-		});
-
-		return [selectOption, ...postTypeOptions];
-	}
-
-	setPostType(postType) {
-		const { setAttributes } = this.props;
-
-		setAttributes({ postType });
-	}
-
-	createToggleAttribute(propName) {
-		return () => {
-			const value = this.props.attributes[propName];
-			const { setAttributes } = this.props;
-
-			setAttributes({ [propName]: !value });
-		};
-	}
-
-	setCommentsToShow(commentsToShow) {
-		this.props.setAttributes({ commentsToShow });
-	}
-
-	render() {
-		const {
-			postType,
-			commentsToShow,
-			displayAvatar,
-			displayDate,
-			displayExcerpt,
-		} = this.props.attributes;
-		const postTypeOptions = this.getPostTypeOptions();
-
-		return (
-			<>
-				<InspectorControls>
-					<PanelBody
-						title={__(
-							'Latest comments settings',
-							'custom-post-type-widget-blocks'
-						)}
-					>
-						<SelectControl
-							label={__(
-								'Post Type',
-								'custom-post-type-widget-blocks'
-							)}
-							options={postTypeOptions}
-							value={postType}
-							onChange={this.setPostType}
-						/>
-						<ToggleControl
-							label={__(
-								'Display Avatar',
-								'custom-post-type-widget-blocks'
-							)}
-							checked={displayAvatar}
-							onChange={this.toggleDisplayAvatar}
-						/>
-						<ToggleControl
-							label={__(
-								'Display Date',
-								'custom-post-type-widget-blocks'
-							)}
-							checked={displayDate}
-							onChange={this.toggleDisplayDate}
-						/>
-						<ToggleControl
-							label={__(
-								'Display Excerpt',
-								'custom-post-type-widget-blocks'
-							)}
-							checked={displayExcerpt}
-							onChange={this.toggleDisplayExcerpt}
-						/>
-						<RangeControl
-							label={__(
-								'Number of Comments',
-								'custom-post-type-widget-blocks'
-							)}
-							value={commentsToShow}
-							onChange={this.setCommentsToShow}
-							min={MIN_COMMENTS}
-							max={MAX_COMMENTS}
-							required
-						/>
-					</PanelBody>
-				</InspectorControls>
-				<Disabled>
-					<ServerSideRender
-						block="custom-post-type-widget-blocks/latest-comments"
-						attributes={this.props.attributes}
-					/>
-				</Disabled>
-			</>
+		const postTypeOptions = map(
+			filter( postTypes, {
+				viewable: true,
+				hierarchical: false,
+			} ),
+			( postType ) => {
+				return {
+					value: postType.slug,
+					label: postType.name,
+				};
+			}
 		);
+
+		remove( postTypeOptions, { value: 'attachment' } );
+
+		return [ selectOption, ...postTypeOptions ];
 	}
+
+	return (
+		<div { ...useBlockProps() }>
+			<InspectorControls>
+				<PanelBody
+					title={ __( 'Latest comments settings', 'custom-post-type-widget-blocks' ) } >
+					<SelectControl
+						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
+						options={ getPostTypeOptions() }
+						value={ postType }
+						onChange={ ( selectedPostType ) =>
+							setAttributes( { postType: selectedPostType } )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Display Avatar', 'custom-post-type-widget-blocks' ) }
+						checked={ displayAvatar }
+						onChange={ () =>
+							setAttributes( { displayAvatar: ! displayAvatar } )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Display Date',  'custom-post-type-widget-blocks' ) }
+						checked={ displayDate }
+						onChange={ () =>
+							setAttributes( { displayDate: ! displayDate } )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Display Excerpt', 'custom-post-type-widget-blocks' ) }
+						checked={ displayExcerpt }
+						onChange={ () =>
+							setAttributes( {
+								displayExcerpt: ! displayExcerpt,
+							} )
+						}
+					/>
+					<RangeControl
+						label={ __( 'Number of Comments', 'custom-post-type-widget-blocks' ) }
+						value={ commentsToShow }
+						onChange={ ( value ) =>
+							setAttributes( { commentsToShow: value } )
+						}
+						min={ MIN_COMMENTS }
+						max={ MAX_COMMENTS }
+						required
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<Disabled>
+				<ServerSideRender
+					block="custom-post-type-widget-blocks/latest-comments"
+					attributes={ attributes }
+				/>
+			</Disabled>
+		</div>
+	);
 }
-
-export default withSelect((select) => {
-	const { getPostTypes } = select('core');
-
-	const postTypes = filter(getPostTypes(), {
-		viewable: true,
-		hierarchical: false,
-	});
-	remove(postTypes, { slug: 'attachment' });
-
-	return {
-		postTypes: postTypes,
-	};
-})(LatestComments);

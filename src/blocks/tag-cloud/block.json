@@ -1,0 +1,27 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/tag-cloud",
+  "title": "Tag Cloud (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "A cloud of your most used tags.",
+  "keywords": [],
+  "version": "1.3.0",
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "taxonomy": {
+      "type": "string",
+      "default": "post_tag"
+    },
+    "showTagCounts": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "align": true,
+    "html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}
