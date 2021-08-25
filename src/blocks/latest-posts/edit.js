@@ -111,7 +111,7 @@ class LatestPostsEdit extends Component {
 					this.setState({ taxonomyState: undefined });
 				});
 		} else if (postType != 'any') {
-			if (taxonomies) {
+			if ( taxonomies.length > 0 && taxonomies[0] !== undefined && taxonomies[0].rest_base !== undefined ) {
 				const rest_base = taxonomies[0].rest_base;
 				this.fetchRequest = apiFetch({
 					path: addQueryArgs(`/wp/v2/${rest_base}`),
