@@ -16,7 +16,7 @@
     <whitelist processUncoveredFilesFromWhitelist="true">
       <file>./custom-post-type-widget-blocks.php</file>
       <directory suffix=".php">./inc</directory>
-      <directory suffix=".php">./dist/php</directory>
+      <directory suffix=".php">./dist/blocks</directory>
     </whitelist>
   </filter>
 </phpunit>
