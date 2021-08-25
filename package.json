@@ -96,6 +96,9 @@
       "browser": true,
       "es6": true
     },
+    "plugins": [
+      "react-hooks"
+    ],
     "extends": "eslint:recommended",
     "globals": {
       "Atomics": "readonly",
@@ -112,7 +115,9 @@
       "no-unused-vars": "off",
       "no-prototype-builtins": "off",
       "no-sparse-arrays": "off",
-      "no-undef": "off"
+      "no-undef": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
     },
     "ignorePatterns": [
       "node_modules/",
