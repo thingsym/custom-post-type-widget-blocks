@@ -106,30 +106,6 @@ class Custom_Post_Type_Widget_Blocks {
 	}
 
 	/**
-	 * Set links below a plugin on the Plugins page.
-	 *
-	 * Hooks to plugin_row_meta
-	 *
-	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
-	 *
-	 * @access public
-	 *
-	 * @param array  $links  An array of the plugin's metadata.
-	 * @param string $file   Path to the plugin file relative to the plugins directory.
-	 *
-	 * @return array $links
-	 *
-	 * @since 1.2.1
-	 */
-	public function plugin_metadata_links( $links, $file ) {
-		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
-			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
-		}
-
-		return $links;
-	}
-
-	/**
 	 * Set block editor translations
 	 *
 	 * @access public
@@ -211,6 +187,30 @@ class Custom_Post_Type_Widget_Blocks {
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Posts();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Search();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Tag_Cloud();
+	}
+
+	/**
+	 * Set links below a plugin on the Plugins page.
+	 *
+	 * Hooks to plugin_row_meta
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
+	 *
+	 * @access public
+	 *
+	 * @param array  $links  An array of the plugin's metadata.
+	 * @param string $file   Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array $links
+	 *
+	 * @since 1.2.1
+	 */
+	public function plugin_metadata_links( $links, $file ) {
+		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 }
