@@ -22,7 +22,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $plugin_data
 	 */
-	public $plugin_data;
+	public $plugin_data = array();
 
 	/**
 	 * Public value.
@@ -31,7 +31,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $asset_file
 	 */
-	public $asset_file;
+	public $asset_file = array();
 
 	public function __construct() {
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );

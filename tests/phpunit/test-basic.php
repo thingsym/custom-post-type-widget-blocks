@@ -19,6 +19,18 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
+	function public_variable() {
+		$this->assertIsArray( $this->custom_post_type_widget_blocks->plugin_data );
+		$this->assertEmpty( $this->custom_post_type_widget_blocks->plugin_data );
+
+		$this->assertIsObject( $this->custom_post_type_widget_blocks->update_history );
+		$this->assertIsObject( $this->custom_post_type_widget_blocks->notification );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
 	function basic() {
 		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) );
