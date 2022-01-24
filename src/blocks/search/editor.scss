@@ -1,3 +1,6 @@
+// Included Modules
+@use "../../scss/base-styles/variables";
+
 .wp-block[data-align="center"] {
 	.wp-block-custom-post-type-widget-blocks-search {
 		.wp-block-custom-post-type-widget-blocks-search__inside-wrapper {
@@ -8,11 +11,11 @@
 
 .wp-block-custom-post-type-widget-blocks-search {
 	.wp-block-custom-post-type-widget-blocks-search__input {
-		padding: $grid-unit-10;
+		padding: variables.$grid-unit-10;
 	}
 
 	&.wp-block-custom-post-type-widget-blocks-search__button-inside .wp-block-custom-post-type-widget-blocks-search__inside-wrapper {
-		padding: $grid-unit-05;
+		padding: variables.$grid-unit-05;
 	}
 
 	.wp-block-custom-post-type-widget-blocks-search__button {

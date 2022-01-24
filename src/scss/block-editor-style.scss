@@ -1,11 +1,6 @@
-@import "./base-styles/variables";
-@import "./base-styles/_breakpoints";
-@import "./base-styles/_mixins";
-
-
-@import "../blocks/archives/editor";
-@import "../blocks/categories/editor";
-@import "../blocks/latest-comments/editor";
-@import "../blocks/latest-posts/editor";
-@import "../blocks/search/editor";
-@import "../blocks/tag-cloud/editor";
+@use "../blocks/archives/editor" as archives;
+@use "../blocks/categories/editor" as categories;
+@use "../blocks/latest-comments/editor" as latest-comments;
+@use "../blocks/latest-posts/editor" as latest-posts;
+@use "../blocks/search/editor" as search;
+@use "../blocks/tag-cloud/editor" as tag-cloud;

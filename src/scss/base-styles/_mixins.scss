@@ -1,51 +1,53 @@
+// Included Modules
+@use "breakpoints";
 /**
  * Breakpoint mixins
  */
 
  @mixin break-huge() {
-	@media (min-width: #{ ($break-huge) }) {
+	@media (min-width: #{ (breakpoints.$break-huge) }) {
 		@content;
 	}
 }
 
 @mixin break-wide() {
-	@media (min-width: #{ ($break-wide) }) {
+	@media (min-width: #{ (breakpoints.$break-wide) }) {
 		@content;
 	}
 }
 
 @mixin break-xlarge() {
-	@media (min-width: #{ ($break-xlarge) }) {
+	@media (min-width: #{ (breakpoints.$break-xlarge) }) {
 		@content;
 	}
 }
 
 @mixin break-large() {
-	@media (min-width: #{ ($break-large) }) {
+	@media (min-width: #{ (breakpoints.$break-large) }) {
 		@content;
 	}
 }
 
 @mixin break-medium() {
-	@media (min-width: #{ ($break-medium) }) {
+	@media (min-width: #{ (breakpoints.$break-medium) }) {
 		@content;
 	}
 }
 
 @mixin break-small() {
-	@media (min-width: #{ ($break-small) }) {
+	@media (min-width: #{ (breakpoints.$break-small) }) {
 		@content;
 	}
 }
 
 @mixin break-mobile() {
-	@media (min-width: #{ ($break-mobile) }) {
+	@media (min-width: #{ (breakpoints.$break-mobile) }) {
 		@content;
 	}
 }
 
 @mixin break-zoomed-in() {
-	@media (min-width: #{ ($break-zoomed-in) }) {
+	@media (min-width: #{ (breakpoints.$break-zoomed-in) }) {
 		@content;
 	}
 }

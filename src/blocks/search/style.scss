@@ -1,3 +1,7 @@
+// Included Modules
+@use "../../scss/base-styles/variables";
+@use "../../scss/base-styles/colors";
+
 .wp-block-custom-post-type-widget-blocks-search {
 
 	.wp-block-custom-post-type-widget-blocks-search__button {
@@ -32,7 +36,7 @@
 	.wp-block-custom-post-type-widget-blocks-search__input {
 		flex-grow: 1;
 		min-width: 3em;
-		border: 1px solid $gray-600;
+		border: 1px solid colors.$gray-600;
 	}
 
 	&.wp-block-custom-post-type-widget-blocks-search__button-only {
@@ -42,8 +46,8 @@
 	}
 
 	&.wp-block-custom-post-type-widget-blocks-search__button-inside .wp-block-custom-post-type-widget-blocks-search__inside-wrapper {
-		padding: $grid-unit-05;
-		border: 1px solid $gray-600;
+		padding: variables.$grid-unit-05;
+		border: 1px solid colors.$gray-600;
 
 		.wp-block-custom-post-type-widget-blocks-search__input {
 			border-radius: 0;

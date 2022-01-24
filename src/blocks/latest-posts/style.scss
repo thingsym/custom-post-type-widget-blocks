@@ -1,3 +1,7 @@
+// Included Modules
+@use "../../scss/base-styles/mixins";
+@use "../../scss/base-styles/colors";
+
 .wp-block-custom-post-type-widget-blocks-latest-posts {
 	&.alignleft {
 		/*rtl:ignore*/
@@ -26,7 +30,7 @@
 		}
 	}
 
-	@include break-small {
+	@include mixins.break-small {
 		@for $i from 2 through 6 {
 			&.columns-#{ $i } li {
 				width: calc((100% / #{ $i }) - 1.25em + (1.25em / #{ $i }));
