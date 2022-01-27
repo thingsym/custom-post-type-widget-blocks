@@ -67,7 +67,7 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 					}
 				/>
 				<ToggleControl
-					label={ __( 'Show post counts', 'custom-post-type-widget-blocks' ) }
+					label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
 					checked={ showTagCounts }
 					onChange={ () =>
 						setAttributes( { showTagCounts: ! showTagCounts } )
