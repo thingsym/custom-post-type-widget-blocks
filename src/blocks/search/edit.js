@@ -397,54 +397,56 @@ export default function SearchEdit( {
 	} );
 
 	return (
-		<div { ...blockProps }>
+		<>
 			{ controls }
+			<div { ...blockProps }>
 
-			{ showLabel && (
-				<RichText
-					className="wp-block-custom-post-type-widget-blocks-search__label"
-					aria-label={ __( 'Label text', 'custom-post-type-widget-blocks' ) }
-					placeholder={ __( 'Add label…', 'custom-post-type-widget-blocks' ) }
-					withoutInteractiveFormatting
-					value={ label }
-					onChange={ ( html ) => setAttributes( { label: html } ) }
-				/>
-			) }
-
-			<ResizableBox
-				size={ {
-					width: `${ width }${ widthUnit }`,
-				} }
-				className="wp-block-custom-post-type-widget-blocks-search__inside-wrapper"
-				style={ getWrapperStyles() }
-				minWidth={ MIN_WIDTH }
-				enable={ getResizableSides() }
-				onResizeStart={ ( event, direction, elt ) => {
-					setAttributes( {
-						width: parseInt( elt.offsetWidth, 10 ),
-						widthUnit: 'px',
-					} );
-					toggleSelection( false );
-				} }
-				onResizeStop={ ( event, direction, elt, delta ) => {
-					setAttributes( {
-						width: parseInt( width + delta.width, 10 ),
-					} );
-					toggleSelection( true );
-				} }
-				showHandle={ isSelected }
-			>
-				{ ( 'button-inside' === buttonPosition ||
-					'button-outside' === buttonPosition ) && (
-					<>
-						{ renderTextField() }
-						{ renderButton() }
-					</>
+				{ showLabel && (
+					<RichText
+						className="wp-block-custom-post-type-widget-blocks-search__label"
+						aria-label={ __( 'Label text', 'custom-post-type-widget-blocks' ) }
+						placeholder={ __( 'Add label…', 'custom-post-type-widget-blocks' ) }
+						withoutInteractiveFormatting
+						value={ label }
+						onChange={ ( html ) => setAttributes( { label: html } ) }
+					/>
 				) }
 
-				{ 'button-only' === buttonPosition && renderButton() }
-				{ 'no-button' === buttonPosition && renderTextField() }
-			</ResizableBox>
-		</div>
+				<ResizableBox
+					size={ {
+						width: `${ width }${ widthUnit }`,
+					} }
+					className="wp-block-custom-post-type-widget-blocks-search__inside-wrapper"
+					style={ getWrapperStyles() }
+					minWidth={ MIN_WIDTH }
+					enable={ getResizableSides() }
+					onResizeStart={ ( event, direction, elt ) => {
+						setAttributes( {
+							width: parseInt( elt.offsetWidth, 10 ),
+							widthUnit: 'px',
+						} );
+						toggleSelection( false );
+					} }
+					onResizeStop={ ( event, direction, elt, delta ) => {
+						setAttributes( {
+							width: parseInt( width + delta.width, 10 ),
+						} );
+						toggleSelection( true );
+					} }
+					showHandle={ isSelected }
+				>
+					{ ( 'button-inside' === buttonPosition ||
+						'button-outside' === buttonPosition ) && (
+						<>
+							{ renderTextField() }
+							{ renderButton() }
+						</>
+					) }
+
+					{ 'button-only' === buttonPosition && renderButton() }
+					{ 'no-button' === buttonPosition && renderTextField() }
+				</ResizableBox>
+			</div>
+		</>
 	);
 }
