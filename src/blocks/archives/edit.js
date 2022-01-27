@@ -60,12 +60,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody
-					title={ __(
-						'Archives settings',
-						'custom-post-type-widget-blocks'
-					) }
-				>
+				<PanelBody title={ __( 'Archives settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
 						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
 						options={ getPostTypeOptions() }
@@ -75,10 +70,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
-						label={ __(
-							'Display as Dropdown',
-							'custom-post-type-widget-blocks'
-						) }
+						label={ __( 'Display as Dropdown', 'custom-post-type-widget-blocks' ) }
 						checked={ displayAsDropdown }
 						onChange={ () =>
 							setAttributes( {
@@ -87,10 +79,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
-						label={ __(
-							'Show Post Counts',
-							'custom-post-type-widget-blocks'
-						) }
+						label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
 						checked={ showPostCounts }
 						onChange={ () =>
 							setAttributes( {

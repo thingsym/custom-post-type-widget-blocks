@@ -29,7 +29,12 @@ import { pin } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
 
 export default function CategoriesEdit( {
-	attributes: { taxonomy, displayAsDropdown, showHierarchy, showPostCounts },
+	attributes: {
+		taxonomy,
+		displayAsDropdown,
+		showHierarchy,
+		showPostCounts
+	},
 	setAttributes
 } ) {
 	const selectId = useInstanceId( CategoriesEdit, 'wp-block-custom-post-type-widget-blocks-category-select' );
