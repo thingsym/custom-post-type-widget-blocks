@@ -88,7 +88,7 @@ export default function CategoriesEdit( {
 			( item ) => {
 				return {
 					value: item.slug,
-					label: item.name,
+					label: item.name + ' (' + item.slug + ')',
 				};
 			}
 		);
@@ -174,18 +174,18 @@ export default function CategoriesEdit( {
 			<InspectorControls>
 				<PanelBody title={ __( 'Categories settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
-						label={ __( 'Taxonomy', 'custom-post-type-widget-blocks' ) }
+						label={ __( 'Taxonomy (slug)', 'custom-post-type-widget-blocks' ) }
 						options={ getTaxonomyOptions() }
 						value={ taxonomy }
 						onChange={ toggleAttribute( 'taxonomy' ) }
 					/>
 					<ToggleControl
-						label={ __( 'Display as dropdown', 'custom-post-type-widget-blocks' ) }
+						label={ __( 'Display as Dropdown', 'custom-post-type-widget-blocks' ) }
 						checked={ displayAsDropdown }
 						onChange={ toggleAttribute( 'displayAsDropdown' ) }
 					/>
 					<ToggleControl
-						label={ __( 'Show hierarchy' ) }
+						label={ __( 'Show hierarchy', 'custom-post-type-widget-blocks' ) }
 						checked={ showHierarchy }
 						onChange={ toggleAttribute( 'showHierarchy', 'custom-post-type-widget-blocks' ) }
 					/>

@@ -47,7 +47,7 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 			( item ) => {
 				return {
 					value: item.slug,
-					label: item.name,
+					label: item.name + ' (' + item.slug + ')',
 				};
 			}
 		);
@@ -59,7 +59,7 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 		<InspectorControls>
 			<PanelBody title={ __( 'Tag Cloud settings', 'custom-post-type-widget-blocks' ) } >
 				<SelectControl
-					label={ __( 'Taxonomy', 'custom-post-type-widget-blocks' ) }
+					label={ __( 'Taxonomy (slug)', 'custom-post-type-widget-blocks' ) }
 					options={ getTaxonomyOptions() }
 					value={ taxonomy }
 					onChange={ ( selectedTaxonomy ) =>
