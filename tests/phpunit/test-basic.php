@@ -22,9 +22,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	function public_variable() {
 		$this->assertIsArray( $this->custom_post_type_widget_blocks->plugin_data );
 		$this->assertEmpty( $this->custom_post_type_widget_blocks->plugin_data );
-
-		$this->assertIsObject( $this->custom_post_type_widget_blocks->update_history );
-		$this->assertIsObject( $this->custom_post_type_widget_blocks->notification );
 	}
 
 	/**
