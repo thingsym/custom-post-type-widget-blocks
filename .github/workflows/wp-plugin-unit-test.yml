@@ -75,7 +75,6 @@ jobs:
       - name: Update composer dependencies for lock file
         # Your lock file does not contain a compatible set of packages. Please run composer update.
         run: composer update
-        if: ${{ matrix.php == '7.1' }}
 
       - name: Install composer dependencies
         run: composer install
