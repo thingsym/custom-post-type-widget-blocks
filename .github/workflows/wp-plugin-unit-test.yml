@@ -72,14 +72,18 @@ jobs:
         # See https://github.blog/changelog/2020-02-21-github-actions-breaking-change-ubuntu-virtual-environments-will-no-longer-start-the-mysql-service-automatically/
         run: sudo /etc/init.d/mysql start
 
-      - name: Install PHPUnit
-        run: composer global require "phpunit/phpunit=4.8.*|5.4.*|5.7.*|6.*|7.*"
+      - name: Update composer dependencies for lock file
+        # Your lock file does not contain a compatible set of packages. Please run composer update.
+        run: composer update
 
-      - name: Install PHPUnit Polyfills library
-        run: composer global require "yoast/phpunit-polyfills=1.0.3"
+      - name: Install composer dependencies
+        run: composer install
 
       - name: Install wp tests
         run: bash bin/install-wp-tests.sh wordpress_test root root localhost $WP_VERSION
+
+      - name: Apply a patch
+        run: cp tests/phpunit/patch/class-wp-block-supports.php /tmp/wordpress/wp-includes/class-wp-block-supports.php
 
       - name: Install Node.js package dependencies
         run: npm install
@@ -88,4 +92,8 @@ jobs:
         run: npm run build
 
       - name: Run PHPUnit - WordPress ${{ matrix.wordpress }}
-        run: phpunit
+        run: composer run phpunit
+
+      - name: Run Jest unit test - WordPress ${{ matrix.wordpress }}
+        run: npm run test:jest
+        if: ${{ matrix.php == '7.4' && matrix.wordpress == 'latest' }}
