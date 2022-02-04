@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-27T06:14:24+00:00\n"
+"POT-Creation-Date: 2022-02-04T09:13:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
 
 #. Plugin Name of the plugin
@@ -39,31 +39,31 @@ msgstr "https://www.thingslabo.com/"
 msgid "Become a sponsor"
 msgstr "スポンサーになる"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:57
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:55
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:93
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:91
 msgid "Select Year"
 msgstr "年を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:96
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:94
 msgid "Select Month"
 msgstr "月を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:99
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:97
 msgid "Select Day"
 msgstr "日を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:102
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:100
 msgid "Select Week"
 msgstr "週を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:105
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:103
 msgid "Select Post"
 msgstr "投稿を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:163
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:161
 msgid "No archives to show."
 msgstr "アーカイブがありません。"
 
@@ -87,27 +87,39 @@ msgstr "%s に投稿を公開"
 msgid "Previous and next months"
 msgstr "前と次の月"
 
-#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:82
+#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:85
 msgid "Select Category"
 msgstr "カテゴリーを選択"
 
 #: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:39
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:86
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:85
+#: src/blocks/latest-posts/edit.js:587
 msgid "(no title)"
 msgstr "(タイトルなし)"
 
-#. translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:113
-msgid "%1$s on %2$s"
-msgstr "%2$s に %1$s より"
-
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:158
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:80
 msgid "No comments to show."
 msgstr "コメントはありません。"
 
+#. translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:126
+msgid "%1$s on %2$s"
+msgstr "%2$s に %1$s より"
+
+#. translators: byline. %s: current author.
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:137
+#: src/blocks/latest-posts/edit.js:594
+msgid "by %s"
+msgstr "投稿者: %s"
+
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:159
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:175
+msgid "This content is password protected."
+msgstr "この投稿内容はパスワードで保護されています。"
+
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:57
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:58
-#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:85
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:91
 #: src/blocks/search/variations.js:11
 #: src/blocks/search/variations.js:12
 msgid "Search"
@@ -120,6 +132,8 @@ msgstr "サイトには%sがないため、表示するものはありません�
 
 #: src/blocks/archives/edit.js:38
 #: src/blocks/latest-comments/edit.js:58
+#: src/blocks/latest-posts/edit.js:85
+#: src/blocks/search/edit.js:97
 msgid "All"
 msgstr "すべて"
 
@@ -130,19 +144,24 @@ msgstr "アーカイブ設定"
 #: src/blocks/archives/edit.js:65
 #: src/blocks/calendar/edit.js:132
 #: src/blocks/latest-comments/edit.js:86
+#: src/blocks/latest-posts/edit.js:377
+#: src/blocks/search/edit.js:362
 msgid "Post Type"
 msgstr "ポストタイプ"
 
 #: src/blocks/archives/edit.js:73
+#: src/blocks/categories/edit.js:200
 msgid "Display as Dropdown"
 msgstr "ドロップダウン表示"
 
 #: src/blocks/archives/edit.js:82
+#: src/blocks/categories/edit.js:205
 #: src/blocks/tag-cloud/edit.js:70
 msgid "Show Post Counts"
 msgstr "投稿数を表示"
 
 #: src/blocks/calendar/edit.js:53
+#: src/blocks/categories/edit.js:89
 #: src/blocks/tag-cloud/edit.js:37
 msgid "- Select -"
 msgstr "- 選択 -"
@@ -150,6 +169,47 @@ msgstr "- 選択 -"
 #: src/blocks/calendar/edit.js:126
 msgid "Calendar settings"
 msgstr "カレンダー設定"
+
+#: src/blocks/calendar/edit.js:142
+msgid "Calendar (Custom Post Type)"
+msgstr "カレンダー (カスタム投稿)"
+
+#: src/blocks/calendar/edit.js:146
+msgid "No published posts found."
+msgstr "公開された投稿は見つかりませんでした。"
+
+#: src/blocks/categories/edit.js:85
+msgid "(Untitled)"
+msgstr "(タイトルなし)"
+
+#: src/blocks/categories/edit.js:152
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: src/blocks/categories/edit.js:192
+msgid "Categories settings"
+msgstr "カテゴリー設定"
+
+#: src/blocks/categories/edit.js:194
+#: src/blocks/tag-cloud/edit.js:62
+msgid "Taxonomy (slug)"
+msgstr "分類 (スラッグ)"
+
+#: src/blocks/categories/edit.js:210
+msgid "Show only top level categories"
+msgstr "最上位レベルのカテゴリーのみを表示"
+
+#: src/blocks/categories/edit.js:216
+msgid "Show hierarchy"
+msgstr "階層を表示"
+
+#: src/blocks/categories/edit.js:224
+msgid "Categories (Custom Post Type)"
+msgstr "カテゴリー (カスタム投稿)"
+
+#: src/blocks/categories/edit.js:230
+msgid "Your site does not have any posts, so there is nothing to display here at the moment."
+msgstr "投稿はありません"
 
 #: src/blocks/latest-comments/edit.js:84
 msgid "Latest comments settings"
@@ -171,13 +231,158 @@ msgstr "抜粋を表示"
 msgid "Number of Comments"
 msgstr "コメント件数"
 
+#: src/blocks/latest-posts/edit.js:253
+msgid "Post content settings"
+msgstr "投稿コンテンツ設定"
+
+#: src/blocks/latest-posts/edit.js:255
+msgid "Post content"
+msgstr "投稿コンテンツ"
+
+#: src/blocks/latest-posts/edit.js:263
+msgid "Show:"
+msgstr "表示:"
+
+#: src/blocks/latest-posts/edit.js:266
+msgid "Excerpt"
+msgstr "抜粋"
+
+#: src/blocks/latest-posts/edit.js:268
+msgid "Full post"
+msgstr "投稿全文"
+
+#: src/blocks/latest-posts/edit.js:282
+msgid "Max number of words in excerpt"
+msgstr "抜粋内の最大単語数"
+
+#: src/blocks/latest-posts/edit.js:293
+msgid "Post meta settings"
+msgstr "投稿メタ設定"
+
+#: src/blocks/latest-posts/edit.js:295
+msgid "Display author name"
+msgstr "投稿者名の表示"
+
+#: src/blocks/latest-posts/edit.js:302
+msgid "Display post date"
+msgstr "投稿日を表示"
+
+#: src/blocks/latest-posts/edit.js:310
+msgid "Featured image settings"
+msgstr "アイキャッチ画像設定"
+
+#: src/blocks/latest-posts/edit.js:312
+msgid "Display featured image"
+msgstr "アイキャッチ画像を表示"
+
+#: src/blocks/latest-posts/edit.js:349
+msgid "Image alignment"
+msgstr "画像の位置"
+
+#: src/blocks/latest-posts/edit.js:363
+msgid "Add link to featured image"
+msgstr "アイキャッチ画像のリンクを追加"
+
+#: src/blocks/latest-posts/edit.js:375
+msgid "Sorting and filtering"
+msgstr "並べ替えと絞り込み"
+
+#: src/blocks/latest-posts/edit.js:411
+msgid "Columns"
+msgstr "カラム"
+
+#: src/blocks/latest-posts/edit.js:446
+#: src/blocks/latest-posts/edit.js:487
+msgid "Latest Posts (Custom Post Type)"
+msgstr "最新の記事 (カスタム投稿タイプ)"
+
+#: src/blocks/latest-posts/edit.js:450
+msgid "No posts found."
+msgstr "投稿はありません"
+
+#: src/blocks/latest-posts/edit.js:466
+msgid "List view"
+msgstr "リスト表示"
+
+#: src/blocks/latest-posts/edit.js:472
+msgid "Grid view"
+msgstr "グリッド表示"
+
+#: src/blocks/latest-posts/edit.js:491
+msgid "Not displayed if postType is All."
+msgstr "ポストタイプが「すべて」の場合、表示しません。"
+
+#: src/blocks/latest-posts/edit.js:558
+msgid " … "
+msgstr " … "
+
+#: src/blocks/latest-posts/edit.js:560
+msgid "Read more"
+msgstr "もっと読む"
+
+#: src/blocks/search/edit.js:193
+msgid "Button outside"
+msgstr "ボタン外側"
+
+#: src/blocks/search/edit.js:204
+msgid "Button inside"
+msgstr "ボタン内側"
+
+#: src/blocks/search/edit.js:215
+msgid "No button"
+msgstr "ボタンなし"
+
+#: src/blocks/search/edit.js:264
+msgid "Optional placeholder text"
+msgstr "任意のプレスホルダーテキスト"
+
+#: src/blocks/search/edit.js:269
+msgid "Optional placeholder…"
+msgstr "任意のプレスホルダー…"
+
+#: src/blocks/search/edit.js:310
+msgid "Button text"
+msgstr "ボタンのテキスト"
+
+#: src/blocks/search/edit.js:311
+msgid "Add button text…"
+msgstr "ボタンのテキストを追加…"
+
+#: src/blocks/search/edit.js:328
+msgid "Toggle search label"
+msgstr "検索ラベルを切り替え"
+
+#: src/blocks/search/edit.js:339
+msgid "Change button position"
+msgstr "ボタンの位置を変更"
+
+#: src/blocks/search/edit.js:344
+msgid "Use button with icon"
+msgstr "アイコン付きのボタンを使用"
+
+#: src/blocks/search/edit.js:360
+msgid "Search settings"
+msgstr "設定"
+
+#: src/blocks/search/edit.js:370
+msgid "Width"
+msgstr "幅"
+
+#: src/blocks/search/edit.js:404
+msgid "Percentage Width"
+msgstr "パーセント幅"
+
+#: src/blocks/search/edit.js:495
+msgid "Label text"
+msgstr "ラベルテキスト"
+
+#: src/blocks/search/edit.js:496
+msgid "Add label…"
+msgstr "ラベルを追加…"
+
 #: src/blocks/tag-cloud/edit.js:60
 msgid "Tag Cloud settings"
 msgstr "タグクラウド設定"
-
-#: src/blocks/tag-cloud/edit.js:62
-msgid "Taxonomy (slug)"
-msgstr "分類 (スラッグ)"
 
 #: src/blocks/archives/block.json
 msgctxt "block title"
