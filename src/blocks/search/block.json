@@ -45,9 +45,20 @@
   },
   "supports": {
 		"align": [ "left", "center", "right" ],
-		"__experimentalBorder": {
-			"radius": true,
+		"color": {
+			"gradients": true,
 			"__experimentalSkipSerialization": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"width": true,
+			"__experimentalSkipSerialization": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"width": true
+			}
 		},
 		"html": false
   },

@@ -18,13 +18,15 @@ import {
 	BlockControls,
 	InspectorControls,
 	RichText,
+	__experimentalUseBorderProps as useBorderProps,
 	__experimentalUnitControl as UnitControl,
+	__experimentalUseColorProps as useColorProps,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 import {
-	DropdownMenu,
-	MenuGroup,
-	MenuItem,
+	ToolbarDropdownMenu,
 	ToolbarGroup,
 	Button,
 	ButtonGroup,
@@ -36,7 +38,7 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
-import { search } from '@wordpress/icons';
+import { Icon, search } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -67,7 +69,8 @@ export default function SearchEdit( {
 	attributes,
 	setAttributes,
 	toggleSelection,
-	isSelected
+	isSelected,
+	clientId,
 } ) {
 	const {
 		postType,
@@ -113,9 +116,51 @@ export default function SearchEdit( {
 		return [ selectOption, ...postTypeOptions ];
 	}
 
+	const insertedInNavigationBlock = useSelect(
+		( select ) => {
+			const { getBlockParentsByBlockName, wasBlockJustInserted } = select(
+				blockEditorStore
+			);
+			return (
+				!! getBlockParentsByBlockName( clientId, 'core/navigation' )
+					?.length && wasBlockJustInserted( clientId )
+			);
+		},
+		[ clientId ]
+	);
+	const { __unstableMarkNextChangeAsNotPersistent } = useDispatch(
+		blockEditorStore
+	);
+	useEffect( () => {
+		if ( ! insertedInNavigationBlock ) return;
+		// This side-effect should not create an undo level.
+		__unstableMarkNextChangeAsNotPersistent();
+		setAttributes( {
+			showLabel: false,
+			buttonUseIcon: true,
+			buttonPosition: 'button-inside',
+		} );
+	}, [ insertedInNavigationBlock ] );
+
 	const borderRadius = style?.border?.radius;
+	const borderColor = style?.border?.color;
+	const borderWidth = style?.border?.width;
+	const borderProps = useBorderProps( attributes );
+
+	// Check for old deprecated numerical border radius. Done as a separate
+	// check so that a borderRadius style won't overwrite the longhand
+	// per-corner styles.
+	if ( typeof borderRadius === 'number' ) {
+		borderProps.style.borderRadius = `${ borderRadius }px`;
+	}
+
+	const colorProps = useColorProps( attributes );
 	const unitControlInstanceId = useInstanceId( UnitControl );
 	const unitControlInputId = `wp-block-custom-post-type-widget-blocks-search__width-${ unitControlInstanceId }`;
+	const isButtonPositionInside = 'button-inside' === buttonPosition;
+	const isButtonPositionOutside = 'button-outside' === buttonPosition;
+	const hasNoButton = 'no-button' === buttonPosition;
+	const hasOnlyButton = 'button-only' === buttonPosition;
 
 	const units = useCustomUnits( {
 		availableUnits: [ '%', 'px' ],
@@ -125,26 +170,58 @@ export default function SearchEdit( {
 	const getBlockClassNames = () => {
 		return classnames(
 			className,
-			'button-inside' === buttonPosition
+			isButtonPositionInside
 				? 'wp-block-custom-post-type-widget-blocks-search__button-inside'
 				: undefined,
-			'button-outside' === buttonPosition
+			isButtonPositionOutside
 				? 'wp-block-custom-post-type-widget-blocks-search__button-outside'
 				: undefined,
-			'no-button' === buttonPosition
-				? 'wp-block-custom-post-type-widget-blocks-search__no-button'
-				: undefined,
-			'button-only' === buttonPosition
-				? 'wp-block-custom-post-type-widget-blocks-search__button-only'
-				: undefined,
-			! buttonUseIcon && 'no-button' !== buttonPosition
+			hasNoButton ? 'wp-block-custom-post-type-widget-blocks-search__no-button' : undefined,
+			hasOnlyButton ? 'wp-block-custom-post-type-widget-blocks-search__button-only' : undefined,
+			! buttonUseIcon && ! hasNoButton
 				? 'wp-block-custom-post-type-widget-blocks-search__text-button'
 				: undefined,
-			buttonUseIcon && 'no-button' !== buttonPosition
+			buttonUseIcon && ! hasNoButton
 				? 'wp-block-custom-post-type-widget-blocks-search__icon-button'
 				: undefined
 		);
 	};
+
+	const buttonPositionControls = [
+		{
+			role: 'menuitemradio',
+			title: __( 'Button outside', 'custom-post-type-widget-blocks' ),
+			isActive: buttonPosition === 'button-outside',
+			icon: buttonOutside,
+			onClick: () => {
+				setAttributes( {
+					buttonPosition: 'button-outside',
+				} );
+			},
+		},
+		{
+			role: 'menuitemradio',
+			title: __( 'Button inside', 'custom-post-type-widget-blocks' ),
+			isActive: buttonPosition === 'button-inside',
+			icon: buttonInside,
+			onClick: () => {
+				setAttributes( {
+					buttonPosition: 'button-inside',
+				} );
+			},
+		},
+		{
+			role: 'menuitemradio',
+			title: __( 'No button', 'custom-post-type-widget-blocks' ),
+			isActive: buttonPosition === 'no-button',
+			icon: noButton,
+			onClick: () => {
+				setAttributes( {
+					buttonPosition: 'no-button',
+				} );
+			},
+		},
+	];
 
 	const getButtonPositionIcon = () => {
 		switch ( buttonPosition ) {
@@ -160,21 +237,30 @@ export default function SearchEdit( {
 	};
 
 	const getResizableSides = () => {
-		if ( 'button-only' === buttonPosition ) {
+		if ( hasOnlyButton ) {
 			return {};
 		}
 
 		return {
-			right: align === 'right' ? false : true,
-			left: align === 'right' ? true : false,
+			right: align !== 'right',
+			left: align === 'right',
 		};
 	};
 
 	const renderTextField = () => {
+		// If the input is inside the wrapper, the wrapper gets the border color styles/classes, not the input control.
+		const textFieldClasses = classnames(
+			'wp-block-custom-post-type-widget-blocks-search__input',
+			isButtonPositionInside ? undefined : borderProps.className
+		);
+		const textFieldStyles = isButtonPositionInside
+			? { borderRadius }
+			: borderProps.style;
+
 		return (
 			<input
-				className="wp-block-custom-post-type-widget-blocks-search__input"
-				style={ { borderRadius } }
+				className={ textFieldClasses }
+				style={ textFieldStyles }
 				aria-label={ __( 'Optional placeholder text', 'custom-post-type-widget-blocks' ) }
 				// We hide the placeholder field's placeholder when there is a value. This
 				// stops screen readers from reading the placeholder field's placeholder
@@ -191,20 +277,36 @@ export default function SearchEdit( {
 	};
 
 	const renderButton = () => {
+		// If the button is inside the wrapper, the wrapper gets the border color styles/classes, not the button.
+		const buttonClasses = classnames(
+			'wp-block-custom-post-type-widget-blocks-search__button',
+			colorProps.className,
+			isButtonPositionInside ? undefined : borderProps.className,
+			buttonUseIcon ? 'has-icon' : undefined
+		);
+		const buttonStyles = {
+			...colorProps.style,
+			...( isButtonPositionInside
+				? { borderRadius }
+				: borderProps.style ),
+		};
+
 		return (
 			<>
 				{ buttonUseIcon && (
-					<Button
-						icon={ search }
-						className="wp-block-custom-post-type-widget-blocks-search__button"
-						style={ { borderRadius } }
-					/>
+					<button
+						type="button"
+						className={ buttonClasses }
+						style={ buttonStyles }
+					>
+						<Icon icon={ search } />
+					</button>
 				) }
 
 				{ ! buttonUseIcon && (
 					<RichText
-						className="wp-block-custom-post-type-widget-blocks-search__button"
-						style={ { borderRadius } }
+						className={ buttonClasses }
+						style={ buttonStyles }
 						aria-label={ __( 'Button text', 'custom-post-type-widget-blocks' ) }
 						placeholder={ __( 'Add button text…', 'custom-post-type-widget-blocks' ) }
 						withoutInteractiveFormatting
@@ -232,50 +334,12 @@ export default function SearchEdit( {
 						} }
 						className={ showLabel ? 'is-pressed' : undefined }
 					/>
-					<DropdownMenu
+					<ToolbarDropdownMenu
 						icon={ getButtonPositionIcon() }
 						label={ __( 'Change button position', 'custom-post-type-widget-blocks' ) }
-					>
-						{ ( { onClose } ) => (
-							<MenuGroup className="wp-block-custom-post-type-widget-blocks-search__button-position-menu">
-								<MenuItem
-									icon={ noButton }
-									onClick={ () => {
-										setAttributes( {
-											buttonPosition: 'no-button',
-										} );
-										onClose();
-									} }
-								>
-									{ __( 'No Button' ), 'custom-post-type-widget-blocks' }
-								</MenuItem>
-								<MenuItem
-									icon={ buttonOutside }
-									onClick={ () => {
-										setAttributes( {
-											buttonPosition: 'button-outside',
-										} );
-										onClose();
-									} }
-								>
-									{ __( 'Button Outside', 'custom-post-type-widget-blocks' ) }
-								</MenuItem>
-								<MenuItem
-									icon={ buttonInside }
-									onClick={ () => {
-										setAttributes( {
-											buttonPosition: 'button-inside',
-										} );
-										onClose();
-									} }
-								>
-									{ __( 'Button Inside', 'custom-post-type-widget-blocks' ) }
-								</MenuItem>
-							</MenuGroup>
-						) }
-					</DropdownMenu>
-
-					{ 'no-button' !== buttonPosition && (
+						controls={ buttonPositionControls }
+					/>
+					{ ! hasNoButton && (
 						<ToolbarButton
 							title={ __( 'Use button with icon', 'custom-post-type-widget-blocks' ) }
 							icon={ buttonWithIcon }
@@ -293,12 +357,7 @@ export default function SearchEdit( {
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody
-					title={ __(
-						'Search settings',
-						'custom-post-type-widget-blocks'
-					) }
-				>
+				<PanelBody title={ __( 'Search settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
 						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
 						options={ getPostTypeOptions() }
@@ -373,80 +432,110 @@ export default function SearchEdit( {
 		</>
 	);
 
-	const getWrapperStyles = () => {
-		if ( 'button-inside' === buttonPosition && style?.border?.radius ) {
-			// We have button inside wrapper and a border radius value to apply.
-			// Add default padding so we don't get "fat" corners.
-			//
-			// CSS calc() is used here to support non-pixel units. The inline
-			// style using calc() will only apply if both values have units.
-			const radius = Number.isInteger( borderRadius )
-				? `${ borderRadius }px`
-				: borderRadius;
+	const padBorderRadius = ( radius ) =>
+		radius ? `calc(${ radius } + ${ DEFAULT_INNER_PADDING })` : undefined;
 
-			return {
-				borderRadius: `calc(${ radius } + ${ DEFAULT_INNER_PADDING })`,
+		const getWrapperStyles = () => {
+			const styles = {
+				borderColor,
+				borderWidth: isButtonPositionInside ? borderWidth : undefined,
 			};
-		}
 
-		return undefined;
-	};
+			const isNonZeroBorderRadius = parseInt( borderRadius, 10 ) !== 0;
+
+			if ( isButtonPositionInside && isNonZeroBorderRadius ) {
+				// We have button inside wrapper and a border radius value to apply.
+				// Add default padding so we don't get "fat" corners.
+				//
+				// CSS calc() is used here to support non-pixel units. The inline
+				// style using calc() will only apply if both values have units.
+
+				if ( typeof borderRadius === 'object' ) {
+					// Individual corner border radii present.
+					const {
+						topLeft,
+						topRight,
+						bottomLeft,
+						bottomRight,
+					} = borderRadius;
+
+					return {
+						borderTopLeftRadius: padBorderRadius( topLeft ),
+						borderTopRightRadius: padBorderRadius( topRight ),
+						borderBottomLeftRadius: padBorderRadius( bottomLeft ),
+						borderBottomRightRadius: padBorderRadius( bottomRight ),
+						...styles,
+					};
+				}
+
+				// The inline style using calc() will only apply if both values
+				// supplied to calc() have units. Deprecated block's may have
+				// unitless integer.
+				const radius = Number.isInteger( borderRadius )
+					? `${ borderRadius }px`
+					: borderRadius;
+
+				styles.borderRadius = `calc(${ radius } + ${ DEFAULT_INNER_PADDING })`;
+			}
+
+			return styles;
+		};
 
 	const blockProps = useBlockProps( {
 		className: getBlockClassNames(),
 	} );
 
 	return (
-		<>
+		<div { ...blockProps }>
 			{ controls }
-			<div { ...blockProps }>
 
-				{ showLabel && (
-					<RichText
-						className="wp-block-custom-post-type-widget-blocks-search__label"
-						aria-label={ __( 'Label text', 'custom-post-type-widget-blocks' ) }
-						placeholder={ __( 'Add label…', 'custom-post-type-widget-blocks' ) }
-						withoutInteractiveFormatting
-						value={ label }
-						onChange={ ( html ) => setAttributes( { label: html } ) }
-					/>
+			{ showLabel && (
+				<RichText
+					className="wp-block-custom-post-type-widget-blocks-search__label"
+					aria-label={ __( 'Label text', 'custom-post-type-widget-blocks' ) }
+					placeholder={ __( 'Add label…', 'custom-post-type-widget-blocks' ) }
+					withoutInteractiveFormatting
+					value={ label }
+					onChange={ ( html ) => setAttributes( { label: html } ) }
+				/>
+			) }
+
+			<ResizableBox
+				size={ {
+					width: `${ width }${ widthUnit }`,
+				} }
+				className={ classnames(
+					'wp-block-custom-post-type-widget-blocks-search__inside-wrapper',
+					isButtonPositionInside ? borderProps.className : undefined
+				) }
+				style={ getWrapperStyles() }
+				minWidth={ MIN_WIDTH }
+				enable={ getResizableSides() }
+				onResizeStart={ ( event, direction, elt ) => {
+					setAttributes( {
+						width: parseInt( elt.offsetWidth, 10 ),
+						widthUnit: 'px',
+					} );
+					toggleSelection( false );
+				} }
+				onResizeStop={ ( event, direction, elt, delta ) => {
+					setAttributes( {
+						width: parseInt( width + delta.width, 10 ),
+					} );
+					toggleSelection( true );
+				} }
+				showHandle={ isSelected }
+			>
+				{ ( isButtonPositionInside || isButtonPositionOutside ) && (
+					<>
+						{ renderTextField() }
+						{ renderButton() }
+					</>
 				) }
 
-				<ResizableBox
-					size={ {
-						width: `${ width }${ widthUnit }`,
-					} }
-					className="wp-block-custom-post-type-widget-blocks-search__inside-wrapper"
-					style={ getWrapperStyles() }
-					minWidth={ MIN_WIDTH }
-					enable={ getResizableSides() }
-					onResizeStart={ ( event, direction, elt ) => {
-						setAttributes( {
-							width: parseInt( elt.offsetWidth, 10 ),
-							widthUnit: 'px',
-						} );
-						toggleSelection( false );
-					} }
-					onResizeStop={ ( event, direction, elt, delta ) => {
-						setAttributes( {
-							width: parseInt( width + delta.width, 10 ),
-						} );
-						toggleSelection( true );
-					} }
-					showHandle={ isSelected }
-				>
-					{ ( 'button-inside' === buttonPosition ||
-						'button-outside' === buttonPosition ) && (
-						<>
-							{ renderTextField() }
-							{ renderButton() }
-						</>
-					) }
-
-					{ 'button-only' === buttonPosition && renderButton() }
-					{ 'no-button' === buttonPosition && renderTextField() }
-				</ResizableBox>
-			</div>
-		</>
+					{ hasOnlyButton && renderButton() }
+					{ hasNoButton && renderTextField() }
+			</ResizableBox>
+		</div>
 	);
 }
