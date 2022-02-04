@@ -1,0 +1,68 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/search",
+  "title": "Search (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "Help visitors find your content.",
+  "keywords": [ "find" ],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "any"
+    },
+		"label": {
+			"type": "string",
+			"__experimentalRole": "content"
+		},
+		"showLabel": {
+			"type": "boolean",
+			"default": true
+		},
+		"placeholder": {
+			"type": "string",
+			"default": "",
+			"__experimentalRole": "content"
+		},
+		"width": {
+			"type": "number"
+		},
+		"widthUnit": {
+			"type": "string"
+		},
+		"buttonText": {
+			"type": "string",
+			"__experimentalRole": "content"
+		},
+		"buttonPosition": {
+			"type": "string",
+			"default": "button-outside"
+		},
+		"buttonUseIcon": {
+			"type": "boolean",
+			"default": false
+		}
+  },
+  "supports": {
+		"align": [ "left", "center", "right" ],
+		"color": {
+			"gradients": true,
+			"__experimentalSkipSerialization": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"width": true,
+			"__experimentalSkipSerialization": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"width": true
+			}
+		},
+		"html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

@@ -21,48 +21,25 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	 * @since 1.0.2
 	 *
 	 * @static
-	 * @access private
+	 * @access public
 	 * @var int
 	 */
-	private static $block_id = 0;
+	public static $block_id = 0;
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
 
+	/**
+	 * register block_type from metadata
+	 *
+	 * @since 1.3.0
+	 */
 	public function register_block_type() {
 		register_block_type(
-			'custom-post-type-widget-blocks/categories',
+			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/categories',
 			[
-				'attributes'      => [
-					'taxonomy'          => [
-						'type'    => 'string',
-						'default' => 'category',
-					],
-					'align'             => [
-						'type' => 'string',
-						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
-					],
-					'className'         => [
-						'type' => 'string',
-					],
-					'displayAsDropdown' => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-					'showHierarchy'     => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-					'showPostCounts'    => [
-						'type'    => 'boolean',
-						'default' => false,
-					],
-				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
-				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -73,9 +50,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 		<script type='text/javascript'>
 		/* <![CDATA[ */
 		( function() {
-			var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
+			var dropdown = document.getElementById( '<?php echo esc_js( $dropdown_id ); ?>' );
 			function onCatChange() {
-				if ( dropdown.options[dropdown.selectedIndex].value ) {
+				if ( dropdown.options[ dropdown.selectedIndex ].value != -1 ) {
 					return dropdown.form.submit();
 				}
 			}
@@ -98,6 +75,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			'show_count'   => ! empty( $attributes['showPostCounts'] ),
 			'title_li'     => '',
 		];
+		if ( ! empty( $attributes['showOnlyTopLevel'] ) && $attributes['showOnlyTopLevel'] ) {
+			$args['parent'] = 0;
+		}
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . self::$block_id;
@@ -105,7 +85,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$args['show_option_none'] = __( 'Select Category', 'custom-post-type-widget-blocks' );
 			$args['name']             = 'category' === $attributes['taxonomy'] ? 'category_name' : $attributes['taxonomy'];
 			$args['value_field']      = 'slug';
-			$wrapper_markup           = '<div class="%1$s">%2$s</div>';
+			$wrapper_markup           = '<div %1$s>%2$s</div>';
 			$items_markup             = '<form action="' . esc_url( home_url() ) . '" method="get">';
 			/**
 			 * Filters the arguments for the Categories widget drop-down.
@@ -128,7 +108,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 				$wrapper_markup .= $this->build_dropdown_script( $id );
 			}
 		} else {
-			$wrapper_markup = '<ul class="%1$s">%2$s</ul>';
+			$wrapper_markup = '<ul %1$s>%2$s</ul>';
 			/**
 			 * Filters the arguments for the Categories widget.
 			 *
@@ -147,19 +127,11 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$type         = 'list';
 		}
 
-		$class = "wp-block-custom-post-type-widget-blocks-categories wp-block-custom-post-type-widget-blocks-categories-{$type}";
-
-		if ( isset( $attributes['align'] ) ) {
-			$class .= " align{$attributes['align']}";
-		}
-
-		if ( isset( $attributes['className'] ) ) {
-			$class .= " {$attributes['className']}";
-		}
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "wp-block-custom-post-type-widget-blocks-categories-{$type}" ) );
 
 		return sprintf(
 			$wrapper_markup,
-			esc_attr( $class ),
+			$wrapper_attributes,
 			$items_markup
 		);
 	}

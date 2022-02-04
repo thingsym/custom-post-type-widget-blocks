@@ -19,6 +19,15 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
+	function public_variable() {
+		$this->assertIsArray( $this->custom_post_type_widget_blocks->plugin_data );
+		$this->assertEmpty( $this->custom_post_type_widget_blocks->plugin_data );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
 	function basic() {
 		$this->assertRegExp( '#/custom-post-type-widget-blocks/custom-post-type-widget-blocks.php$#', CUSTOM_POST_TYPE_WIDGET_BLOCKS );
 		$this->assertTrue( class_exists( '\Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks' ) );
@@ -50,7 +59,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
 		$this->assertEquals( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
 
-		$this->assertEquals( 10, has_filter( 'block_categories', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
+		$this->assertEquals( 10, has_filter( 'block_categories_all', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
 
 		$this->assertEquals( 10, has_filter( 'plugin_row_meta', array( $this->custom_post_type_widget_blocks, 'plugin_metadata_links' ) ) );
 	}

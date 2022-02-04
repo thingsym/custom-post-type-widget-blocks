@@ -5,7 +5,6 @@
  */
 import {
 	registerBlockType,
-	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
 } from '@wordpress/blocks';
 
 /**
@@ -15,7 +14,7 @@ import * as custom_post_type_widget_blocks_archives from '../blocks/archives/ind
 import * as custom_post_type_widget_blocks_calendar from '../blocks/calendar/index.js';
 import * as custom_post_type_widget_blocks_categories from '../blocks/categories/index.js';
 import * as custom_post_type_widget_blocks_latest_comments from '../blocks/latest-comments/index.js';
-import * as custom_post_type_widget_blocks_latestPosts from '../blocks/latest-posts/index.js';
+import * as custom_post_type_widget_blocks_latest_posts from '../blocks/latest-posts/index.js';
 import * as custom_post_type_widget_blocks_search from '../blocks/search/index.js';
 import * as custom_post_type_widget_blocks_tag_cloud from '../blocks/tag-cloud/index.js';
 
@@ -27,27 +26,14 @@ import * as custom_post_type_widget_blocks_tag_cloud from '../blocks/tag-cloud/i
  * @param {Object} block The block to be registered.
  *
  */
-const registerBlock = (block) => {
-	if (!block) {
+const registerBlock = ( block ) => {
+	if ( ! block ) {
 		return;
 	}
 	const { metadata, settings, name } = block;
-	if (metadata) {
-		unstable__bootstrapServerSideBlockDefinitions({ [name]: metadata });
-	}
-	registerBlockType(name, settings);
+	registerBlockType( { name, ...metadata }, settings );
 };
 
-/**
- * Function to register core blocks provided by the block editor.
- *
- * @example
- * ```js
- * import { registerCoreBlocks } from '@wordpress/block-library';
- *
- * registerCoreBlocks();
- * ```
- */
 [
 	// Common blocks are grouped at the top to prioritize their display
 	// in various contexts — like the inserter and auto-complete components.
@@ -55,7 +41,7 @@ const registerBlock = (block) => {
 	custom_post_type_widget_blocks_calendar,
 	custom_post_type_widget_blocks_categories,
 	custom_post_type_widget_blocks_latest_comments,
-	custom_post_type_widget_blocks_latestPosts,
+	custom_post_type_widget_blocks_latest_posts,
 	custom_post_type_widget_blocks_search,
 	custom_post_type_widget_blocks_tag_cloud,
-].forEach(registerBlock);
+].forEach( registerBlock );

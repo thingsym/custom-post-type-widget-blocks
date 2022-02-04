@@ -10,7 +10,7 @@
  * After registering this autoload function with SPL, the following line
  * would cause the function to attempt
  * to load the \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Foo class
- * from /dist/php/class-foo.php:
+ * from /dist/blocks/foo/class-bar.php:
  *     new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Foo;
  *
  * @param string|mixed
@@ -47,8 +47,8 @@ spl_autoload_register( // @phpstan-ignore-line
 			$relative_class = preg_replace( '/^(.*)$/', 'inc/class-$1', $relative_class );
 		}
 		elseif ( preg_match( '/^blocks\/custom-post-type-widget-blocks-/', $relative_class ) ) {
-			// load blocks class from /dist/php.
-			$relative_class = preg_replace( '/^blocks\/(custom-post-type-widget-blocks-.*?)$/', 'dist/php/class-$1', $relative_class );
+			// load blocks class from /dist/blocks/foo.
+			$relative_class = preg_replace( '/^blocks\/(custom-post-type-widget-blocks-(.*?))$/', 'dist/blocks/$2/class-$1', $relative_class );
 		}
 
 		$path = plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . $relative_class . '.php';

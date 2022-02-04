@@ -1,12 +1,12 @@
+const config = require( '@wordpress/scripts/config/jest-unit.config.js' );
+
 module.exports = {
-	rootDir: '../../',
-	preset: '@wordpress/jest-preset-default',
-	roots: [
-		'<rootDir>/tests/jest/'
-	],
+	...config,
+	rootDir: './',
+	silent: false,
 	testMatch: [
 		'<rootDir>/tests/jest/*.test.js?(x)',
-		'<rootDir>/tests/jest/**/*.test.js?(x)',
+		'<rootDir>/src/blocks/**/jest/*.test.js?(x)',
 	],
 	testPathIgnorePatterns: [
 		'<rootDir>/.git/',

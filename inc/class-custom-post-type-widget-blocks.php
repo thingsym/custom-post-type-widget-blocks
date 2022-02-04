@@ -22,7 +22,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $plugin_data
 	 */
-	public $plugin_data;
+	public $plugin_data = array();
 
 	/**
 	 * Public value.
@@ -31,7 +31,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $asset_file
 	 */
-	public $asset_file;
+	public $asset_file = array();
 
 	public function __construct() {
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
@@ -53,7 +53,7 @@ class Custom_Post_Type_Widget_Blocks {
 		add_action( 'init', [ $this, 'register_block_editor_styles' ] );
 		add_action( 'init', [ $this, 'register_styles' ] );
 
-		add_filter( 'block_categories', [ $this, 'add_block_categories' ], 10, 2 );
+		add_filter( 'block_categories_all', [ $this, 'add_block_categories' ], 10, 2 );
 
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
 	}
@@ -103,30 +103,6 @@ class Custom_Post_Type_Widget_Blocks {
 			false,
 			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
 		);
-	}
-
-	/**
-	 * Set links below a plugin on the Plugins page.
-	 *
-	 * Hooks to plugin_row_meta
-	 *
-	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
-	 *
-	 * @access public
-	 *
-	 * @param array  $links  An array of the plugin's metadata.
-	 * @param string $file   Path to the plugin file relative to the plugins directory.
-	 *
-	 * @return array $links
-	 *
-	 * @since 1.2.1
-	 */
-	public function plugin_metadata_links( $links, $file ) {
-		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
-			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
-		}
-
-		return $links;
 	}
 
 	/**
@@ -211,6 +187,30 @@ class Custom_Post_Type_Widget_Blocks {
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Posts();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Search();
 		new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Tag_Cloud();
+	}
+
+	/**
+	 * Set links below a plugin on the Plugins page.
+	 *
+	 * Hooks to plugin_row_meta
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
+	 *
+	 * @access public
+	 *
+	 * @param array  $links  An array of the plugin's metadata.
+	 * @param string $file   Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array $links
+	 *
+	 * @since 1.2.1
+	 */
+	public function plugin_metadata_links( $links, $file ) {
+		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 }

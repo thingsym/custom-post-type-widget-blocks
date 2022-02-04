@@ -9,6 +9,7 @@ import {
 	times,
 	unescape,
 } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -19,290 +20,225 @@ import {
 	Spinner,
 	ToggleControl,
 	SelectControl,
-	Disabled,
+	VisuallyHidden,
 } from '@wordpress/components';
-import {
-	compose,
-	withInstanceId,
-} from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { InspectorControls } from '@wordpress/block-editor';
-import { Component } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
+import { useSelect } from '@wordpress/data';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import ServerSideRender from '@wordpress/server-side-render';
+import { pin } from '@wordpress/icons';
+import { store as coreStore } from '@wordpress/core-data';
 
-class CategoriesEdit extends Component {
-	constructor() {
-		super(...arguments);
+export default function CategoriesEdit( {
+	attributes: {
+		taxonomy,
+		displayAsDropdown,
+		showHierarchy,
+		showPostCounts,
+		showOnlyTopLevel,
+	},
+	setAttributes
+} ) {
+	const selectId = useInstanceId( CategoriesEdit, 'wp-block-custom-post-type-widget-blocks-category-select' );
 
-		this.setTaxonomy = this.setTaxonomy.bind(this);
+	const { taxonomies, categories, isRequesting } = useSelect( ( select ) => {
+		const { getEntityRecords, getTaxonomies, isResolving } = select( coreStore );
+		const query = { per_page: -1, hide_empty: true };
+		if ( showOnlyTopLevel ) {
+			query.parent = 0;
+		}
+		return {
+			taxonomies: getTaxonomies( { per_page: -1 } ),
+			categories: getEntityRecords( 'taxonomy', taxonomy, query ),
+			isRequesting: isResolving( 'getEntityRecords', [
+				'taxonomy',
+				taxonomy,
+				query,
+			] ),
+		};
+	}, [
+		taxonomy,
+		showOnlyTopLevel,
+	] );
 
-		this.toggleDisplayAsDropdown = this.toggleDisplayAsDropdown.bind(this);
-		this.toggleShowPostCounts = this.toggleShowPostCounts.bind(this);
-		this.toggleShowHierarchy = this.toggleShowHierarchy.bind(this);
-	}
-	getTaxonomyOptions() {
-		const taxonomies = this.props.taxonomies;
+	const getCategoriesList = ( parentId ) => {
+		if ( categories === null ) {
+			return [];
+		}
+		if ( ! categories?.length ) {
+			return [];
+		}
+		if ( parentId === null ) {
+			return categories;
+		}
+		return categories.filter( ( { parent } ) => parent === parentId );
+	};
 
+	const getCategoryListClassName = ( level ) => {
+		return `wp-block-custom-post-type-widget-blocks-categories__list wp-block-custom-post-type-widget-blocks-categories__list-level-${ level }`;
+	};
+
+	const toggleAttribute = ( attributeName ) => ( newValue ) =>
+		setAttributes( { [ attributeName ]: newValue } );
+
+	const renderCategoryName = ( name ) =>
+		! name ?  __( '(Untitled)', 'custom-post-type-widget-blocks' ) : unescape( name ).trim();
+
+	const getTaxonomyOptions = () => {
 		const selectOption = {
-			label: __('- Select -', 'custom-post-type-widget-blocks'),
+			label: __('- Select -', 'custom-post-type-widget-blocks' ),
 			value: '',
 			disabled: true,
 		};
 
-		const taxonomyOptions = map(taxonomies, (taxonomy) => {
-			return {
-				value: taxonomy.slug,
-				label: taxonomy.name,
-			};
-		});
+		const taxonomyOptions = map(
+			filter( taxonomies, {
+				show_cloud: true,
+				hierarchical: true,
+			} ),
+			( item ) => {
+				return {
+					value: item.slug,
+					label: item.name + ' (' + item.slug + ')',
+				};
+			}
+		);
 
-		return [selectOption, ...taxonomyOptions];
-	}
+		return [ selectOption, ...taxonomyOptions ];
+	};
 
-	setTaxonomy(taxonomy) {
-		const { setAttributes } = this.props;
-
-		setAttributes({ taxonomy });
-	}
-
-	toggleDisplayAsDropdown() {
-		const { attributes, setAttributes } = this.props;
-		const { displayAsDropdown } = attributes;
-
-		setAttributes({ displayAsDropdown: !displayAsDropdown });
-	}
-
-	toggleShowPostCounts() {
-		const { attributes, setAttributes } = this.props;
-		const { showPostCounts } = attributes;
-
-		setAttributes({ showPostCounts: !showPostCounts });
-	}
-
-	toggleShowHierarchy() {
-		const { attributes, setAttributes } = this.props;
-		const { showHierarchy } = attributes;
-
-		setAttributes({ showHierarchy: !showHierarchy });
-	}
-
-	getCategories(parentId = null) {
-		const categories = this.props.categories;
-		if (!categories || !categories.length) {
-			return [];
-		}
-
-		if (parentId === null) {
-			return categories;
-		}
-
-		return categories.filter((category) => category.parent === parentId);
-	}
-
-	getCategoryListClassName(level) {
-		return `wp-block-custom-post-type-widget-blocks-categories__list wp-block-custom-post-type-widget-blocks-categories__list-level-${level}`;
-	}
-
-	renderCategoryName(category) {
-		if (!category.name) {
-			return __('(Untitled)', 'custom-post-type-widget-blocks');
-		}
-
-		return unescape(category.name).trim();
-	}
-
-	renderCategoryList() {
-		const { showHierarchy } = this.props.attributes;
+	const renderCategoryList = () => {
 		const parentId = showHierarchy ? 0 : null;
-		const categories = this.getCategories(parentId);
-
+		const categoriesList = getCategoriesList( parentId );
 		return (
-			<ul className={this.getCategoryListClassName(0)}>
-				{categories.map((category) =>
-					this.renderCategoryListItem(category, 0)
-				)}
+			<ul className={ getCategoryListClassName( 0 ) }>
+				{ categoriesList.map( ( category ) =>
+					renderCategoryListItem( category, 0 )
+				) }
 			</ul>
 		);
-	}
+	};
 
-	renderCategoryListItem(category, level) {
-		const { showHierarchy, showPostCounts } = this.props.attributes;
-		const childCategories = this.getCategories(category.id);
-
+	const renderCategoryListItem = ( category, level ) => {
+		const childCategories = getCategoriesList( category.id );
+		const { id, link, count, name } = category;
 		return (
-			<li key={category.id}>
-				<a
-					href={category.link}
-					target="_blank"
-					rel="noreferrer noopener"
-				>
-					{this.renderCategoryName(category)}
+			<li key={ id }>
+				<a href={ link } target="_blank" rel="noreferrer noopener">
+					{ renderCategoryName( name ) }
 				</a>
-				{showPostCounts && (
+				{ showPostCounts && (
 					<span className="wp-block-custom-post-type-widget-blocks-categories__post-count">
-						{' '}
-						({category.count})
+						{ ` (${ count })` }
 					</span>
-				)}
-
-				{showHierarchy && !!childCategories.length && (
-					<ul className={this.getCategoryListClassName(level + 1)}>
-						{childCategories.map((childCategory) =>
-							this.renderCategoryListItem(
-								childCategory,
-								level + 1
-							)
-						)}
+				) }
+				{ showHierarchy && !! childCategories.length && (
+					<ul className={ getCategoryListClassName( level + 1 ) }>
+						{ childCategories.map( ( childCategory ) =>
+							renderCategoryListItem( childCategory, level + 1 )
+						) }
 					</ul>
-				)}
+				) }
 			</li>
 		);
-	}
+	};
 
-	renderCategoryDropdown() {
-		const { instanceId } = this.props;
-		const { showHierarchy } = this.props.attributes;
+	const renderCategoryDropdown = () => {
 		const parentId = showHierarchy ? 0 : null;
-		const categories = this.getCategories(parentId);
-		const selectId = `blocks-category-select-${instanceId}`;
+		const categoriesList = getCategoriesList( parentId );
 		return (
 			<>
-				<label htmlFor={selectId} className="screen-reader-text">
-					{__('Categories', 'custom-post-type-widget-blocks')}
-				</label>
+				<VisuallyHidden as="label" htmlFor={ selectId }>
+					{ __( 'Categories', 'custom-post-type-widget-blocks' ) }
+				</VisuallyHidden>
 				<select
-					id={selectId}
+					id={ selectId }
 					className="wp-block-custom-post-type-widget-blocks-categories__dropdown"
 				>
-					{categories.map((category) =>
-						this.renderCategoryDropdownItem(category, 0)
-					)}
+					{ categoriesList.map( ( category ) =>
+						renderCategoryDropdownItem( category, 0 )
+					) }
 				</select>
 			</>
 		);
-	}
+	};
 
-	renderCategoryDropdownItem(category, level) {
-		const { showHierarchy, showPostCounts } = this.props.attributes;
-		const childCategories = this.getCategories(category.id);
-
+	const renderCategoryDropdownItem = ( category, level ) => {
+		const { id, count, name } = category;
+		const childCategories = getCategoriesList( id );
 		return [
-			<option key={category.id}>
-				{times(level * 3, () => '\xa0')}
-				{this.renderCategoryName(category)}
-				{!!showPostCounts ? ` (${category.count})` : ''}
+			<option key={ id }>
+				{ times( level * 3, () => '\xa0' ) }
+				{ renderCategoryName( name ) }
+				{ showPostCounts && ` (${ count })` }
 			</option>,
 			showHierarchy &&
-				!!childCategories.length &&
-				childCategories.map((childCategory) =>
-					this.renderCategoryDropdownItem(childCategory, level + 1)
+				!! childCategories.length &&
+				childCategories.map( ( childCategory ) =>
+					renderCategoryDropdownItem( childCategory, level + 1 )
 				),
 		];
-	}
+	};
 
-	render() {
-		const { attributes, isRequesting } = this.props;
-		const {
-			taxonomy,
-			displayAsDropdown,
-			showHierarchy,
-			showPostCounts,
-		} = attributes;
-		const taxonomyOptions = this.getTaxonomyOptions();
+	const blockProps = useBlockProps( {
+		className: classnames( {
+			'wp-block-custom-post-type-widget-blocks-categories': true,
+		} ),
+	} );
 
-		const inspectorControls = (
+	return (
+		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody
-					title={__(
-						'Categories settings',
-						'custom-post-type-widget-blocks'
-					)}
-				>
+				<PanelBody title={ __( 'Categories settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
-						label={__('Taxonomy', 'custom-post-type-widget-blocks')}
-						options={taxonomyOptions}
-						value={taxonomy}
-						onChange={this.setTaxonomy}
+						label={ __( 'Taxonomy (slug)', 'custom-post-type-widget-blocks' ) }
+						options={ getTaxonomyOptions() }
+						value={ taxonomy }
+						onChange={ toggleAttribute( 'taxonomy' ) }
 					/>
 					<ToggleControl
-						label={__(
-							'Display as Dropdown',
-							'custom-post-type-widget-blocks'
-						)}
-						checked={displayAsDropdown}
-						onChange={this.toggleDisplayAsDropdown}
+						label={ __( 'Display as Dropdown', 'custom-post-type-widget-blocks' ) }
+						checked={ displayAsDropdown }
+						onChange={ toggleAttribute( 'displayAsDropdown' ) }
 					/>
 					<ToggleControl
-						label={__(
-							'Show Hierarchy',
-							'custom-post-type-widget-blocks'
-						)}
-						checked={showHierarchy}
-						onChange={this.toggleShowHierarchy}
+						label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
+						checked={ showPostCounts }
+						onChange={ toggleAttribute( 'showPostCounts' ) }
 					/>
 					<ToggleControl
-						label={__(
-							'Show Post Counts',
-							'custom-post-type-widget-blocks'
-						)}
-						checked={showPostCounts}
-						onChange={this.toggleShowPostCounts}
+						label={ __( 'Show only top level categories', 'custom-post-type-widget-blocks' ) }
+						checked={ showOnlyTopLevel }
+						onChange={ toggleAttribute( 'showOnlyTopLevel' ) }
 					/>
+					{ ! showOnlyTopLevel && (
+						<ToggleControl
+							label={ __( 'Show hierarchy', 'custom-post-type-widget-blocks' ) }
+							checked={ showHierarchy }
+							onChange={ toggleAttribute( 'showHierarchy' ) }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
-		);
-
-		if (isRequesting) {
-			return (
-				<>
-					{inspectorControls}
-					<Placeholder
-						icon="admin-post"
-						label={__(
-							'Categories',
-							'custom-post-type-widget-blocks'
-						)}
-					>
-						<Spinner />
-					</Placeholder>
-				</>
-			);
-		}
-
-		return (
-			<>
-				{inspectorControls}
-				<Disabled>
-					<ServerSideRender
-						key="categories"
-						block="custom-post-type-widget-blocks/categories"
-						attributes={attributes}
-					/>
-				</Disabled>
-			</>
-		);
-	}
+			{ isRequesting && (
+				<Placeholder icon={ pin } label={ __( 'Categories (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
+					<Spinner />
+				</Placeholder>
+			) }
+			{ ! isRequesting && ( categories === null || categories.length === 0 ) && (
+				<p>
+					{ __(
+						'Your site does not have any posts, so there is nothing to display here at the moment.',
+						'custom-post-type-widget-blocks'
+					) }
+				</p>
+			) }
+			{ ! isRequesting &&
+				categories != null &&
+				categories.length > 0 &&
+				( displayAsDropdown
+					? renderCategoryDropdown()
+					: renderCategoryList() ) }
+		</div>
+	);
 }
-export default compose(
-	withSelect((select) => {
-		const { getEntityRecords, getTaxonomies } = select('core');
-		const { isResolving } = select('core/data');
-		const query = { per_page: -1, hide_empty: true };
-		const taxonomies = filter(getTaxonomies(), {
-			show_cloud: true,
-			hierarchical: true,
-		});
-
-		return {
-			taxonomies: taxonomies,
-			categories: getEntityRecords('taxonomy', 'category', query),
-			isRequesting: isResolving('core', 'getEntityRecords', [
-				'taxonomy',
-				'category',
-				query,
-			]),
-		};
-	}),
-	withInstanceId
-)(CategoriesEdit);

@@ -1,0 +1,27 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/calendar",
+  "title": "Calendar (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "A calendar of your site’s posts.",
+  "keywords": [ "posts", "archive" ],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "month": {
+      "type": "integer"
+    },
+    "year": {
+      "type": "integer"
+    }
+  },
+  "supports": {
+    "align": true
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

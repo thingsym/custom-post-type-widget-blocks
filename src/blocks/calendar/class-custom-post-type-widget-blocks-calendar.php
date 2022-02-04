@@ -29,33 +29,16 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		add_action( 'init', [ $this, 'register_block_type' ] );
 	}
 
+	/**
+	 * register block_type from metadata
+	 *
+	 * @since 1.3.0
+	 */
 	public function register_block_type() {
-		register_block_type(
-			'custom-post-type-widget-blocks/calendar',
+		register_block_type_from_metadata(
+			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/calendar',
 			[
-				'attributes'      => [
-					'postType'  => [
-						'type'    => 'string',
-						'default' => 'post',
-					],
-					'align'     => [
-						'type' => 'string',
-						'enum' => [ 'left', 'center', 'right', 'wide', 'full' ],
-					],
-					'className' => [
-						'type' => 'string',
-					],
-					'month'     => [
-						'type' => 'integer',
-					],
-					'year'      => [
-						'type' => 'integer',
-					],
-				],
 				'render_callback' => [ $this, 'render_callback' ],
-				'editor_script'   => 'custom-post-type-widget-blocks-editor-script',
-				'editor_style'    => 'custom-post-type-widget-blocks-editor-style',
-				'style'           => 'custom-post-type-widget-blocks-style',
 			]
 		);
 	}
@@ -83,17 +66,13 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
 		add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
 
-		$class = 'wp-block-custom-post-type-widget-blocks-calendar wp-block-calendar';
-		if ( isset( $attributes['className'] ) ) {
-			$class .= ' ' . $attributes['className'];
-		}
-		if ( isset( $attributes['align'] ) ) {
-			$class .= ' align' . $attributes['align'];
-		}
+		$classnames[] = 'wp-block-calendar';
+
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 
 		$output = sprintf(
-			'<div class="%1$s">%2$s</div>',
-			$class,
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
 			$this->get_custom_post_type_calendar( true, false )
 		);
 

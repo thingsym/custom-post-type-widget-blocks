@@ -1,0 +1,96 @@
+{
+  "apiVersion": 2,
+  "name": "custom-post-type-widget-blocks/latest-posts",
+  "title": "Latest Posts (Custom Post Type)",
+  "category": "custom-post-type-widget-blocks",
+  "description": "Display a list of your most recent posts.",
+  "keywords": [ "recent posts" ],
+  "textdomain": "custom-post-type-widget-blocks",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "taxonomy": {
+      "type": "string",
+      "default": "category"
+    },
+    "categories": {
+      "type": "string"
+    },
+    "selectedAuthor": {
+      "type": "number"
+    },
+    "postsToShow": {
+      "type": "number",
+      "default": 5
+    },
+    "displayPostContent": {
+      "type": "boolean",
+      "default": false
+    },
+    "displayPostContentRadio": {
+      "type": "string",
+      "default": "excerpt"
+    },
+    "excerptLength": {
+      "type": "number",
+      "default": 55
+    },
+    "displayAuthor": {
+      "type": "boolean",
+      "default": false
+    },
+    "displayPostDate": {
+      "type": "boolean",
+      "default": false
+    },
+    "postLayout": {
+      "type": "string",
+      "default": "list"
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "order": {
+      "type": "string",
+      "default": "desc"
+    },
+    "orderBy": {
+      "type": "string",
+      "default": "date"
+    },
+    "displayFeaturedImage": {
+      "type": "boolean",
+      "default": false
+    },
+    "featuredImageAlign": {
+      "type": "string",
+      "enum": [ "left", "center", "right" ]
+    },
+    "featuredImageSizeSlug": {
+      "type": "string",
+      "default": "thumbnail"
+    },
+    "featuredImageSizeWidth": {
+      "type": "number",
+      "default": null
+    },
+    "featuredImageSizeHeight": {
+      "type": "number",
+      "default": null
+    },
+    "addLinkToFeaturedImage": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "align": true,
+    "html": false
+  },
+  "editorScript" : "custom-post-type-widget-blocks-editor-script",
+  "editorStyle": "custom-post-type-widget-blocks-editor-style",
+  "style": "custom-post-type-widget-blocks-style"
+}

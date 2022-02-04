@@ -18,118 +18,83 @@ import {
 	SelectControl,
 	Disabled,
 } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
-import { Component } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
 
-class ArchivesEdit extends Component {
-	constructor() {
-		super(...arguments);
+export default function ArchivesEdit( { attributes, setAttributes } ) {
+	const { postType, showPostCounts, displayAsDropdown } = attributes;
 
-		this.setPostType = this.setPostType.bind(this);
-	}
+	const { postTypes } = useSelect( ( select ) => {
+		return {
+			postTypes: select( coreStore ).getPostTypes(),
+		};
+	}, [] );
 
-	getPostTypeOptions() {
-		const postTypes = this.props.postTypes;
-
+	const getPostTypeOptions = () => {
 		const selectOption = {
-			label: __('- Select -', 'custom-post-type-widget-blocks'),
-			value: '',
-			disabled: true,
+			label: __( 'All', 'custom-post-type-widget-blocks' ),
+			value: 'any',
 		};
 
-		const postTypeOptions = map(postTypes, (postType) => {
-			return {
-				value: postType.slug,
-				label: postType.name,
-			};
-		});
-
-		return [selectOption, ...postTypeOptions];
-	}
-
-	setPostType(postType) {
-		const { setAttributes } = this.props;
-
-		setAttributes({ postType });
-	}
-
-	render() {
-		const { setAttributes } = this.props;
-		const {
-			postType,
-			showPostCounts,
-			displayAsDropdown,
-		} = this.props.attributes;
-		const postTypeOptions = this.getPostTypeOptions();
-
-		return (
-			<>
-				<InspectorControls>
-					<PanelBody
-						title={__(
-							'Archives settings',
-							'custom-post-type-widget-blocks'
-						)}
-					>
-						<SelectControl
-							label={__(
-								'Post Type',
-								'custom-post-type-widget-blocks'
-							)}
-							options={postTypeOptions}
-							value={postType}
-							onChange={this.setPostType}
-						/>
-						<ToggleControl
-							label={__(
-								'Display as Dropdown',
-								'custom-post-type-widget-blocks'
-							)}
-							checked={displayAsDropdown}
-							onChange={() =>
-								setAttributes({
-									displayAsDropdown: !displayAsDropdown,
-								})
-							}
-						/>
-						<ToggleControl
-							label={__(
-								'Show Post Counts',
-								'custom-post-type-widget-blocks'
-							)}
-							checked={showPostCounts}
-							onChange={() =>
-								setAttributes({
-									showPostCounts: !showPostCounts,
-								})
-							}
-						/>
-					</PanelBody>
-				</InspectorControls>
-				<Disabled>
-					<ServerSideRender
-						block="custom-post-type-widget-blocks/archives"
-						attributes={this.props.attributes}
-					/>
-				</Disabled>
-			</>
+		const postTypeOptions = map(
+			filter( postTypes, {
+				viewable: true,
+				hierarchical: false,
+			} ),
+			( postType ) => {
+				return {
+					value: postType.slug,
+					label: postType.name,
+				};
+			}
 		);
+
+		remove( postTypeOptions, { value: 'attachment' } );
+
+		return [ selectOption, ...postTypeOptions ];
 	}
+
+	return (
+		<div { ...useBlockProps() }>
+			<InspectorControls>
+				<PanelBody title={ __( 'Archives settings', 'custom-post-type-widget-blocks' ) } >
+					<SelectControl
+						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
+						options={ getPostTypeOptions() }
+						value={ postType }
+						onChange={ ( selectedPostType ) =>
+							setAttributes( { postType: selectedPostType } )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Display as Dropdown', 'custom-post-type-widget-blocks' ) }
+						checked={ displayAsDropdown }
+						onChange={ () =>
+							setAttributes( {
+								displayAsDropdown: ! displayAsDropdown,
+							} )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
+						checked={ showPostCounts }
+						onChange={ () =>
+							setAttributes( {
+								showPostCounts: ! showPostCounts,
+							} )
+						}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<Disabled>
+				<ServerSideRender
+					block="custom-post-type-widget-blocks/archives"
+					attributes={ attributes }
+				/>
+			</Disabled>
+		</div>
+	);
 }
-
-export default withSelect((select) => {
-	const { getPostTypes } = select('core');
-
-	const postTypes = filter(getPostTypes(), {
-		viewable: true,
-		hierarchical: false,
-	});
-	remove(postTypes, { slug: 'attachment' });
-
-	return {
-		postTypes: postTypes,
-	};
-})(ArchivesEdit);
