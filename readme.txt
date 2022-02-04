@@ -3,8 +3,8 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.2.2
-Tested up to: 5.7.0
+Stable tag: 1.3.0
+Tested up to: 5.9.0
 Requires at least: 5.8.0
 Requires PHP: 7.1
 License: GPL2 or later
@@ -20,8 +20,8 @@ You can filter by registered Custom Post Type or Taxonomy on the Block Editor.
 
 = Compatibility =
 
-- WordPress version 5.4 or later
-- Gutenberg version 7.5 or later
+- WordPress version 5.8 or later
+- Gutenberg version 10.7 or later
 
 = Descriptions of Widget Blocks =
 
@@ -95,7 +95,41 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
-= 1.2.2 =
+= 1.3.0 - 2022.02.04 =
+* tested up to 5.9.0
+* add Upgrade Notice
+* update japanese translation
+* update pot
+* remove global scope
+* fix fragment
+* add text domain for translation
+* add showOnlyTopLevel option to categories block
+* improve code structure
+* fix classnames
+* add jest unit test only php 7.4
+* fix to composer install via composer.json
+* apply a patch temporarily for CI
+* change to Requires at least 5.8.0
+* change os to ubuntu-20.04
+* bump up yoast/phpunit-polyfills version
+* add test case for jest
+* move jest.config.js to root path
+* fix npm scripts
+* update npm dependencies for jest
+* fix label
+* fix test case
+* change scss library from LibSass to dart sass
+* set the initial value an empty array
+* fix directory with phpunit.xml
+* change hook to block_categories_all
+* refine code, compliant with the latest source code for standard widget blocks
+* fix base styles
+* add timeout-minutes to workflows
+* add react-hooks plugin settings
+* change php distribute folder to blocks for block.json
+* fix Cannot read property 'rest_base' of undefined
+
+= 1.2.2 - 2021.07.12 =
 * update dependencies with package.json
 * fix .editorconfig
 * ReferenceError: Cannot access 'A' before initialization
@@ -105,7 +139,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * add node-sass with package.json
 * add asset-release workflow
 
-= 1.2.1 =
+= 1.2.1 - 2021.03.16 =
 * fix npm scripts
 * remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 * update japanese translation
@@ -117,7 +151,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * add FUNDING.yml
 * add donate link
 
-= 1.2.0 =
+= 1.2.0 - 2020.11.23 =
 * fix test case
 * move hooks
 * add load_dynamic_blocks method
@@ -126,13 +160,13 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * remove .travis.yml, change CI/CD to Github Actions
 * add workflow for unit test
 
-= 1.1.1 =
+= 1.1.1 - 2020.09.15 =
 * check class exists
 * imporve code with phpcs, phpmd and phpstan
 * reformat
 * add strict mode
 
-= 1.1.0 =
+= 1.1.0 - 2020.08.18 =
 * update japanese translation
 * update pot
 * imporve code with phpcs, phpmd and phpstan
@@ -149,9 +183,14 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * change wp_enqueue_script dependency setting to use asset file
 * add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 
-= 1.0.1 =
+= 1.0.1 - 2020.05.06 - for plugin review =
 * remove prefix `__` with define name
 * add LICENSE file
 
-= 1.0.0 =
+= 1.0.0 - 2020.05.04 =
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.3.0 =
+* Requires at least version 5.8.0 of the WordPress

@@ -24,8 +24,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 ## Compatibility
 
-- WordPress version 5.4 or later
-- Gutenberg version 7.5 or later
+- WordPress version 5.8 or later
+- Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
 
 ## Descriptions of Widget Blocks
 
@@ -87,7 +87,7 @@ For operation compatibility between PHP version and WordPress version, see below
 ```console
 cd /path/to/custom-post-type-widget-blocks
 
-# Install package
+# Install npm package
 npm intall
 
 # Show tasks list
@@ -102,7 +102,7 @@ npm run build
 ```console
 cd /path/to/custom-post-type-widget-blocks
 
-# Install package
+# Install composer package
 composer intall
 
 # Show tasks list
@@ -110,6 +110,18 @@ composer run --list
 
 # Run test
 composer run phpunit
+```
+
+### Javascript unit testing with Jest
+
+```console
+cd /path/to/custom-post-type-widget-blocks
+
+# Install npm package
+npm intall
+
+# Run test
+npm run test:jest
 ```
 
 ## Contribution
@@ -125,6 +137,41 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 5. Create new Pull Request
 
 ## Changelog
+
+### [1.3.0] - 2022.02.04
+
+* tested up to 5.9.0
+* add Upgrade Notice
+* update japanese translation
+* update pot
+* remove global scope
+* fix fragment
+* add text domain for translation
+* add showOnlyTopLevel option to categories block
+* improve code structure
+* fix classnames
+* add jest unit test only php 7.4
+* fix to composer install via composer.json
+* apply a patch temporarily for CI
+* change to Requires at least 5.8.0
+* change os to ubuntu-20.04
+* bump up yoast/phpunit-polyfills version
+* add test case for jest
+* move jest.config.js to root path
+* fix npm scripts
+* update npm dependencies for jest
+* fix label
+* fix test case
+* change scss library from LibSass to dart sass
+* set the initial value an empty array
+* fix directory with phpunit.xml
+* change hook to block_categories_all
+* refine code, compliant with the latest source code for standard widget blocks
+* fix base styles
+* add timeout-minutes to workflows
+* add react-hooks plugin settings
+* change php distribute folder to blocks for block.json
+* fix Cannot read property 'rest_base' of undefined
 
 ### [1.2.2] - 2021.07.12
 
@@ -193,6 +240,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 ### [1.0.0] - 2020.05.04
 
 * initial release
+
+## Upgrade Notice
+
+* Version 1.3.0
+	* Requires at least version 5.8.0 of the WordPress
 
 ## License
 
