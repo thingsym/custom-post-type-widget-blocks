@@ -138,6 +138,41 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.3.0] - 2022.02.04
+
+* tested up to 5.9.0
+* add Upgrade Notice
+* update japanese translation
+* update pot
+* remove global scope
+* fix fragment
+* add text domain for translation
+* add showOnlyTopLevel option to categories block
+* improve code structure
+* fix classnames
+* add jest unit test only php 7.4
+* fix to composer install via composer.json
+* apply a patch temporarily for CI
+* change to Requires at least 5.8.0
+* change os to ubuntu-20.04
+* bump up yoast/phpunit-polyfills version
+* add test case for jest
+* move jest.config.js to root path
+* fix npm scripts
+* update npm dependencies for jest
+* fix label
+* fix test case
+* change scss library from LibSass to dart sass
+* set the initial value an empty array
+* fix directory with phpunit.xml
+* change hook to block_categories_all
+* refine code, compliant with the latest source code for standard widget blocks
+* fix base styles
+* add timeout-minutes to workflows
+* add react-hooks plugin settings
+* change php distribute folder to blocks for block.json
+* fix Cannot read property 'rest_base' of undefined
+
 ### [1.2.2] - 2021.07.12
 
 * update dependencies with package.json
