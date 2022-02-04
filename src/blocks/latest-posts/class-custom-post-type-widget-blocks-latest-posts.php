@@ -76,7 +76,6 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 		$recent_posts = get_posts( apply_filters( 'custom_post_type_widget_blocks/latest_posts/widget_posts_args', $args ) );
 
 		$list_items_markup = '';
-		global $post;
 
 		foreach ( $recent_posts as $post ) {
 			$post_link = esc_url( get_permalink( $post ) );
