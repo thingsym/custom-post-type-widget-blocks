@@ -78,17 +78,15 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 	);
 
 	return (
-		<>
-			{ inspectorControls }
-			<div { ...useBlockProps() }>
-				<Disabled>
-					<ServerSideRender
-						key="tag-cloud"
-						block="custom-post-type-widget-blocks/tag-cloud"
-						attributes={ attributes }
-					/>
-				</Disabled>
-			</div>
-		</>
+		<div { ...useBlockProps() }>
+		{ inspectorControls }
+			<Disabled>
+				<ServerSideRender
+					key="tag-cloud"
+					block="custom-post-type-widget-blocks/tag-cloud"
+					attributes={ attributes }
+				/>
+			</Disabled>
+		</div>
 	);
 }

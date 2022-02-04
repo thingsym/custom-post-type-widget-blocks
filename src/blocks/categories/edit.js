@@ -9,6 +9,7 @@ import {
 	times,
 	unescape,
 } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -179,8 +180,14 @@ export default function CategoriesEdit( {
 		];
 	};
 
+	const blockProps = useBlockProps( {
+		className: classnames( {
+			'wp-block-custom-post-type-widget-blocks-categories': true,
+		} ),
+	} );
+
 	return (
-		<div { ...useBlockProps() }>
+		<div { ...blockProps }>
 			<InspectorControls>
 				<PanelBody title={ __( 'Categories settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl

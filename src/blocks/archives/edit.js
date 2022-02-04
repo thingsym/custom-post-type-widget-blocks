@@ -58,7 +58,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 	}
 
 	return (
-		<>
+		<div { ...useBlockProps() }>
 			<InspectorControls>
 				<PanelBody title={ __( 'Archives settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
@@ -89,14 +89,12 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...useBlockProps() }>
-				<Disabled>
-					<ServerSideRender
-						block="custom-post-type-widget-blocks/archives"
-						attributes={ attributes }
-					/>
-				</Disabled>
-			</div>
-		</>
+			<Disabled>
+				<ServerSideRender
+					block="custom-post-type-widget-blocks/archives"
+					attributes={ attributes }
+				/>
+			</Disabled>
+		</div>
 	);
 }

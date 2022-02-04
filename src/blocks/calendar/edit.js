@@ -120,7 +120,7 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 
 
 	return (
-		<>
+		<div { ...blockProps }>
 			<InspectorControls>
 				<PanelBody
 					title={ __(
@@ -138,25 +138,23 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				{ ! hasPosts && (
-						<Placeholder icon={ icon } label={ __( 'Calendar' ) }>
-							{ ! hasPostsResolved ? (
-								<Spinner />
-							) : (
-								__( 'No published posts found.' )
-							) }
-						</Placeholder>
-				) }
-				{ hasPosts && (
-						<Disabled>
-							<ServerSideRender
-								block="custom-post-type-widget-blocks/calendar"
-								attributes={ { ...attributes, ...getYearMonth( date ) } }
-							/>
-						</Disabled>
-				) }
-			</div>
-		</>
+			{ ! hasPosts && (
+				<Placeholder icon={ icon } label={ __( 'Calendar (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
+					{ ! hasPostsResolved ? (
+						<Spinner />
+					) : (
+						__( 'No published posts found.', 'custom-post-type-widget-blocks' )
+					) }
+				</Placeholder>
+			) }
+			{ hasPosts && (
+				<Disabled>
+					<ServerSideRender
+						block="custom-post-type-widget-blocks/calendar"
+						attributes={ { ...attributes, ...getYearMonth( date ) } }
+					/>
+				</Disabled>
+			) }
+		</div>
 	);
 }
