@@ -131,7 +131,7 @@
   },
   "scripts": {
     "makepot:php": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../custom-post-type-widget-blocks ../custom-post-type-widget-blocks/languages/custom-post-type-widget-blocks.pot",
-    "makepot:wpcli": "wp i18n make-pot . ./languages/custom-post-type-widget-blocks.pot --include=src --exclude=dist,bin,tests,node_modules,vendor",
+    "makepot:wpcli": "wp i18n make-pot . ./languages/custom-post-type-widget-blocks.pot --include=inc,src --exclude=dist,bin,tests,node_modules,vendor",
     "msgfmt:ja": "msgfmt languages/custom-post-type-widget-blocks-ja.po -o languages/custom-post-type-widget-blocks-ja.mo",
     "msgfmt": "run-p msgfmt:*",
     "po2json:ja": "po2json languages/custom-post-type-widget-blocks-ja.po languages/custom-post-type-widget-blocks-ja-custom-post-type-widget-blocks-editor-script.json -f jed",
