@@ -443,7 +443,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		return (
 			<div { ...blockProps }>
 				{ inspectorControls }
-				<Placeholder icon={ pin } label={ __( 'Latest Posts', 'custom-post-type-widget-blocks' ) }>
+				<Placeholder icon={ pin } label={ __( 'Latest Posts (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
 					{ ! Array.isArray( latestPosts ) ? (
 						<Spinner />
 					) : (
@@ -484,7 +484,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				<BlockControls>
 					<ToolbarGroup controls={ layoutControls } />
 				</BlockControls>
-				<Placeholder icon={ pin } label={ __( 'Latest Posts', 'custom-post-type-widget-blocks' ) }>
+				<Placeholder icon={ pin } label={ __( 'Latest Posts (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
 					{ ! Array.isArray( latestPosts ) ? (
 						<Spinner />
 					) : (

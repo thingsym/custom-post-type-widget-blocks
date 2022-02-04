@@ -131,12 +131,11 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				esc_html( $title )
 			);
 
-
 			if ( isset( $attributes['displayAuthor'] ) && $attributes['displayAuthor'] ) {
 				$author_display_name = get_the_author_meta( 'display_name', $post->post_author );
 
 				/* translators: byline. %s: current author. */
-				$byline = sprintf( __( 'by %s' ), $author_display_name );
+				$byline = sprintf( __( 'by %s', 'custom-post-type-widget-blocks' ), $author_display_name );
 
 				if ( ! empty( $author_display_name ) ) {
 					$list_items_markup .= sprintf(
@@ -158,7 +157,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				&& isset( $attributes['displayPostContentRadio'] ) && 'excerpt' === $attributes['displayPostContentRadio'] ) {
 
 				if ( post_password_required( $post ) ) {
-					$trimmed_excerpt = __( 'This content is password protected.' );
+					$trimmed_excerpt = __( 'This content is password protected.', 'custom-post-type-widget-blocks' );
 				}
 				else {
 					$trimmed_excerpt = get_the_excerpt( $post );
@@ -174,7 +173,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				&& isset( $attributes['displayPostContentRadio'] ) && 'full_post' === $attributes['displayPostContentRadio'] ) {
 
 				if ( post_password_required( $post ) ) {
-					$post_content = __( 'This content is password protected.' );
+					$post_content = __( 'This content is password protected.', 'custom-post-type-widget-blocks' );
 				}
 				else {
 					$post_content = html_entity_decode( $post->post_content, ENT_QUOTES, get_option( 'blog_charset' ) );

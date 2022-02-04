@@ -85,7 +85,7 @@ export default function CategoriesEdit( {
 
 	const getTaxonomyOptions = () => {
 		const selectOption = {
-			label: __('- Select -', 'custom-post-type-widget-blocks'),
+			label: __('- Select -', 'custom-post-type-widget-blocks' ),
 			value: '',
 			disabled: true,
 		};
@@ -148,7 +148,7 @@ export default function CategoriesEdit( {
 		return (
 			<>
 				<VisuallyHidden as="label" htmlFor={ selectId }>
-					{ 'Categories', 'custom-post-type-widget-blocks' }
+					{ __( 'Categories', 'custom-post-type-widget-blocks' ) }
 				</VisuallyHidden>
 				<select
 					id={ selectId }
@@ -214,7 +214,7 @@ export default function CategoriesEdit( {
 				</PanelBody>
 			</InspectorControls>
 			{ isRequesting && (
-				<Placeholder icon={ pin } label={ __( 'Categories', 'custom-post-type-widget-blocks' ) }>
+				<Placeholder icon={ pin } label={ __( 'Categories (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
 					<Spinner />
 				</Placeholder>
 			) }
