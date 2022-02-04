@@ -33,7 +33,8 @@ export default function CategoriesEdit( {
 		taxonomy,
 		displayAsDropdown,
 		showHierarchy,
-		showPostCounts
+		showPostCounts,
+		showOnlyTopLevel,
 	},
 	setAttributes
 } ) {
@@ -42,6 +43,9 @@ export default function CategoriesEdit( {
 	const { taxonomies, categories, isRequesting } = useSelect( ( select ) => {
 		const { getEntityRecords, getTaxonomies, isResolving } = select( coreStore );
 		const query = { per_page: -1, hide_empty: true };
+		if ( showOnlyTopLevel ) {
+			query.parent = 0;
+		}
 		return {
 			taxonomies: getTaxonomies( { per_page: -1 } ),
 			categories: getEntityRecords( 'taxonomy', taxonomy, query ),
@@ -53,6 +57,7 @@ export default function CategoriesEdit( {
 		};
 	}, [
 		taxonomy,
+		showOnlyTopLevel,
 	] );
 
 	const getCategoriesList = ( parentId ) => {
@@ -190,15 +195,22 @@ export default function CategoriesEdit( {
 						onChange={ toggleAttribute( 'displayAsDropdown' ) }
 					/>
 					<ToggleControl
-						label={ __( 'Show hierarchy', 'custom-post-type-widget-blocks' ) }
-						checked={ showHierarchy }
-						onChange={ toggleAttribute( 'showHierarchy', 'custom-post-type-widget-blocks' ) }
-					/>
-					<ToggleControl
 						label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
 						checked={ showPostCounts }
 						onChange={ toggleAttribute( 'showPostCounts' ) }
 					/>
+					<ToggleControl
+						label={ __( 'Show only top level categories', 'custom-post-type-widget-blocks' ) }
+						checked={ showOnlyTopLevel }
+						onChange={ toggleAttribute( 'showOnlyTopLevel' ) }
+					/>
+					{ ! showOnlyTopLevel && (
+						<ToggleControl
+							label={ __( 'Show hierarchy', 'custom-post-type-widget-blocks' ) }
+							checked={ showHierarchy }
+							onChange={ toggleAttribute( 'showHierarchy' ) }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			{ isRequesting && (

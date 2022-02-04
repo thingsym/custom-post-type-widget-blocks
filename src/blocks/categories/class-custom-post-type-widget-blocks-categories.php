@@ -75,6 +75,9 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			'show_count'   => ! empty( $attributes['showPostCounts'] ),
 			'title_li'     => '',
 		];
+		if ( ! empty( $attributes['showOnlyTopLevel'] ) && $attributes['showOnlyTopLevel'] ) {
+			$args['parent'] = 0;
+		}
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 			$id                       = 'wp-block-custom-post-type-widget-blocks-categories-' . self::$block_id;
