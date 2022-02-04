@@ -206,6 +206,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 * initial release
 
+## Upgrade Notice
+
+* Version 1.3.0
+	* Requires at least version 5.8.0 of the WordPress
+
 ## License
 
 Licensed under [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html).

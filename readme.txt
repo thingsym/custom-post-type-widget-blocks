@@ -155,3 +155,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 = 1.0.0 - 2020.05.04 =
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.3.0 =
+* Requires at least version 5.8.0 of the WordPress
