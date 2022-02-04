@@ -66,7 +66,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
 		add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
 
-		$classnames[] = 'wp-block-custom-post-type-widget-blocks-calendar wp-block-calendar';
+		$classnames[] = 'wp-block-calendar';
 
 		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 

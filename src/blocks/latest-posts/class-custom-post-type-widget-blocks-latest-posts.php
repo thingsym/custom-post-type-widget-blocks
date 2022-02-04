@@ -97,9 +97,9 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 					$image_style .= sprintf( 'max-height:%spx;', $attributes['featuredImageSizeHeight'] );
 				}
 
-				$image_classes = 'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image';
+				$image_classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image';
 				if ( isset( $attributes['featuredImageAlign'] ) ) {
-					$image_classes .= ' align' . $attributes['featuredImageAlign'];
+					$image_classnames[] = 'align' . $attributes['featuredImageAlign'];
 				}
 
 				$featured_image = get_the_post_thumbnail(
@@ -120,7 +120,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				}
 				$list_items_markup .= sprintf(
 					'<div class="%1$s">%2$s</div>',
-					esc_attr( $image_classes ),
+					esc_attr( implode( ' ', $image_classnames ) ),
 					$featured_image
 				);
 			}
@@ -191,29 +191,29 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 
 		wp_reset_postdata();
 
-		$class = 'wp-block-custom-post-type-widget-blocks-latest-posts wp-block-custom-post-type-widget-blocks-latest-posts__list';
+		$classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__list';
 
 		if ( isset( $attributes['align'] ) ) {
-			$class .= ' align' . $attributes['align'];
+			$classnames[] = 'align' . $attributes['align'];
 		}
 
 		if ( isset( $attributes['postLayout'] ) && 'grid' === $attributes['postLayout'] ) {
-			$class .= ' is-grid';
+			$classnames[] = 'is-grid';
 		}
 
 		if ( isset( $attributes['columns'] ) && 'grid' === $attributes['postLayout'] ) {
-			$class .= ' columns-' . $attributes['columns'];
+			$classnames[] = 'columns-' . $attributes['columns'];
 		}
 
 		if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
-			$class .= ' has-dates';
+			$classnames[] = 'has-dates';
 		}
 
 		if ( isset( $attributes['displayAuthor'] ) && $attributes['displayAuthor'] ) {
-			$class .= ' has-author';
+			$classnames[] = 'has-author';
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 
 		return sprintf(
 			'<ul %1$s>%2$s</ul>',

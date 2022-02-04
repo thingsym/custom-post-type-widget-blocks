@@ -82,7 +82,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$args['show_option_none'] = __( 'Select Category', 'custom-post-type-widget-blocks' );
 			$args['name']             = 'category' === $attributes['taxonomy'] ? 'category_name' : $attributes['taxonomy'];
 			$args['value_field']      = 'slug';
-			$wrapper_markup           = '<div class="%1$s">%2$s</div>';
+			$wrapper_markup           = '<div %1$s>%2$s</div>';
 			$items_markup             = '<form action="' . esc_url( home_url() ) . '" method="get">';
 			/**
 			 * Filters the arguments for the Categories widget drop-down.
@@ -105,7 +105,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 				$wrapper_markup .= $this->build_dropdown_script( $id );
 			}
 		} else {
-			$wrapper_markup = '<ul class="%1$s">%2$s</ul>';
+			$wrapper_markup = '<ul %1$s>%2$s</ul>';
 			/**
 			 * Filters the arguments for the Categories widget.
 			 *
@@ -124,19 +124,11 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$type         = 'list';
 		}
 
-		$class = "wp-block-custom-post-type-widget-blocks-categories wp-block-custom-post-type-widget-blocks-categories-{$type}";
-
-		if ( isset( $attributes['align'] ) ) {
-			$class .= " align{$attributes['align']}";
-		}
-
-		if ( isset( $attributes['className'] ) ) {
-			$class .= " {$attributes['className']}";
-		}
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "wp-block-custom-post-type-widget-blocks-categories-{$type}" ) );
 
 		return sprintf(
 			$wrapper_markup,
-			esc_attr( $class ),
+			$wrapper_attributes,
 			$items_markup
 		);
 	}

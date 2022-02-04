@@ -47,11 +47,9 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		$show_post_count = ! empty( $attributes['showPostCounts'] );
 		$this->posttype  = $attributes['postType'];
 
-		$class = 'wp-block-custom-post-type-widget-blocks-archives';
-
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
-			$class .= ' wp-block-custom-post-type-widget-blocks-archives-dropdown';
+			$classnames[] = 'wp-block-custom-post-type-widget-blocks-archives-dropdown';
 
 			$dropdown_id = esc_attr( uniqid( 'wp-block-custom-post-type-widget-blocks-archives-' ) );
 			$title       = __( 'Archives', 'custom-post-type-widget-blocks' );
@@ -112,14 +110,16 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 		<option value="">' . $label . '</option>' . $archives . '</select>';
 
+			$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+
 			return sprintf(
-				'<div class="%1$s">%2$s</div>',
-				esc_attr( $class ),
+				'<div %1$s>%2$s</div>',
+				$wrapper_attributes,
 				$block_content
 			);
 		}
 
-		$class .= ' wp-block-custom-post-type-widget-blocks-archives-list';
+		$classnames[] = 'wp-block-custom-post-type-widget-blocks-archives-list';
 
 		/**
 		 * Filters the arguments for the Archives widget.
@@ -152,9 +152,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
 		remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
 
-		$classnames = esc_attr( $class );
-
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classnames ) );
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 
 		if ( empty( $archives ) ) {
 			return sprintf(
