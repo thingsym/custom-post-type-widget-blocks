@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-27T06:55:30+00:00\n"
+"POT-Creation-Date: 2022-02-04T09:13:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
 
 #. Plugin Name of the plugin
@@ -39,31 +39,31 @@ msgstr ""
 msgid "Become a sponsor"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:57
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:55
 msgid "Archives"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:93
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:91
 msgid "Select Year"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:96
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:94
 msgid "Select Month"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:99
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:97
 msgid "Select Day"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:102
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:100
 msgid "Select Week"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:105
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:103
 msgid "Select Post"
 msgstr ""
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:163
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:161
 msgid "No archives to show."
 msgstr ""
 
@@ -87,27 +87,39 @@ msgstr ""
 msgid "Previous and next months"
 msgstr ""
 
-#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:82
+#: src/blocks/categories/class-custom-post-type-widget-blocks-categories.php:85
 msgid "Select Category"
 msgstr ""
 
 #: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:39
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:86
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:85
+#: src/blocks/latest-posts/edit.js:587
 msgid "(no title)"
 msgstr ""
 
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:80
+msgid "No comments to show."
+msgstr ""
+
 #. translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:113
+#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:126
 msgid "%1$s on %2$s"
 msgstr ""
 
-#: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:158
-msgid "No comments to show."
+#. translators: byline. %s: current author.
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:137
+#: src/blocks/latest-posts/edit.js:594
+msgid "by %s"
+msgstr ""
+
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:159
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:175
+msgid "This content is password protected."
 msgstr ""
 
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:57
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:58
-#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:85
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:91
 #: src/blocks/search/variations.js:11
 #: src/blocks/search/variations.js:12
 msgid "Search"
@@ -120,6 +132,8 @@ msgstr ""
 
 #: src/blocks/archives/edit.js:38
 #: src/blocks/latest-comments/edit.js:58
+#: src/blocks/latest-posts/edit.js:85
+#: src/blocks/search/edit.js:97
 msgid "All"
 msgstr ""
 
@@ -130,25 +144,71 @@ msgstr ""
 #: src/blocks/archives/edit.js:65
 #: src/blocks/calendar/edit.js:132
 #: src/blocks/latest-comments/edit.js:86
+#: src/blocks/latest-posts/edit.js:377
+#: src/blocks/search/edit.js:362
 msgid "Post Type"
 msgstr ""
 
 #: src/blocks/archives/edit.js:73
+#: src/blocks/categories/edit.js:200
 msgid "Display as Dropdown"
 msgstr ""
 
 #: src/blocks/archives/edit.js:82
+#: src/blocks/categories/edit.js:205
 #: src/blocks/tag-cloud/edit.js:70
 msgid "Show Post Counts"
 msgstr ""
 
 #: src/blocks/calendar/edit.js:53
+#: src/blocks/categories/edit.js:89
 #: src/blocks/tag-cloud/edit.js:37
 msgid "- Select -"
 msgstr ""
 
 #: src/blocks/calendar/edit.js:126
 msgid "Calendar settings"
+msgstr ""
+
+#: src/blocks/calendar/edit.js:142
+msgid "Calendar (Custom Post Type)"
+msgstr ""
+
+#: src/blocks/calendar/edit.js:146
+msgid "No published posts found."
+msgstr ""
+
+#: src/blocks/categories/edit.js:85
+msgid "(Untitled)"
+msgstr ""
+
+#: src/blocks/categories/edit.js:152
+msgid "Categories"
+msgstr ""
+
+#: src/blocks/categories/edit.js:192
+msgid "Categories settings"
+msgstr ""
+
+#: src/blocks/categories/edit.js:194
+#: src/blocks/tag-cloud/edit.js:62
+msgid "Taxonomy (slug)"
+msgstr ""
+
+#: src/blocks/categories/edit.js:210
+msgid "Show only top level categories"
+msgstr ""
+
+#: src/blocks/categories/edit.js:216
+msgid "Show hierarchy"
+msgstr ""
+
+#: src/blocks/categories/edit.js:224
+msgid "Categories (Custom Post Type)"
+msgstr ""
+
+#: src/blocks/categories/edit.js:230
+msgid "Your site does not have any posts, so there is nothing to display here at the moment."
 msgstr ""
 
 #: src/blocks/latest-comments/edit.js:84
@@ -171,12 +231,157 @@ msgstr ""
 msgid "Number of Comments"
 msgstr ""
 
-#: src/blocks/tag-cloud/edit.js:60
-msgid "Tag Cloud settings"
+#: src/blocks/latest-posts/edit.js:253
+msgid "Post content settings"
 msgstr ""
 
-#: src/blocks/tag-cloud/edit.js:62
-msgid "Taxonomy (slug)"
+#: src/blocks/latest-posts/edit.js:255
+msgid "Post content"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:263
+msgid "Show:"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:266
+msgid "Excerpt"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:268
+msgid "Full post"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:282
+msgid "Max number of words in excerpt"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:293
+msgid "Post meta settings"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:295
+msgid "Display author name"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:302
+msgid "Display post date"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:310
+msgid "Featured image settings"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:312
+msgid "Display featured image"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:349
+msgid "Image alignment"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:363
+msgid "Add link to featured image"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:375
+msgid "Sorting and filtering"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:411
+msgid "Columns"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:446
+#: src/blocks/latest-posts/edit.js:487
+msgid "Latest Posts (Custom Post Type)"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:450
+msgid "No posts found."
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:466
+msgid "List view"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:472
+msgid "Grid view"
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:491
+msgid "Not displayed if postType is All."
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:558
+msgid " … "
+msgstr ""
+
+#: src/blocks/latest-posts/edit.js:560
+msgid "Read more"
+msgstr ""
+
+#: src/blocks/search/edit.js:193
+msgid "Button outside"
+msgstr ""
+
+#: src/blocks/search/edit.js:204
+msgid "Button inside"
+msgstr ""
+
+#: src/blocks/search/edit.js:215
+msgid "No button"
+msgstr ""
+
+#: src/blocks/search/edit.js:264
+msgid "Optional placeholder text"
+msgstr ""
+
+#: src/blocks/search/edit.js:269
+msgid "Optional placeholder…"
+msgstr ""
+
+#: src/blocks/search/edit.js:310
+msgid "Button text"
+msgstr ""
+
+#: src/blocks/search/edit.js:311
+msgid "Add button text…"
+msgstr ""
+
+#: src/blocks/search/edit.js:328
+msgid "Toggle search label"
+msgstr ""
+
+#: src/blocks/search/edit.js:339
+msgid "Change button position"
+msgstr ""
+
+#: src/blocks/search/edit.js:344
+msgid "Use button with icon"
+msgstr ""
+
+#: src/blocks/search/edit.js:360
+msgid "Search settings"
+msgstr ""
+
+#: src/blocks/search/edit.js:370
+msgid "Width"
+msgstr ""
+
+#: src/blocks/search/edit.js:404
+msgid "Percentage Width"
+msgstr ""
+
+#: src/blocks/search/edit.js:495
+msgid "Label text"
+msgstr ""
+
+#: src/blocks/search/edit.js:496
+msgid "Add label…"
+msgstr ""
+
+#: src/blocks/tag-cloud/edit.js:60
+msgid "Tag Cloud settings"
 msgstr ""
 
 #: src/blocks/archives/block.json
