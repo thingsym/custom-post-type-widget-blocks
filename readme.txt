@@ -20,8 +20,8 @@ You can filter by registered Custom Post Type or Taxonomy on the Block Editor.
 
 = Compatibility =
 
-- WordPress version 5.4 or later
-- Gutenberg version 7.5 or later
+- WordPress version 5.8 or later
+- Gutenberg version 10.7 or later
 
 = Descriptions of Widget Blocks =
 
@@ -95,7 +95,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Changelog ==
 
-= 1.2.2 =
+= 1.2.2 - 2021.07.12 =
 * update dependencies with package.json
 * fix .editorconfig
 * ReferenceError: Cannot access 'A' before initialization
@@ -105,7 +105,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * add node-sass with package.json
 * add asset-release workflow
 
-= 1.2.1 =
+= 1.2.1 - 2021.03.16 =
 * fix npm scripts
 * remove CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 * update japanese translation
@@ -117,7 +117,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * add FUNDING.yml
 * add donate link
 
-= 1.2.0 =
+= 1.2.0 - 2020.11.23 =
 * fix test case
 * move hooks
 * add load_dynamic_blocks method
@@ -126,13 +126,13 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * remove .travis.yml, change CI/CD to Github Actions
 * add workflow for unit test
 
-= 1.1.1 =
+= 1.1.1 - 2020.09.15 =
 * check class exists
 * imporve code with phpcs, phpmd and phpstan
 * reformat
 * add strict mode
 
-= 1.1.0 =
+= 1.1.0 - 2020.08.18 =
 * update japanese translation
 * update pot
 * imporve code with phpcs, phpmd and phpstan
@@ -149,9 +149,9 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 * change wp_enqueue_script dependency setting to use asset file
 * add CUSTOM_POST_TYPE_WIDGET_BLOCKS_PATH constant
 
-= 1.0.1 =
+= 1.0.1 - 2020.05.06 - for plugin review =
 * remove prefix `__` with define name
 * add LICENSE file
 
-= 1.0.0 =
+= 1.0.0 - 2020.05.04 =
 * Initial release

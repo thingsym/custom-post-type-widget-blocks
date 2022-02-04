@@ -24,8 +24,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 ## Compatibility
 
-- WordPress version 5.4 or later
-- Gutenberg version 7.5 or later
+- WordPress version 5.8 or later
+- Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
 
 ## Descriptions of Widget Blocks
 
@@ -87,7 +87,7 @@ For operation compatibility between PHP version and WordPress version, see below
 ```console
 cd /path/to/custom-post-type-widget-blocks
 
-# Install package
+# Install npm package
 npm intall
 
 # Show tasks list
@@ -102,7 +102,7 @@ npm run build
 ```console
 cd /path/to/custom-post-type-widget-blocks
 
-# Install package
+# Install composer package
 composer intall
 
 # Show tasks list
@@ -110,6 +110,18 @@ composer run --list
 
 # Run test
 composer run phpunit
+```
+
+### Javascript unit testing with Jest
+
+```console
+cd /path/to/custom-post-type-widget-blocks
+
+# Install npm package
+npm intall
+
+# Run test
+npm run test:jest
 ```
 
 ## Contribution
