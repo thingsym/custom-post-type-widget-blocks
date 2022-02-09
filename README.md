@@ -138,6 +138,12 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.3.1] - 2022.02.09
+
+* update npm dependencies
+* fix scss
+* exclude jest config in the archive
+
 ### [1.3.0] - 2022.02.04
 
 * tested up to 5.9.0
