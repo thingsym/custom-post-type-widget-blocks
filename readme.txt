@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Tested up to: 5.9.0
 Requires at least: 5.8.0
 Requires PHP: 7.1
@@ -94,6 +94,11 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.3.1 - 2022.02.09 =
+* update npm dependencies
+* fix scss
+* exclude jest config in the archive
 
 = 1.3.0 - 2022.02.04 =
 * tested up to 5.9.0

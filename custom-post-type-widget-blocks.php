@@ -3,7 +3,7 @@
  * Plugin Name: Custom Post Type Widget Blocks
  * Plugin URI:  https://github.com/thingsym/custom-post-type-widget-blocks
  * Description: Custom Post Type Widgets for the Block Editor (Gutenberg).
- * Version:     1.3.0
+ * Version:     1.3.1
  * Author:      thingsym
  * Author URI:  https://www.thingslabo.com/
  * License:     GPL2 or later
