@@ -18,7 +18,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 	 * @group custom_post_type_widget_blocks_tag_cloud
 	 */
 	function constructor() {
-		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_tag_cloud, 'register_block_type' ] ) );
+		$this->assertSame( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_tag_cloud, 'register_block_type' ] ) );
 	}
 
 	/**
@@ -36,9 +36,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 
 		$this->assertContains( $block_name, get_dynamic_block_names() );
 
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
-		$this->assertEquals( 'custom-post-type-widget-blocks-style', $block_type->style );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
+		$this->assertSame( 'custom-post-type-widget-blocks-style', $block_type->style );
 	}
 
 	/**
