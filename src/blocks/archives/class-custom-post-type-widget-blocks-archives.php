@@ -178,15 +178,13 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	 *
 	 * @access public
 	 *
-	 * @param string $monthlink
+	 * @param string $old_monthlink
 	 * @param string $year
 	 * @param string $month
 	 *
-	 * @return string $monthlink
+	 * @return string $new_monthlink
 	 */
-	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
+	public function get_month_link_custom_post_type( $old_monthlink, $year, $month ) {
 		$posttype = $this->posttype;
 
 		if ( ! $year ) {
@@ -196,16 +194,17 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$month = current_time( 'm' );
 		}
 
-		$monthlink = $wp_rewrite->get_month_permastruct();
+		global $wp_rewrite;
+		$new_monthlink = $wp_rewrite->get_month_permastruct();
 
-		if ( ! empty( $monthlink ) ) {
+		if ( ! empty( $new_monthlink ) ) {
 			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
 
-			$monthlink = str_replace( '%year%', $year, $monthlink );
-			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
+			$new_monthlink = str_replace( '%year%', $year, $new_monthlink );
+			$new_monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $new_monthlink );
 
 			if ( 'post' === $posttype ) {
-				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+				$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
@@ -227,16 +226,16 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
-					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );
-					$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+					$new_monthlink = str_replace( $front, $new_front . '/' . $archive_name, $new_monthlink );
+					$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 				}
 				else {
-					$monthlink = home_url( user_trailingslashit( $archive_name . $monthlink, 'month' ) );
+					$new_monthlink = home_url( user_trailingslashit( $archive_name . $new_monthlink, 'month' ) );
 				}
 			}
 		}
 		else {
-			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
+			$new_monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
 		/**
@@ -262,20 +261,20 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	 *
 	 * @access public
 	 *
-	 * @param string $link_html
+	 * @param string $old_link_html
 	 *
 	 * @return string $link_html
 	 */
-	public function trim_post_type( $link_html ) {
+	public function trim_post_type( $old_link_html ) {
 		global $wp_rewrite;
 
 		if ( ! $wp_rewrite->permalink_structure ) {
-			return $link_html;
+			return $old_link_html;
 		}
 
 		$posttype = $this->posttype;
 
-		$link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
+		$new_link_html = str_replace( '?post_type=' . $posttype, '', $old_link_html );
 
 		/**
 		 * Filter a trimed link_html.

@@ -365,16 +365,14 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 *
 	 * @access public
 	 *
-	 * @param string $daylink
+	 * @param string $old_daylink
 	 * @param string $year
 	 * @param string $month
 	 * @param string $day
 	 *
-	 * @return string $daylink
+	 * @return string $new_daylink
 	 */
-	public function get_day_link_custom_post_type( $daylink, $year, $month, $day ) {
-		global $wp_rewrite;
-
+	public function get_day_link_custom_post_type( $old_daylink, $year, $month, $day ) {
 		$posttype = $this->posttype;
 
 		if ( ! $year ) {
@@ -387,17 +385,18 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$day = current_time( 'j' );
 		}
 
-		$daylink = $wp_rewrite->get_day_permastruct();
+		global $wp_rewrite;
+		$new_daylink = $wp_rewrite->get_day_permastruct();
 
-		if ( ! empty( $daylink ) ) {
+		if ( ! empty( $new_daylink ) ) {
 			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
 
-			$daylink = str_replace( '%year%', $year, $daylink );
-			$daylink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $daylink );
-			$daylink = str_replace( '%day%', zeroise( intval( $day ), 2 ), $daylink );
+			$new_daylink = str_replace( '%year%', $year, $new_daylink );
+			$new_daylink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $new_daylink );
+			$new_daylink = str_replace( '%day%', zeroise( intval( $day ), 2 ), $new_daylink );
 
 			if ( 'post' === $posttype ) {
-				$daylink = home_url( user_trailingslashit( $daylink, 'day' ) );
+				$new_daylink = home_url( user_trailingslashit( $new_daylink, 'day' ) );
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
@@ -419,16 +418,16 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
-					$daylink   = str_replace( $front, $new_front . '/' . $archive_name, $daylink );
-					$daylink   = home_url( user_trailingslashit( $daylink, 'day' ) );
+					$new_daylink   = str_replace( $front, $new_front . '/' . $archive_name, $new_daylink );
+					$new_daylink   = home_url( user_trailingslashit( $new_daylink, 'day' ) );
 				}
 				else {
-					$daylink = home_url( user_trailingslashit( $archive_name . $daylink, 'day' ) );
+					$new_daylink = home_url( user_trailingslashit( $archive_name . $new_daylink, 'day' ) );
 				}
 			}
 		}
 		else {
-			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
+			$new_daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
 		/**
@@ -436,10 +435,11 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		 *
 		 * @since 1.4.0
 		 *
-		 * @param string $daylink
+		 * @param string $new_daylink
 		 * @param string $year
 		 * @param string $month
 		 * @param string $day
+		 * @param string $old_daylink
 		 */
 		return apply_filters( 'custom_post_type_widget_blocks/calendar/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
@@ -453,15 +453,13 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 *
 	 * @access public
 	 *
-	 * @param string $monthlink
+	 * @param string $old_monthlink
 	 * @param string $year
 	 * @param string $month
 	 *
-	 * @return string $monthlink
+	 * @return string $new_monthlink
 	 */
-	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
+	public function get_month_link_custom_post_type( $old_monthlink, $year, $month ) {
 		$posttype = $this->posttype;
 
 		if ( ! $year ) {
@@ -471,16 +469,17 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$month = current_time( 'm' );
 		}
 
-		$monthlink = $wp_rewrite->get_month_permastruct();
+		global $wp_rewrite;
+		$new_monthlink = $wp_rewrite->get_month_permastruct();
 
-		if ( ! empty( $monthlink ) ) {
+		if ( ! empty( $new_monthlink ) ) {
 			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
 
-			$monthlink = str_replace( '%year%', $year, $monthlink );
-			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
+			$new_monthlink = str_replace( '%year%', $year, $new_monthlink );
+			$new_monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $new_monthlink );
 
 			if ( 'post' === $posttype ) {
-				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+				$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
@@ -502,16 +501,16 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
-					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );
-					$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+					$new_monthlink = str_replace( $front, $new_front . '/' . $archive_name, $new_monthlink );
+					$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 				}
 				else {
-					$monthlink = home_url( user_trailingslashit( $archive_name . $monthlink, 'month' ) );
+					$new_monthlink = home_url( user_trailingslashit( $archive_name . $new_monthlink, 'month' ) );
 				}
 			}
 		}
 		else {
-			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
+			$new_monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
 		/**
