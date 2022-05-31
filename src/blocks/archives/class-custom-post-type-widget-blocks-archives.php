@@ -107,8 +107,8 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$label = esc_attr( $label );
 
 			$block_content = '<label class="screen-reader-text" for="' . $dropdown_id . '">' . $title . '</label>
-		<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-		<option value="">' . $label . '</option>' . $archives . '</select>';
+			<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			<option value="">' . $label . '</option>' . $archives . '</select>';
 
 			$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
 
