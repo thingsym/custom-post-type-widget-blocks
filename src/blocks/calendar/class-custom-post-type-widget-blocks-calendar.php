@@ -68,7 +68,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$classnames[] = 'wp-block-calendar';
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 		$output = sprintf(
 			'<div %1$s>%2$s</div>',
@@ -131,7 +131,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$gotsome = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT 1 as test FROM $wpdb->posts WHERE post_type = %s AND post_status = 'publish' LIMIT 1",
-					array( $posttype )
+					[ $posttype ]
 				)
 			);
 			if ( ! $gotsome ) {
@@ -187,10 +187,10 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				AND post_type = %s AND post_status = 'publish'
 					ORDER BY post_date DESC
 					LIMIT 1",
-				array(
+				[
 					"$thisyear-$thismonth-01",
 					$posttype,
-				)
+				]
 			)
 		);
 		$next     = $wpdb->get_row(
@@ -201,10 +201,10 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				AND post_type = %s AND post_status = 'publish'
 					ORDER BY post_date ASC
 					LIMIT 1",
-				array(
+				[
 					"$thisyear-$thismonth-{$last_day} 23:59:59",
 					$posttype,
-				)
+				]
 			)
 		);
 
@@ -246,11 +246,11 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				FROM $wpdb->posts WHERE post_date >= %s
 				AND post_type = %s AND post_status = 'publish'
 				AND post_date <= %s",
-				array(
+				[
 					"{$thisyear}-{$thismonth}-01 00:00:00",
 					$posttype,
 					"{$thisyear}-{$thismonth}-{$last_day} 23:59:59",
-				)
+				]
 			),
 			ARRAY_N
 		);

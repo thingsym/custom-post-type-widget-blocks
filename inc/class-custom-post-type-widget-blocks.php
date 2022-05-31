@@ -22,7 +22,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $plugin_data
 	 */
-	public $plugin_data = array();
+	public $plugin_data = [];
 
 	/**
 	 * Public value.
@@ -31,7 +31,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 *
 	 * @var array|null $asset_file
 	 */
-	public $asset_file = array();
+	public $asset_file = [];
 
 	public function __construct() {
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
@@ -55,7 +55,7 @@ class Custom_Post_Type_Widget_Blocks {
 
 		add_filter( 'block_categories_all', [ $this, 'add_block_categories' ], 10, 2 );
 
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
+		add_filter( 'plugin_row_meta', [ $this, 'plugin_metadata_links' ], 10, 2 );
 	}
 
 	/**

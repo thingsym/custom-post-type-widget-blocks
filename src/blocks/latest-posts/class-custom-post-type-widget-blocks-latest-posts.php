@@ -104,9 +104,9 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				$featured_image = get_the_post_thumbnail(
 					$post,
 					$attributes['featuredImageSizeSlug'],
-					array(
+					[
 						'style' => esc_attr( $image_style ),
-					)
+					]
 				);
 
 				if ( $attributes['addLinkToFeaturedImage'] ) {
@@ -211,7 +211,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 			$classnames[] = 'has-author';
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 		return sprintf(
 			'<ul %1$s>%2$s</ul>',

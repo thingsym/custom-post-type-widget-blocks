@@ -53,10 +53,10 @@ class Custom_Post_Type_Widget_Blocks_Search {
 		// buttonText to `__( 'Search' )`.
 		$attributes = wp_parse_args(
 			$attributes,
-			array(
+			[
 				'label'      => __( 'Search', 'custom-post-type-widget-blocks' ),
 				'buttonText' => __( 'Search', 'custom-post-type-widget-blocks' ),
-			)
+			]
 		);
 
 		$input_id        = 'wp-block-custom-post-type-widget-blocks-search__input-' . ( ++self::$block_id );
@@ -145,7 +145,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 			$input_markup . $button_markup
 		);
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classnames ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => $classnames ] );
 
 		return sprintf(
 			'<form role="search" method="get" action="%s" %s>%s</form>',
@@ -209,9 +209,9 @@ class Custom_Post_Type_Widget_Blocks_Search {
 	 * @return array Style HTML attribute.
 	 */
 	public function get_styles( $attributes ) {
-		$wrapper_styles   = array();
-		$button_styles    = array();
-		$input_styles     = array();
+		$wrapper_styles   = [];
+		$button_styles    = [];
+		$input_styles     = [];
 		$is_button_inside = ! empty( $attributes['buttonPosition'] ) &&
 			'button-inside' === $attributes['buttonPosition'];
 
@@ -326,11 +326,11 @@ class Custom_Post_Type_Widget_Blocks_Search {
 			$button_styles[] = sprintf( 'background: %s;', $attributes['style']['color']['gradient'] );
 		}
 
-		return array(
+		return [
 			'input'   => ! empty( $input_styles ) ? sprintf( ' style="%s"', safecss_filter_attr( implode( ' ', $input_styles ) ) ) : '',
 			'button'  => ! empty( $button_styles ) ? sprintf( ' style="%s"', safecss_filter_attr( implode( ' ', $button_styles ) ) ) : '',
 			'wrapper' => ! empty( $wrapper_styles ) ? sprintf( ' style="%s"', safecss_filter_attr( implode( ' ', $wrapper_styles ) ) ) : '',
-		);
+		];
 	}
 
 	/**
@@ -358,7 +358,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 	 * @return string The color classnames to be applied to the block elements.
 	 */
 	public function get_color_classes( $attributes ) {
-		$classnames = array();
+		$classnames = [];
 
 		// Text color.
 		$has_named_text_color  = ! empty( $attributes['textColor'] );

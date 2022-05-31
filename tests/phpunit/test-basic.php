@@ -61,7 +61,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 
 		$this->assertSame( 10, has_filter( 'block_categories_all', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
 
-		$this->assertSame( 10, has_filter( 'plugin_row_meta', array( $this->custom_post_type_widget_blocks, 'plugin_metadata_links' ) ) );
+		$this->assertSame( 10, has_filter( 'plugin_row_meta', [ $this->custom_post_type_widget_blocks, 'plugin_metadata_links' ] ) );
 	}
 
 	/**

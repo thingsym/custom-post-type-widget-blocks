@@ -110,7 +110,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 			<option value="">' . $label . '</option>' . $archives . '</select>';
 
-			$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+			$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 			return sprintf(
 				'<div %1$s>%2$s</div>',
@@ -152,7 +152,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
 		remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 		if ( empty( $archives ) ) {
 			return sprintf(
