@@ -239,7 +239,18 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		/**
+		 * Filter a monthlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_monthlink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $old_monthlink
+		 */
+
+		return apply_filters( 'custom_post_type_widget_blocks/archive/get_month_link_custom_post_type', $new_monthlink, $year, $month, $old_monthlink );
 	}
 
 	/**
@@ -266,6 +277,15 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 		$link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
 
-		return $link_html;
+		/**
+		 * Filter a trimed link_html.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_link_html  trimed link_html
+		 * @param string $old_link_html  original link_html
+		 * @param string $posttype
+		 */
+		return apply_filters( 'custom_post_type_widget_blocks/archive/trim_post_type', $new_link_html, $old_link_html, $posttype );
 	}
 }

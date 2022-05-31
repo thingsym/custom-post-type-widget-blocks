@@ -431,7 +431,17 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
 		}
 
-		return $daylink;
+		/**
+		 * Filter a daylink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $daylink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $day
+		 */
+		return apply_filters( 'custom_post_type_widget_blocks/calendar/get_day_link_custom_post_type', $daylink, $year, $month, $day );
 	}
 
 	/**
@@ -504,7 +514,18 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		/**
+		 * Filter a monthlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_monthlink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $old_monthlink
+		 */
+
+		return apply_filters( 'custom_post_type_widget_blocks/archive/get_month_link_custom_post_type', $new_monthlink, $year, $month, $old_monthlink );
 	}
 
 }
