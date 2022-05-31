@@ -401,7 +401,22 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$daylink   = str_replace( $front, $new_front . '/' . $archive_name, $daylink );
@@ -459,7 +474,22 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 			else {
 				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
 					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );
