@@ -441,7 +441,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		 * @param string $day
 		 * @param string $old_daylink
 		 */
-		return apply_filters( 'custom_post_type_widget_blocks/calendar/get_day_link_custom_post_type', $daylink, $year, $month, $day );
+		return apply_filters( 'custom_post_type_widget_blocks/calendar/get_day_link_custom_post_type', $new_daylink, $year, $month, $day, $old_daylink );
 	}
 
 	/**
