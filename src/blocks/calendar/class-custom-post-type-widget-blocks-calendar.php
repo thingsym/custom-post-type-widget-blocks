@@ -44,6 +44,13 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	}
 
 	public function render_callback( $attributes ) {
+		$disable_get_links = 0;
+		if ( defined( 'CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_CALENDAR' ) ) {
+			if ( CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_CALENDAR ) {
+				$disable_get_links = 1;
+			}
+		}
+
 		global $monthnum, $year;
 		$this->posttype = $attributes['postType'];
 
@@ -63,8 +70,10 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 		}
 
-		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
-		add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
+		if ( ! $disable_get_links ) {
+			add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
+			add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
+		}
 
 		$classnames[] = 'wp-block-calendar';
 
@@ -76,8 +85,10 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$this->get_custom_post_type_calendar( true, false )
 		);
 
-		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
-		remove_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ] );
+		if ( ! $disable_get_links ) {
+			remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
+			remove_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ] );
+		}
 
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$monthnum = $previous_monthnum;

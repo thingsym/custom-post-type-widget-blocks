@@ -47,6 +47,13 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		$show_post_count = ! empty( $attributes['showPostCounts'] );
 		$this->posttype  = $attributes['postType'];
 
+		$disable_get_links = 0;
+		if ( defined( 'CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_ARCHIVE' ) ) {
+			if ( CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_ARCHIVE ) {
+				$disable_get_links = 1;
+			}
+		}
+
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
 			$classnames[] = 'wp-block-custom-post-type-widget-blocks-archives-dropdown';
@@ -78,13 +85,17 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 			$dropdown_args['echo'] = 0;
 
-			add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
-			add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+			if ( ! $disable_get_links ) {
+				add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
+				add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+			}
 
 			$archives = wp_get_archives( $dropdown_args );
 
-			remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
-			remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+			if ( ! $disable_get_links ) {
+				remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
+				remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+			}
 
 			switch ( $dropdown_args['type'] ) {
 				case 'yearly':
@@ -144,13 +155,17 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 
 		$archives_args['echo'] = 0;
 
-		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
-		add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+		if ( ! $disable_get_links ) {
+			add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
+			add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+		}
 
 		$archives = wp_get_archives( $archives_args );
 
-		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
-		remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+		if ( ! $disable_get_links ) {
+			remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
+			remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+		}
 
 		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
