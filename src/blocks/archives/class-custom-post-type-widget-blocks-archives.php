@@ -157,6 +157,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			[
 				'post_type'       => $attributes['postType'],
 				'type'            => $archive_type,
+				'format'          => 'html',
 				'show_post_count' => $show_post_count,
 				'order'           => $order,
 			]
