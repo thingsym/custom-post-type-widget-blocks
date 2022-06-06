@@ -44,7 +44,6 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	}
 
 	public function render_callback( $attributes ) {
-		$show_post_count = ! empty( $attributes['showPostCounts'] );
 		$this->posttype  = $attributes['postType'];
 
 		$disable_get_links = 0;
@@ -54,7 +53,10 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			}
 		}
 
+		$show_post_count = ! empty( $attributes['showPostCounts'] );
 		$archive_type = ! empty( $attributes['archiveType'] ) ? $attributes['archiveType'] : 'monthly';
+		$order        = ! empty( $attributes['order'] ) ? $attributes['order'] : 'DESC';
+
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
 			$classnames[] = 'wp-block-custom-post-type-widget-blocks-archives-dropdown';
@@ -81,6 +83,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 					'type'            => $archive_type,
 					'format'          => 'option',
 					'show_post_count' => $show_post_count,
+					'order'           => $order,
 				]
 			);
 
@@ -155,6 +158,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 				'post_type'       => $attributes['postType'],
 				'type'            => $archive_type,
 				'show_post_count' => $show_post_count,
+				'order'           => $order,
 			]
 		);
 

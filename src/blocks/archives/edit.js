@@ -25,7 +25,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { store as coreStore } from '@wordpress/core-data';
 
 export default function ArchivesEdit( { attributes, setAttributes } ) {
-	const { postType, archiveType, showPostCounts, displayAsDropdown } = attributes;
+	const { postType, archiveType, showPostCounts, displayAsDropdown, order } = attributes;
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
@@ -110,6 +110,23 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 							setAttributes( {
 								showPostCounts: ! showPostCounts,
 							} )
+						}
+					/>
+					<SelectControl
+						label={ __( 'Order', 'custom-post-type-widget-blocks' ) }
+						options={ [
+							{
+								value: 'DESC',
+								label: __( 'DESC', 'custom-post-type-widget-blocks' ),
+							},
+							{
+								value: 'ASC',
+								label: __( 'ASC', 'custom-post-type-widget-blocks' ),
+							}
+						] }
+						value={ order }
+						onChange={ ( selectedOrder ) =>
+							setAttributes( { order: selectedOrder } )
 						}
 					/>
 				</PanelBody>

@@ -23,6 +23,11 @@
     "showPostCounts": {
       "type": "boolean",
       "default": false
+    },
+    "order": {
+      "type": "string",
+      "enum": [ "DESC", "ASC" ],
+      "default": "DESC"
     }
   },
   "supports": {
