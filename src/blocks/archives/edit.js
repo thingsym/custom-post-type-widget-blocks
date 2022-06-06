@@ -25,7 +25,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { store as coreStore } from '@wordpress/core-data';
 
 export default function ArchivesEdit( { attributes, setAttributes } ) {
-	const { postType, showPostCounts, displayAsDropdown } = attributes;
+	const { postType, archiveType, showPostCounts, displayAsDropdown } = attributes;
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
@@ -67,6 +67,31 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						value={ postType }
 						onChange={ ( selectedPostType ) =>
 							setAttributes( { postType: selectedPostType } )
+						}
+					/>
+					<SelectControl
+						label={ __( 'Archive Type', 'custom-post-type-widget-blocks' ) }
+						options={ [
+							{
+								value: 'yearly',
+								label: __( 'Yearly', 'custom-post-type-widget-blocks' ),
+							},
+							{
+								value: 'monthly',
+								label: __( 'Monthly', 'custom-post-type-widget-blocks' ),
+							},
+							{
+								value: 'weekly',
+								label: __( 'Weekly', 'custom-post-type-widget-blocks' ),
+							},
+							{
+								value: 'daily',
+								label: __( 'Daily', 'custom-post-type-widget-blocks' ),
+							},
+						] }
+						value={ archiveType }
+						onChange={ ( selectedArchiveType ) =>
+							setAttributes( { archiveType: selectedArchiveType } )
 						}
 					/>
 					<ToggleControl

@@ -11,6 +11,11 @@
       "type": "string",
       "default": "post"
     },
+    "archiveType": {
+      "type": "string",
+      "enum": [ "yearly", "monthly", "weekly", "daily" ],
+      "default": "monthly"
+    },
     "displayAsDropdown": {
       "type": "boolean",
       "default": false
