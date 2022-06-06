@@ -400,7 +400,7 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 				$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 			}
 			else {
-				$type_obj     = get_post_type_object( $posttype );
+				$type_obj = get_post_type_object( $posttype );
 
 				# The priority of the rewrite rule: has_archive < rewrite
 				# See https://developer.wordpress.org/reference/functions/register_post_type/
