@@ -16,50 +16,52 @@
   "bugs": "https://github.com/thingsym/custom-post-type-widget-blocks/issues",
   "main": "dist/js/blocks.js",
   "dependencies": {
-    "@wordpress/api-fetch": "^6.0.0",
-    "@wordpress/block-editor": "^8.1.0",
-    "@wordpress/blocks": "^11.2.0",
-    "@wordpress/components": "^19.3.0",
-    "@wordpress/compose": "^5.1.0",
-    "@wordpress/core-data": "^4.1.0",
-    "@wordpress/data": "^6.2.0",
-    "@wordpress/element": "^4.1.0",
-    "@wordpress/i18n": "^4.3.0",
-    "@wordpress/icons": "^6.2.0",
-    "@wordpress/primitives": "^3.1.0",
-    "@wordpress/server-side-render": "^3.1.0",
-    "@wordpress/url": "^3.4.0",
+    "@wordpress/api-fetch": "^6.7.0",
+    "@wordpress/block-editor": "^9.2.0",
+    "@wordpress/blocks": "^11.9.0",
+    "@wordpress/components": "^19.12.0",
+    "@wordpress/compose": "^5.8.0",
+    "@wordpress/core-data": "^4.8.0",
+    "@wordpress/data": "^6.10.0",
+    "@wordpress/element": "^4.8.0",
+    "@wordpress/i18n": "^4.10.0",
+    "@wordpress/icons": "^9.1.0",
+    "@wordpress/primitives": "^3.8.0",
+    "@wordpress/server-side-render": "^3.8.0",
+    "@wordpress/url": "^3.11.0",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@wordpress/browserslist-config": "^4.1.0",
-    "@wordpress/e2e-test-utils": "^6.0.0",
-    "@wordpress/e2e-tests": "^3.0.2",
-    "@wordpress/jest-preset-default": "^8.0.0",
-    "@wordpress/scripts": "^20.0.2",
-    "@wordpress/stylelint-config": "^20.0.0",
-    "autoprefixer": "^10.4.2",
-    "cpy-cli": "^3.1.1",
-    "cssnano": "^5.0.17",
+    "@wordpress/browserslist-config": "^4.1.2",
+    "@wordpress/e2e-test-utils": "^7.6.0",
+    "@wordpress/e2e-tests": "^4.4.0",
+    "@wordpress/eslint-plugin": "^12.4.0",
+    "@wordpress/jest-preset-default": "^8.3.0",
+    "@wordpress/scripts": "^23.2.0",
+    "@wordpress/stylelint-config": "^20.0.2",
+    "autoprefixer": "^10.4.7",
+    "cpy-cli": "^4.1.0",
+    "cssnano": "^5.1.11",
     "enzyme": "^3.11.0",
-    "eslint": "^8.8.0",
-    "eslint-plugin-jest": "^26.1.0",
+    "eslint": "^8.17.0",
+    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react": "^7.30.0",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^27.5.1",
     "jest-puppeteer": "^6.1.0",
-    "npm-check-updates": "^12.3.0",
+    "npm-check-updates": "^13.1.1",
     "npm-run-all": "^4.1.5",
     "po2json": "^1.0.0-beta-3",
-    "postcss": "^8.4.6",
+    "postcss": "^8.4.14",
     "postcss-cli": "^9.1.0",
-    "sass": "^1.49.7",
-    "stylelint": "^14.4.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.52.2",
+    "stylelint": "^14.8.5",
     "stylelint-config-recommended": "^7.0.0",
-    "stylelint-config-recommended-scss": "^5.0.2",
-    "stylelint-scss": "^4.1.0"
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-scss": "^4.2.0"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"
@@ -98,32 +100,18 @@
     }
   },
   "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es6": true
-    },
-    "plugins": [
-      "react-hooks"
+    "extends": [
+      "plugin:@wordpress/eslint-plugin/recommended"
     ],
-    "extends": "eslint:recommended",
-    "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly",
-      "jQuery": true,
-      "$": false,
-      "wp": true
-    },
-    "parserOptions": {
-      "sourceType": "module"
-    },
     "rules": {
+      "import/no-extraneous-dependencies": "off",
+      "import/no-unresolved": "off",
+      "@wordpress/no-unsafe-wp-apis": "off",
       "no-func-assign": "off",
       "no-unused-vars": "off",
       "no-prototype-builtins": "off",
       "no-sparse-arrays": "off",
-      "no-undef": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "no-undef": "off"
     },
     "ignorePatterns": [
       "node_modules/",
