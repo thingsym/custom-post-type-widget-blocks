@@ -5,7 +5,9 @@
  */
 import {
 	registerBlockType,
-} from '@wordpress/blocks';
+	unstable__bootstrapServerSideBlockDefinitions,
+ } from '@wordpress/blocks';
+import { __, _x } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -30,9 +32,37 @@ const registerBlock = ( block ) => {
 	if ( ! block ) {
 		return;
 	}
-	const { metadata, settings, name } = block;
+
+	let { metadata, settings, name } = block;
+
+	if ( metadata ) {
+		// for ServerSide Blocks
+		unstable__bootstrapServerSideBlockDefinitions({ [name]: metadata });
+	}
+
+	[ metadata, settings ] = applyTextdomainMetadata( metadata, settings );
+
 	registerBlockType( { name, ...metadata }, settings );
 };
+
+const applyTextdomainMetadata = ( metadata, settings ) => {
+	if ( metadata ) {
+		if ( !! metadata.title ) {
+			metadata.title = _x( metadata.title, 'block title', 'custom-post-type-widget-blocks' );
+			settings.title = metadata.title;
+		}
+		if ( !! metadata.description ) {
+			metadata.description = _x( metadata.description, 'block description', 'custom-post-type-widget-blocks' );
+			settings.description = metadata.description;
+		}
+		if ( !! metadata.keywords ) {
+			metadata.keywords = __( metadata.keywords, 'custom-post-type-widget-blocks' );
+			settings.keywords = metadata.keywords;
+		}
+	}
+
+	return [ metadata, settings ];
+}
 
 [
 	// Common blocks are grouped at the top to prioritize their display

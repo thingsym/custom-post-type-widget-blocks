@@ -127,7 +127,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$type         = 'list';
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => "wp-block-custom-post-type-widget-blocks-categories-{$type}" ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => "wp-block-custom-post-type-widget-blocks-categories-{$type}" ] );
 
 		return sprintf(
 			$wrapper_markup,

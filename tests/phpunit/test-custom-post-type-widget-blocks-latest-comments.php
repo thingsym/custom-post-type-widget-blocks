@@ -17,7 +17,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 	 * @group custom_post_type_widget_blocks_latest_comments
 	 */
 	function constructor() {
-		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_latest_comments, 'register_block_type' ] ) );
+		$this->assertSame( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_latest_comments, 'register_block_type' ] ) );
 	}
 
 	/**
@@ -35,9 +35,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 
 		$this->assertContains( $block_name, get_dynamic_block_names() );
 
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
-		$this->assertEquals( 'custom-post-type-widget-blocks-style', $block_type->style );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
+		$this->assertSame( 'custom-post-type-widget-blocks-style', $block_type->style );
 	}
 
 	/**
@@ -47,8 +47,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 	function render_callback() {
 		$attributes = [
 			'postType'       => 'any',
-			'align'          => 'left',
-			'className'      => '',
 			'commentsToShow' => 5,
 			'displayAvatar'  => true,
 			'displayDate'    => true,
@@ -68,8 +66,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 	function render_callback_no_comment() {
 		$attributes = [
 			'postType'       => 'any',
-			'align'          => 'left',
-			'className'      => '',
 			'commentsToShow' => 5,
 			'displayAvatar'  => true,
 			'displayDate'    => true,

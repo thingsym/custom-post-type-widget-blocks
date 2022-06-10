@@ -72,7 +72,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 		if ( empty( $comments ) ) {
 			$classnames[] = 'no-comments';
 
-			$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+			$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 			return sprintf(
 				'<div %1$s>%2$s</div>',
@@ -153,7 +153,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 			$classnames[] = 'has-excerpts';
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 		return sprintf(
 			'<ol %1$s>%2$s</ol>',

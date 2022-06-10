@@ -44,8 +44,18 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	}
 
 	public function render_callback( $attributes ) {
-		$show_post_count = ! empty( $attributes['showPostCounts'] );
 		$this->posttype  = $attributes['postType'];
+
+		$disable_get_links = 0;
+		if ( defined( 'CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_ARCHIVE' ) ) {
+			if ( CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_ARCHIVE ) {
+				$disable_get_links = 1;
+			}
+		}
+
+		$show_post_count = ! empty( $attributes['showPostCounts'] );
+		$archive_type = ! empty( $attributes['archiveType'] ) ? $attributes['archiveType'] : 'monthly';
+		$order        = ! empty( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
@@ -70,21 +80,30 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 				'custom_post_type_widget_blocks/archives/widget_archives_dropdown_args',
 				[
 					'post_type'       => $attributes['postType'],
-					'type'            => 'monthly',
+					'type'            => $archive_type,
 					'format'          => 'option',
 					'show_post_count' => $show_post_count,
+					'order'           => $order,
 				]
 			);
 
 			$dropdown_args['echo'] = 0;
 
-			add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
-			add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+			if ( ! $disable_get_links ) {
+				add_filter( 'year_link', [ $this, 'get_year_link_custom_post_type' ], 10, 2 );
+				add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
+				add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
+				add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+			}
 
 			$archives = wp_get_archives( $dropdown_args );
 
-			remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
-			remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+			if ( ! $disable_get_links ) {
+				remove_filter( 'year_link', [ $this, 'get_year_link_custom_post_type' ] );
+				remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
+				remove_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ] );
+				remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+			}
 
 			switch ( $dropdown_args['type'] ) {
 				case 'yearly':
@@ -107,10 +126,10 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$label = esc_attr( $label );
 
 			$block_content = '<label class="screen-reader-text" for="' . $dropdown_id . '">' . $title . '</label>
-		<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-		<option value="">' . $label . '</option>' . $archives . '</select>';
+			<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			<option value="">' . $label . '</option>' . $archives . '</select>';
 
-			$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+			$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 			return sprintf(
 				'<div %1$s>%2$s</div>',
@@ -137,22 +156,32 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			'custom_post_type_widget_blocks/archives/widget_archives_args',
 			[
 				'post_type'       => $attributes['postType'],
-				'type'            => 'monthly',
+				'type'            => $archive_type,
+				'format'          => 'html',
 				'show_post_count' => $show_post_count,
+				'order'           => $order,
 			]
 		);
 
 		$archives_args['echo'] = 0;
 
-		add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
-		add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+		if ( ! $disable_get_links ) {
+			add_filter( 'year_link', [ $this, 'get_year_link_custom_post_type' ], 10, 2 );
+			add_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ], 10, 3 );
+			add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
+			add_filter( 'get_archives_link', [ $this, 'trim_post_type' ], 10, 1 );
+		}
 
 		$archives = wp_get_archives( $archives_args );
 
-		remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
-		remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+		if ( ! $disable_get_links ) {
+			remove_filter( 'year_link', [ $this, 'get_year_link_custom_post_type' ] );
+			remove_filter( 'month_link', [ $this, 'get_month_link_custom_post_type' ] );
+			remove_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ] );
+			remove_filter( 'get_archives_link', [ $this, 'trim_post_type' ] );
+		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classnames ) ) );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 
 		if ( empty( $archives ) ) {
 			return sprintf(
@@ -170,6 +199,170 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	}
 
 	/**
+	 * Gets the year link for custom post type.
+	 *
+	 * Hooks to year_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $old_yearlink
+	 * @param string $year
+	 *
+	 * @return string $new_yearlink
+	 */
+	public function get_year_link_custom_post_type( $old_yearlink, $year ) {
+		$posttype = $this->posttype;
+
+		if ( ! $year ) {
+			$year = current_time( 'Y' );
+		}
+
+		global $wp_rewrite;
+		$new_yearlink = $wp_rewrite->get_year_permastruct();
+
+		if ( ! empty( $new_yearlink ) ) {
+			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
+
+			$new_yearlink = str_replace( '%year%', $year, $new_yearlink );
+
+			if ( 'post' === $posttype ) {
+				$new_yearlink = home_url( user_trailingslashit( $new_yearlink, 'year' ) );
+			}
+			else {
+				$type_obj = get_post_type_object( $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
+				if ( $front ) {
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
+					$new_yearlink = str_replace( $front, $new_front . '/' . $archive_name, $new_yearlink );
+					$new_yearlink = home_url( user_trailingslashit( $new_yearlink, 'month' ) );
+				}
+				else {
+					$new_yearlink = home_url( user_trailingslashit( $archive_name . $new_yearlink, 'year' ) );
+				}
+			}
+		}
+		else {
+			$new_yearlink = home_url( '?post_type=' . $posttype . '&m=' . $year );
+		}
+
+		/**
+		 * Filter a yearlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_yearlink
+		 * @param string $year
+		 * @param string $old_yearlink
+		 */
+		return apply_filters( 'custom_post_type_widget_blocks/archive/get_year_link_custom_post_type', $new_yearlink, $year, $old_yearlink );
+	}
+
+	/**
+	 * Gets the day link for custom post type.
+	 *
+	 * Hooks to day_link
+	 *
+	 * @since 1.0.0
+	 *
+	 * @access public
+	 *
+	 * @param string $old_daylink
+	 * @param string $year
+	 * @param string $month
+	 * @param string $day
+	 *
+	 * @return string $new_daylink
+	 */
+	public function get_day_link_custom_post_type( $old_daylink, $year, $month, $day ) {
+		$posttype = $this->posttype;
+
+		if ( ! $year ) {
+			$year = current_time( 'Y' );
+		}
+		if ( ! $month ) {
+			$month = current_time( 'm' );
+		}
+		if ( ! $day ) {
+			$day = current_time( 'j' );
+		}
+
+		global $wp_rewrite;
+		$new_daylink = $wp_rewrite->get_day_permastruct();
+
+		if ( ! empty( $new_daylink ) ) {
+			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
+
+			$new_daylink = str_replace( '%year%', $year, $new_daylink );
+			$new_daylink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $new_daylink );
+			$new_daylink = str_replace( '%day%', zeroise( intval( $day ), 2 ), $new_daylink );
+
+			if ( 'post' === $posttype ) {
+				$new_daylink = home_url( user_trailingslashit( $new_daylink, 'day' ) );
+			}
+			else {
+				$type_obj = get_post_type_object( $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
+				if ( $front ) {
+					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
+					$new_daylink   = str_replace( $front, $new_front . '/' . $archive_name, $new_daylink );
+					$new_daylink   = home_url( user_trailingslashit( $new_daylink, 'day' ) );
+				}
+				else {
+					$new_daylink = home_url( user_trailingslashit( $archive_name . $new_daylink, 'day' ) );
+				}
+			}
+		}
+		else {
+			$new_daylink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) . zeroise( $day, 2 ) );
+		}
+
+		/**
+		 * Filter a daylink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_daylink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $day
+		 * @param string $old_daylink
+		 */
+		return apply_filters( 'custom_post_type_widget_blocks/archive/get_day_link_custom_post_type', $new_daylink, $year, $month, $day, $old_daylink );
+	}
+
+	/**
 	 * Gets the month link for custom post type.
 	 *
 	 * Hooks to month_link
@@ -178,15 +371,13 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	 *
 	 * @access public
 	 *
-	 * @param string $monthlink
+	 * @param string $old_monthlink
 	 * @param string $year
 	 * @param string $month
 	 *
-	 * @return string $monthlink
+	 * @return string $new_monthlink
 	 */
-	public function get_month_link_custom_post_type( $monthlink, $year, $month ) {
-		global $wp_rewrite;
-
+	public function get_month_link_custom_post_type( $old_monthlink, $year, $month ) {
 		$posttype = $this->posttype;
 
 		if ( ! $year ) {
@@ -196,35 +387,62 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 			$month = current_time( 'm' );
 		}
 
-		$monthlink = $wp_rewrite->get_month_permastruct();
+		global $wp_rewrite;
+		$new_monthlink = $wp_rewrite->get_month_permastruct();
 
-		if ( ! empty( $monthlink ) ) {
+		if ( ! empty( $new_monthlink ) ) {
 			$front = preg_replace( '/\/$/', '', $wp_rewrite->front );
 
-			$monthlink = str_replace( '%year%', $year, $monthlink );
-			$monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $monthlink );
+			$new_monthlink = str_replace( '%year%', $year, $new_monthlink );
+			$new_monthlink = str_replace( '%monthnum%', zeroise( intval( $month ), 2 ), $new_monthlink );
 
 			if ( 'post' === $posttype ) {
-				$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+				$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 			}
 			else {
-				$type_obj     = get_post_type_object( $posttype );
-				$archive_name = ! empty( $type_obj->rewrite['slug'] ) ? $type_obj->rewrite['slug'] : $posttype;
+				$type_obj = get_post_type_object( $posttype );
+
+				# The priority of the rewrite rule: has_archive < rewrite
+				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				$archive_name = $posttype;
+				if ( is_string( $type_obj->has_archive ) ) {
+					$archive_name = $type_obj->has_archive;
+				}
+				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
+					$archive_name = $posttype;
+				}
+				else if ( is_array( $type_obj->rewrite ) ) {
+					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
+						$archive_name = $type_obj->rewrite['slug'];
+					}
+				}
+
 				if ( $front ) {
 					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
-					$monthlink = str_replace( $front, $new_front . '/' . $archive_name, $monthlink );
-					$monthlink = home_url( user_trailingslashit( $monthlink, 'month' ) );
+					$new_monthlink = str_replace( $front, $new_front . '/' . $archive_name, $new_monthlink );
+					$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 				}
 				else {
-					$monthlink = home_url( user_trailingslashit( $archive_name . $monthlink, 'month' ) );
+					$new_monthlink = home_url( user_trailingslashit( $archive_name . $new_monthlink, 'month' ) );
 				}
 			}
 		}
 		else {
-			$monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
+			$new_monthlink = home_url( '?post_type=' . $posttype . '&m=' . $year . zeroise( $month, 2 ) );
 		}
 
-		return $monthlink;
+		/**
+		 * Filter a monthlink.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_monthlink
+		 * @param string $year
+		 * @param string $month
+		 * @param string $old_monthlink
+		 */
+
+		return apply_filters( 'custom_post_type_widget_blocks/archive/get_month_link_custom_post_type', $new_monthlink, $year, $month, $old_monthlink );
 	}
 
 	/**
@@ -236,21 +454,30 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 	 *
 	 * @access public
 	 *
-	 * @param string $link_html
+	 * @param string $old_link_html
 	 *
 	 * @return string $link_html
 	 */
-	public function trim_post_type( $link_html ) {
+	public function trim_post_type( $old_link_html ) {
 		global $wp_rewrite;
 
 		if ( ! $wp_rewrite->permalink_structure ) {
-			return $link_html;
+			return $old_link_html;
 		}
 
 		$posttype = $this->posttype;
 
-		$link_html = str_replace( '?post_type=' . $posttype, '', $link_html );
+		$new_link_html = str_replace( '?post_type=' . $posttype, '', $old_link_html );
 
-		return $link_html;
+		/**
+		 * Filter a trimed link_html.
+		 *
+		 * @since 1.4.0
+		 *
+		 * @param string $new_link_html  trimed link_html
+		 * @param string $old_link_html  original link_html
+		 * @param string $posttype
+		 */
+		return apply_filters( 'custom_post_type_widget_blocks/archive/trim_post_type', $new_link_html, $old_link_html, $posttype );
 	}
 }

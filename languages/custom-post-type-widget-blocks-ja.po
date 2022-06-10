@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.3.1\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widget-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-04T09:13:01+00:00\n"
+"POT-Creation-Date: 2022-06-06T08:16:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
@@ -39,51 +39,51 @@ msgstr "https://www.thingslabo.com/"
 msgid "Become a sponsor"
 msgstr "スポンサーになる"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:55
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:65
 msgid "Archives"
 msgstr "アーカイブ"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:91
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:110
 msgid "Select Year"
 msgstr "年を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:94
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:113
 msgid "Select Month"
 msgstr "月を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:97
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:116
 msgid "Select Day"
 msgstr "日を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:100
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:119
 msgid "Select Week"
 msgstr "週を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:103
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:122
 msgid "Select Post"
 msgstr "投稿を選択"
 
-#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:161
+#: src/blocks/archives/class-custom-post-type-widget-blocks-archives.php:190
 msgid "No archives to show."
 msgstr "アーカイブがありません。"
 
 #. translators: Calendar caption: 1: month name, 2: 4-digit year
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:212
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:223
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%2$s年%1$s"
 
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:291
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:302
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "Y年n月j日"
 
 #. translators: label: 1: date format
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:293
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:304
 msgid "Posts published on %s"
 msgstr "%s に投稿を公開"
 
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:321
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:332
 msgid "Previous and next months"
 msgstr "前と次の月"
 
@@ -150,15 +150,47 @@ msgid "Post Type"
 msgstr "ポストタイプ"
 
 #: src/blocks/archives/edit.js:73
+msgid "Archive Type"
+msgstr "アーカイブタイプ"
+
+#: src/blocks/archives/edit.js:77
+msgid "Yearly"
+msgstr "年別"
+
+#: src/blocks/archives/edit.js:81
+msgid "Monthly"
+msgstr "月別"
+
+#: src/blocks/archives/edit.js:85
+msgid "Weekly"
+msgstr "週別"
+
+#: src/blocks/archives/edit.js:89
+msgid "Daily"
+msgstr "日別"
+
+#: src/blocks/archives/edit.js:98
 #: src/blocks/categories/edit.js:200
 msgid "Display as Dropdown"
 msgstr "ドロップダウン表示"
 
-#: src/blocks/archives/edit.js:82
+#: src/blocks/archives/edit.js:107
 #: src/blocks/categories/edit.js:205
 #: src/blocks/tag-cloud/edit.js:70
 msgid "Show Post Counts"
 msgstr "投稿数を表示"
+
+#: src/blocks/archives/edit.js:116
+msgid "Order"
+msgstr "並び順"
+
+#: src/blocks/archives/edit.js:120
+msgid "DESC"
+msgstr "新しい順"
+
+#: src/blocks/archives/edit.js:124
+msgid "ASC"
+msgstr "古い順"
 
 #: src/blocks/calendar/edit.js:53
 #: src/blocks/categories/edit.js:89
@@ -472,7 +504,7 @@ msgstr "find"
 #: src/blocks/tag-cloud/block.json
 msgctxt "block title"
 msgid "Tag Cloud (Custom Post Type)"
-msgstr "タグクラウド設定"
+msgstr "タグクラウド (カスタム投稿タイプ)"
 
 #: src/blocks/tag-cloud/block.json
 msgctxt "block description"

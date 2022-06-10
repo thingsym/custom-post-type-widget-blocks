@@ -56,6 +56,8 @@
 }
 
 .wp-block-custom-post-type-widget-blocks-latest-posts__featured-image {
+	line-height: 1;
+
 	a {
 		display: inline-block;
 	}
@@ -73,7 +75,6 @@
 		margin-left: 1em;
 	}
 	&.aligncenter {
-		margin-bottom: 1em;
 		text-align: center;
 	}
 }

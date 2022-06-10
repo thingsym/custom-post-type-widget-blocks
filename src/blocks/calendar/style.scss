@@ -3,6 +3,7 @@
 
 .wp-block-custom-post-type-widget-blocks-calendar {
 	text-align: center;
+	font-size: 80%;
 
 	th,
 	tbody td {
@@ -21,6 +22,7 @@
 
 	table th {
 		font-weight: 400;
+		text-align: center;
 		background: colors.$gray-300;
 	}
 

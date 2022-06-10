@@ -17,7 +17,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 	 * @group custom_post_type_widget_blocks_categories
 	 */
 	function constructor() {
-		$this->assertEquals( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_categories, 'register_block_type' ] ) );
+		$this->assertSame( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks_categories, 'register_block_type' ] ) );
 	}
 
 	/**
@@ -35,9 +35,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 
 		$this->assertContains( $block_name, get_dynamic_block_names() );
 
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
-		$this->assertEquals( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
-		$this->assertEquals( 'custom-post-type-widget-blocks-style', $block_type->style );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-script', $block_type->editor_script );
+		$this->assertSame( 'custom-post-type-widget-blocks-editor-style', $block_type->editor_style );
+		$this->assertSame( 'custom-post-type-widget-blocks-style', $block_type->style );
 	}
 
 	/**
@@ -53,8 +53,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$this->factory->post->create( [ 'post_category' => [ $cat_3->term_id ] ] );
 
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => false,
 			'showHierarchy'     => false,
@@ -78,8 +76,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$posts = $this->factory->post->create_many( 5 );
 
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => false,
 			'showHierarchy'     => false,
@@ -91,10 +87,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$this->assertIsString( $render );
 		$this->assertRegExp( '#Uncategorized#', $render );
 
-
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => true,
 			'showHierarchy'     => true,
