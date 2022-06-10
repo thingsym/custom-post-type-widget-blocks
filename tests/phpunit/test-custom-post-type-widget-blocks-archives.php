@@ -49,10 +49,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'          => 'post',
-			'align'             => 'left',
-			'className'         => '',
+			'archiveType'       => 'monthly',
 			'displayAsDropdown' => false,
 			'showPostCounts'    => false,
+			'order'             => 'DESC',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
@@ -69,10 +69,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 	function render_callback_no_post() {
 		$attributes = [
 			'postType'          => 'post',
-			'align'             => 'left',
-			'className'         => '',
+			'archiveType'       => 'monthly',
 			'displayAsDropdown' => false,
 			'showPostCounts'    => false,
+			'order'             => 'DESC',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
@@ -102,10 +102,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'          => 'test',
-			'align'             => 'left',
-			'className'         => '',
+			'archiveType'       => 'monthly',
 			'displayAsDropdown' => false,
 			'showPostCounts'    => false,
+			'order'             => 'DESC',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
@@ -115,10 +115,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'          => 'test',
-			'align'             => 'left',
-			'className'         => '',
+			'archiveType'       => 'monthly',
 			'displayAsDropdown' => true,
 			'showPostCounts'    => true,
+			'order'             => 'DESC',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );

@@ -47,8 +47,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 	function render_callback() {
 		$attributes = [
 			'postType'    => 'post',
-			'align'       => 'left',
-			'className'   => '',
 			'label'       => 'Search',
 			'placeholder' => '',
 			'buttonText'  => 'Search',
@@ -67,8 +65,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 	function render_callback_case_custom_post_type() {
 		$attributes = [
 			'postType'    => 'test',
-			'align'       => 'left',
-			'className'   => '',
 			'label'       => 'Search',
 			'placeholder' => '',
 			'buttonText'  => 'Search',
@@ -81,8 +77,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'    => 'test',
-			'align'       => 'left',
-			'className'   => '',
 			'label'       => '',
 			'placeholder' => '',
 			'buttonText'  => '',

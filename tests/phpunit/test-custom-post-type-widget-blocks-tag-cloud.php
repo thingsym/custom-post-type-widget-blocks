@@ -55,8 +55,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 
 		$attributes = [
 			'taxonomy'      => 'post_tag',
-			'align'         => 'left',
-			'className'     => '',
 			'showTagCounts' => false,
 		];
 
@@ -79,8 +77,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 	function render_callback_no_tag() {
 		$attributes = [
 			'taxonomy'      => 'post_tag',
-			'align'         => 'left',
-			'className'     => '',
 			'showTagCounts' => false,
 		];
 

@@ -47,8 +47,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 	function render_callback() {
 		$attributes = [
 			'postType'       => 'any',
-			'align'          => 'left',
-			'className'      => '',
 			'commentsToShow' => 5,
 			'displayAvatar'  => true,
 			'displayDate'    => true,
@@ -68,8 +66,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 	function render_callback_no_comment() {
 		$attributes = [
 			'postType'       => 'any',
-			'align'          => 'left',
-			'className'      => '',
 			'commentsToShow' => 5,
 			'displayAvatar'  => true,
 			'displayDate'    => true,

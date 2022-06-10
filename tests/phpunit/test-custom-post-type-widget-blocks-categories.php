@@ -53,8 +53,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$this->factory->post->create( [ 'post_category' => [ $cat_3->term_id ] ] );
 
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => false,
 			'showHierarchy'     => false,
@@ -78,8 +76,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$posts = $this->factory->post->create_many( 5 );
 
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => false,
 			'showHierarchy'     => false,
@@ -91,10 +87,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$this->assertIsString( $render );
 		$this->assertRegExp( '#Uncategorized#', $render );
 
-
 		$attributes = [
-			'align'             => 'left',
-			'className'         => '',
 			'taxonomy'          => 'category',
 			'displayAsDropdown' => true,
 			'showHierarchy'     => true,

@@ -49,11 +49,12 @@ class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'  => 'post',
-			'align'     => 'left',
-			'className' => '',
 			'month'     => null,
 			'year'      => null,
 		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '' );
 
 		$render = $this->custom_post_type_widget_blocks_calendar->render_callback( $attributes );
 
@@ -84,11 +85,12 @@ class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 
 		$attributes = [
 			'postType'  => 'test',
-			'align'     => 'left',
-			'className' => '',
 			'month'     => null,
 			'year'      => null,
 		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '' );
 
 		$render = $this->custom_post_type_widget_blocks_calendar->render_callback( $attributes );
 
