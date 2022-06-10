@@ -132,9 +132,99 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 	 * @test
 	 * @group custom_post_type_widget_blocks_archives
 	 */
+	function get_year_link_custom_post_type() {
+		$this->_register_post_type();
+
+		$posts = $this->factory()->post->create_many(
+			5,
+			[
+				'post_type' => 'test',
+			]
+		);
+
+		$attributes = [
+			'postType'  => 'test',
+			'month'     => null,
+			'year'      => null,
+		];
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$expected = 'http://example.org/archives/test/date/2019';
+
+		$url = 'http://example.org/archives/date/2019';
+		$actual = $this->custom_post_type_widget_blocks_archives->get_year_link_custom_post_type( $url, '2019' );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_archives
+	 */
+	function get_day_link_custom_post_type() {
+		$this->_register_post_type();
+
+		$posts = $this->factory()->post->create_many(
+			5,
+			[
+				'post_type' => 'test',
+			]
+		);
+
+		$attributes = [
+			'postType'  => 'test',
+			'month'     => null,
+			'year'      => null,
+		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		$expected = 'http://example.org/archives/test/date/2019/08/13';
+
+		$url = 'http://example.org/archives/date/2019/08/13';
+		$actual = $this->custom_post_type_widget_blocks_archives->get_day_link_custom_post_type( $url, '2019', '08', '13' );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_archives
+	 */
 	function get_month_link_custom_post_type() {
-		// $this->custom_post_type_widget_blocks_archives->get_month_link_custom_post_type();
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$this->_register_post_type();
+
+		$posts = $this->factory()->post->create_many(
+			5,
+			[
+				'post_type' => 'test',
+			]
+		);
+
+		$attributes = [
+			'postType'  => 'test',
+			'month'     => null,
+			'year'      => null,
+		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		$expected = 'http://example.org/archives/test/date/2019/08';
+
+		$url = 'http://example.org/archives/date/2020/02';
+		$actual = $this->custom_post_type_widget_blocks_archives->get_month_link_custom_post_type( $url, '2019', '08' );
+
+		$this->assertSame( $expected, $actual );
 	}
 
 	/**
@@ -142,7 +232,98 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 	 * @group custom_post_type_widget_blocks_archives
 	 */
 	function trim_post_type() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$attributes = [
+			'postType'  => 'test',
+			'month'     => null,
+			'year'      => null,
+		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		$expected = 'http://example.org/archives/test/date/2019/08';
+
+		$url = 'http://example.org/archives/test/date/2019/08?post_type=test';
+		$actual = $this->custom_post_type_widget_blocks_archives->trim_post_type( $url );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 * @group wp_custom_post_type_widgets_archives
+	 */
+	function trim_post_type_filter() {
+		$attributes = [
+			'postType'  => 'test',
+			'month'     => null,
+			'year'      => null,
+		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/archives/%post_id%' );
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		add_filter( 'custom_post_type_widget_blocks/archive/trim_post_type', array( $this, '_filter_trim_post_type' ), 10, 3 );
+
+		$expected = 'http://example.org/archives/test/date/2019/08?post_type=abc';
+
+		$url = 'http://example.org/archives/test/date/2019/08?post_type=test';
+		$actual = $this->custom_post_type_widget_blocks_archives->trim_post_type( $url );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	/**
+	 * hook test
+	 */
+	function _filter_trim_post_type( $new_link_html, $link_html, $posttype ) {
+		$this->assertSame( $new_link_html, 'http://example.org/archives/test/date/2019/08' );
+		$this->assertSame( $link_html, 'http://example.org/archives/test/date/2019/08?post_type=test' );
+		$this->assertSame( $posttype, 'test' );
+
+		$new_link_html = $new_link_html . '?post_type=abc';
+
+		return $new_link_html;
+	}
+
+	/**
+	 * Utility
+	 */
+	function _register_post_type() {
+		$labels = [
+			"name" => "test",
+			"singular_name" => "test",
+		];
+
+		$args = [
+			"label" => "test",
+			"labels" => $labels,
+			"description" => "",
+			"public" => true,
+			"publicly_queryable" => true,
+			"show_ui" => true,
+			"delete_with_user" => false,
+			"show_in_rest" => true,
+			"rest_base" => "",
+			"rest_controller_class" => "WP_REST_Posts_Controller",
+			"has_archive" => true,
+			"show_in_menu" => true,
+			"show_in_nav_menus" => true,
+			"delete_with_user" => false,
+			"exclude_from_search" => false,
+			"capability_type" => "post",
+			"map_meta_cap" => true,
+			"hierarchical" => false,
+			"rewrite" => [ "slug" => "test", "with_front" => true ],
+			"query_var" => true,
+			"supports" => [ "title", "editor", "thumbnail", "comments" ],
+		];
+
+		register_post_type( "test", $args );
 	}
 
 }
