@@ -138,6 +138,28 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.4.0] - 2022.06.10
+
+* tested up to 6.0.0
+* fix npm scripts
+* update npm dependencies
+* add test case
+* update japanese translation
+* update pot
+* add format argument
+* add ASC/DESC order option for archive
+* add get_year_link_custom_post_type and get_day_link_custom_post_type methods
+* add archive type option
+* apply textdomain to metadata
+* add constants CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_ARCHIVE and CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_CALENDAR
+* change arrays from brace to bracket
+* fix apply_filters argument
+* fix wp-plugin-unit-test.yml
+* rename variable name
+* add filters
+* fix the priority of the rewrite rule of register_post_type()
+* change assert from assertEquals to assertSame
+
 ### [1.3.1] - 2022.02.09
 
 * update npm dependencies
