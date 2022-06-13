@@ -456,7 +456,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 
 	// Removing posts from display should be instant.
 	const displayPosts =
-		latestPosts.length > postsToShow
+		latestPosts && latestPosts.length > postsToShow
 			? latestPosts.slice( 0, postsToShow )
 			: latestPosts;
 
@@ -485,11 +485,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					<ToolbarGroup controls={ layoutControls } />
 				</BlockControls>
 				<Placeholder icon={ pin } label={ __( 'Latest Posts (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
-					{ ! Array.isArray( latestPosts ) ? (
-						<Spinner />
-					) : (
-						__( 'Not displayed if postType is All.', 'custom-post-type-widget-blocks' )
-					) }
+					{ __( 'Not displayed if postType is All.', 'custom-post-type-widget-blocks' ) }
 				</Placeholder>
 			</div>
 		);
