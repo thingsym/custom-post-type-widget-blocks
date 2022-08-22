@@ -1,0 +1,19 @@
+// based on base-styles
+
+$gray-300: #ddd;		// Used for most borders.
+$gray-600: #949494;		// Meets 3:1 UI or large text contrast against white.
+$gray-700: #757575;		// Meets 4.6:1 text contrast against white.
+
+$editor-line-height: 1.8;
+
+$grid-unit: 8px;
+$grid-unit-05: 0.5 * $grid-unit;	// 4px
+$grid-unit-10: 1 * $grid-unit;		// 8px
+
+$break-small: 600px;
+
+@mixin break-small() {
+	@media (min-width: #{ ($break-small) }) {
+		@content;
+	}
+}

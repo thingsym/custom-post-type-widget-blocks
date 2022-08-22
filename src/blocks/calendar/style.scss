@@ -1,5 +1,5 @@
 // Included Modules
- @use "../../scss/base-styles/colors";
+ @use "../../scss/helper";
 
 .wp-block-custom-post-type-widget-blocks-calendar {
 	text-align: center;
@@ -8,7 +8,7 @@
 	th,
 	tbody td {
 		padding: 0.25em;
-		border: 1px solid colors.$gray-300;
+		border: 1px solid helper.$gray-300;
 	}
 
 	tfoot td {
@@ -23,7 +23,7 @@
 	table th {
 		font-weight: 400;
 		text-align: center;
-		background: colors.$gray-300;
+		background: helper.$gray-300;
 	}
 
 	a {
