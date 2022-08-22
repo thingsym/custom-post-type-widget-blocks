@@ -139,7 +139,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 		$field_markup_classes = $is_button_inside ? $border_color_classes : '';
 		$field_markup       = sprintf(
-			'<div class="wp-block-custom-post-type-widget-blocks-search__inside-wrapper %s" %s>%s</div>',
+			'<div class="wp-block-search__inside-wrapper wp-block-custom-post-type-widget-blocks-search__inside-wrapper %s" %s>%s</div>',
 			esc_attr( $field_markup_classes ),
 			$inline_styles['wrapper'],
 			$input_markup . $button_markup

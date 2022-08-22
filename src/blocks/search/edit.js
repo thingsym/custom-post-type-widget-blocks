@@ -183,7 +183,23 @@ export default function SearchEdit( {
 				: undefined,
 			buttonUseIcon && ! hasNoButton
 				? 'wp-block-custom-post-type-widget-blocks-search__icon-button'
-				: undefined
+				: undefined,
+
+			isButtonPositionInside
+				? 'wp-block-search__button-inside'
+				: undefined,
+			isButtonPositionOutside
+				? 'wp-block-search__button-outside'
+				: undefined,
+			hasNoButton ? 'wp-block-blocks-search__no-button' : undefined,
+			hasOnlyButton ? 'wp-block-search__button-only' : undefined,
+			! buttonUseIcon && ! hasNoButton
+				? 'wp-block-search__text-button'
+				: undefined,
+			buttonUseIcon && ! hasNoButton
+				? 'wp-block-search__icon-button'
+				: undefined,
+			'wp-block-search'
 		);
 	};
 
@@ -250,7 +266,7 @@ export default function SearchEdit( {
 	const renderTextField = () => {
 		// If the input is inside the wrapper, the wrapper gets the border color styles/classes, not the input control.
 		const textFieldClasses = classnames(
-			'wp-block-custom-post-type-widget-blocks-search__input',
+			'wp-block-search__input wp-block-custom-post-type-widget-blocks-search__input',
 			isButtonPositionInside ? undefined : borderProps.className
 		);
 		const textFieldStyles = isButtonPositionInside
@@ -279,7 +295,7 @@ export default function SearchEdit( {
 	const renderButton = () => {
 		// If the button is inside the wrapper, the wrapper gets the border color styles/classes, not the button.
 		const buttonClasses = classnames(
-			'wp-block-custom-post-type-widget-blocks-search__button',
+			'wp-block-search__button wp-block-custom-post-type-widget-blocks-search__button',
 			colorProps.className,
 			isButtonPositionInside ? undefined : borderProps.className,
 			buttonUseIcon ? 'has-icon' : undefined
@@ -505,7 +521,7 @@ export default function SearchEdit( {
 					width: `${ width }${ widthUnit }`,
 				} }
 				className={ classnames(
-					'wp-block-custom-post-type-widget-blocks-search__inside-wrapper',
+					'wp-block-search__inside-wrapper wp-block-custom-post-type-widget-blocks-search__inside-wrapper',
 					isButtonPositionInside ? borderProps.className : undefined
 				) }
 				style={ getWrapperStyles() }

@@ -12,6 +12,7 @@
 .wp-block-custom-post-type-widget-blocks-search {
 	.wp-block-custom-post-type-widget-blocks-search__input {
 		padding: helper.$grid-unit-10;
+		font-size: inherit;
 	}
 
 	&.wp-block-custom-post-type-widget-blocks-search__button-inside .wp-block-custom-post-type-widget-blocks-search__inside-wrapper {
@@ -25,7 +26,6 @@
 		// This needs high specificity because it otherwise inherits styles from `components-button`.
 		// stylelint-disable-line no-duplicate-selectors
 		&.wp-block-custom-post-type-widget-blocks-search__button.wp-block-custom-post-type-widget-blocks-search__button {
-			padding: 6px 10px;
 			display: flex;
 			align-items: center;
 		}
