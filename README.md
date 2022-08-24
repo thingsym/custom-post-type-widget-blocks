@@ -138,6 +138,17 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+### [1.5.0] - 2022.08.24
+
+* update japanese translation
+* update pot
+* fix scss
+* add featured image option
+* fix search block layout
+* replace helper scss from base-styles
+* fix any postType eror
+* fix npm scripts
+
 ### [1.4.0] - 2022.06.10
 
 * tested up to 6.0.0
