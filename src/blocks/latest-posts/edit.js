@@ -20,6 +20,9 @@ import {
 	ToolbarGroup,
 	SelectControl,
 	Disabled,
+	Button,
+	ResponsiveWrapper,
+	DropZone,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
@@ -29,11 +32,14 @@ import {
 	BlockControls,
 	__experimentalImageSizeControl as ImageSizeControl,
 	useBlockProps,
+	MediaUpload,
+	MediaUploadCheck,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { pin, list, grid } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
+import { store as noticeStore } from '@wordpress/notices';
 
 /**
 * Internal dependencies
@@ -78,7 +84,22 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		featuredImageSizeWidth,
 		featuredImageSizeHeight,
 		addLinkToFeaturedImage,
+		featuredImageId,
 	} = attributes;
+
+	// If a user clicks to a link prevent redirection and show a warning.
+	const { createWarningNotice, removeNotice } = useDispatch( noticeStore );
+	let noticeId;
+	const showRedirectionPreventedNotice = ( event ) => {
+		event.preventDefault();
+		// Remove previous warning if any, to show one at a time per block.
+		removeNotice( noticeId );
+		noticeId = `block-library/core/latest-posts/redirection-prevented/${ instanceId }`;
+		createWarningNotice( __( 'Links are disabled in the editor.' ), {
+			id: noticeId,
+			type: 'snackbar',
+		} );
+	};
 
 	const getPostTypeOptions = () => {
 		const selectOption = {
@@ -112,6 +133,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		categoriesList,
 		authorList,
 		postTypes,
+		media,
 	} = useSelect(
 		( select ) => {
 			const { getEntityRecords, getMedia, getUsers } = select(
@@ -202,6 +224,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				),
 				authorList: getUsers( USERS_LIST_QUERY ),
 				postTypes: select( coreStore ).getPostTypes(),
+				media: featuredImageId ?
+					getMedia( featuredImageId, { context: 'view' } )
+					: null,
 			};
 		},
 		[
@@ -212,6 +237,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			categories,
 			selectedAuthor,
 			postType,
+			featuredImageId,
 		]
 	);
 
@@ -245,6 +271,60 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			return false;
 		}
 		setAttributes( { categories: allCategories } );
+	};
+
+	function getMediaSizes( media ) {
+		if ( ! media ) {
+			return undefined
+			;
+		}
+
+		return media.media_details.sizes;
+	}
+
+	const mediaSizes = getMediaSizes( media );
+
+	const IMAGE_BACKGROUND_TYPE = 'image';
+	const VIDEO_BACKGROUND_TYPE = 'video';
+	const ALLOWED_MEDIA_TYPES = [ 'image' ];
+
+	const onSelectMedia = ( media ) => {
+		if ( ! media || ! media.url ) {
+			setAttributes( {
+				featuredImageUrl: undefined,
+				featuredImageId: undefined
+			} );
+			return;
+		}
+		let mediaType;
+		// for media selections originated from a file upload.
+		if ( media.media_type ) {
+			if ( media.media_type === IMAGE_BACKGROUND_TYPE ) {
+				mediaType = IMAGE_BACKGROUND_TYPE;
+			} else {
+				// only images and videos are accepted so if the media_type is not an image we can assume it is a video.
+				// Videos contain the media type of 'file' in the object returned from the rest api.
+				mediaType = VIDEO_BACKGROUND_TYPE;
+			}
+		} else { // for media selections originated from existing files in the media library.
+			if (
+				media.type !== IMAGE_BACKGROUND_TYPE &&
+				media.type !== VIDEO_BACKGROUND_TYPE
+			) {
+				return;
+			}
+			mediaType = media.type;
+		}
+
+		setAttributes( {
+			featuredImageId: media.id,
+		} );
+	};
+
+	const onRemoveImage = () => {
+		setAttributes( {
+			featuredImageId: undefined,
+		} );
 	};
 
 	const hasPosts = !! latestPosts?.length;
@@ -368,6 +448,61 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								} )
 							}
 						/>
+
+						<BaseControl className="block-editor-post-featured-image-control__row">
+							<BaseControl.VisualLabel>
+								{ __( 'Featured image', 'custom-post-type-widget-blocks' ) }
+							</BaseControl.VisualLabel>
+
+							<MediaUploadCheck>
+								<MediaUpload
+									title={ __( 'Featured image', 'custom-post-type-widget-blocks' ) }
+									onSelect={ onSelectMedia }
+									allowedTypes={ ALLOWED_MEDIA_TYPES }
+									modalClass="editor-post-featured-image__media-modal"
+									value={ featuredImageId }
+									render={ ( { open } ) => (
+										<div className="editor-post-featured-image__container">
+											<Button
+												className={
+													! featuredImageId
+														? 'editor-post-featured-image__toggle'
+														: 'editor-post-featured-image__preview'
+												}
+												onClick={ open }
+											>
+											{ !! featuredImageId && mediaSizes && (
+												<ResponsiveWrapper
+													naturalWidth={ mediaSizes[ 'thumbnail' ].width }
+													naturalHeight={ mediaSizes[ 'thumbnail' ].height }
+													isInline
+												>
+													<img
+														src={ mediaSizes[ 'thumbnail' ].source_url }
+														alt=""
+													/>
+												</ResponsiveWrapper>
+											) }
+											{ ! featuredImageId &&
+												( __( 'Set featured image', 'custom-post-type-widget-blocks' ) )
+											}
+											</Button>
+										</div>
+									) }
+								/>
+							</MediaUploadCheck>
+							{ !! featuredImageId && (
+								<MediaUploadCheck>
+								<Button
+									onClick={ onRemoveImage }
+									variant="link"
+									isDestructive
+								>
+									{ __( 'Remove image', 'custom-post-type-widget-blocks' ) }
+								</Button>
+							</MediaUploadCheck>
+						) }
+						</BaseControl>
 					</>
 				) }
 			</PanelBody>
@@ -528,12 +663,19 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 						[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
 					} );
 					const renderFeaturedImage =
-						displayFeaturedImage && imageSourceUrl;
+						displayFeaturedImage && ( imageSourceUrl || mediaSizes );
+
 					const featuredImage = renderFeaturedImage && (
 						<img
-							src={ imageSourceUrl }
+							src={
+								imageSourceUrl ? imageSourceUrl
+								: mediaSizes[ featuredImageSizeSlug ] ? mediaSizes[ featuredImageSizeSlug ].source_url
+								: mediaSizes[ 'full' ].source_url ? mediaSizes[ 'full' ].source_url
+								: ''
+							}
 							alt={ featuredImageAlt }
 							style={ {
+								width: ( featuredImageSizeWidth && featuredImageSizeHeight ) ? '100%' : '',
 								maxWidth: featuredImageSizeWidth,
 								maxHeight: featuredImageSizeHeight,
 							} }
@@ -552,7 +694,11 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								.join( ' ' ) }
 							{ /* translators: excerpt truncation character, default …  */ }
 							{ __( ' … ', 'custom-post-type-widget-blocks' ) }
-							<a href={ post.link } rel="noopener noreferrer">
+							<a
+								href={ post.link }
+								rel="noopener noreferrer"
+								onClick={ showRedirectionPreventedNotice }
+							>
 								{ __( 'Read more', 'custom-post-type-widget-blocks' ) }
 							</a>
 						</>

@@ -29,6 +29,8 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 	}
 
 	public function render_callback( $attributes ) {
+		global $post;
+
 		$args = [
 			'post_type'        => $attributes['postType'],
 			'posts_per_page'   => $attributes['postsToShow'],
@@ -87,8 +89,11 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 
 			$list_items_markup .= '<li>';
 
-			if ( $attributes['displayFeaturedImage'] && has_post_thumbnail( $post ) ) {
+			if ( $attributes['displayFeaturedImage'] && ( has_post_thumbnail( $post ) || isset( $attributes['featuredImageId'] ) ) ) {
 				$image_style = '';
+				if ( isset( $attributes['featuredImageSizeWidth'] ) && isset( $attributes['featuredImageSizeHeight'] ) ) {
+					$image_style = 'width:100%;';
+				}
 				if ( isset( $attributes['featuredImageSizeWidth'] ) ) {
 					$image_style .= sprintf( 'max-width:%spx;', $attributes['featuredImageSizeWidth'] );
 				}
@@ -96,18 +101,32 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 					$image_style .= sprintf( 'max-height:%spx;', $attributes['featuredImageSizeHeight'] );
 				}
 
+				$image_classnames = [];
 				$image_classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image';
 				if ( isset( $attributes['featuredImageAlign'] ) ) {
 					$image_classnames[] = 'align' . $attributes['featuredImageAlign'];
 				}
 
-				$featured_image = get_the_post_thumbnail(
-					$post,
-					$attributes['featuredImageSizeSlug'],
-					[
-						'style' => esc_attr( $image_style ),
-					]
-				);
+				if ( has_post_thumbnail( $post ) ) {
+					$featured_image = get_the_post_thumbnail(
+						$post,
+						$attributes['featuredImageSizeSlug'],
+						[
+							'style' => esc_attr( $image_style ),
+						]
+					);
+				}
+				else if ( isset( $attributes['featuredImageId'] ) ) {
+					$featured_image = wp_get_attachment_image(
+						$attributes['featuredImageId'],
+						$attributes['featuredImageSizeSlug'],
+						false,
+						[
+							'style' => esc_attr( $image_style ),
+							'class' => 'attachment-' . $attributes['featuredImageSizeSlug'] . ' size-' . $attributes['featuredImageSizeSlug'] . ' wp-post-image',
+						]
+					);
+				}
 
 				if ( $attributes['addLinkToFeaturedImage'] ) {
 					$featured_image = sprintf(

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.4.0\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widget-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-06T08:16:34+00:00\n"
+"POT-Creation-Date: 2022-08-24T06:51:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
@@ -92,8 +92,8 @@ msgid "Select Category"
 msgstr "カテゴリーを選択"
 
 #: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:39
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:85
-#: src/blocks/latest-posts/edit.js:587
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:87
+#: src/blocks/latest-posts/edit.js:729
 msgid "(no title)"
 msgstr "(タイトルなし)"
 
@@ -107,13 +107,13 @@ msgid "%1$s on %2$s"
 msgstr "%2$s に %1$s より"
 
 #. translators: byline. %s: current author.
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:137
-#: src/blocks/latest-posts/edit.js:594
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:156
+#: src/blocks/latest-posts/edit.js:736
 msgid "by %s"
 msgstr "投稿者: %s"
 
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:159
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:175
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:178
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:194
 msgid "This content is password protected."
 msgstr "この投稿内容はパスワードで保護されています。"
 
@@ -132,7 +132,7 @@ msgstr "サイトには%sがないため、表示するものはありません�
 
 #: src/blocks/archives/edit.js:38
 #: src/blocks/latest-comments/edit.js:58
-#: src/blocks/latest-posts/edit.js:85
+#: src/blocks/latest-posts/edit.js:106
 #: src/blocks/search/edit.js:97
 msgid "All"
 msgstr "すべて"
@@ -144,8 +144,8 @@ msgstr "アーカイブ設定"
 #: src/blocks/archives/edit.js:65
 #: src/blocks/calendar/edit.js:132
 #: src/blocks/latest-comments/edit.js:86
-#: src/blocks/latest-posts/edit.js:377
-#: src/blocks/search/edit.js:362
+#: src/blocks/latest-posts/edit.js:512
+#: src/blocks/search/edit.js:378
 msgid "Post Type"
 msgstr "ポストタイプ"
 
@@ -263,152 +263,165 @@ msgstr "抜粋を表示"
 msgid "Number of Comments"
 msgstr "コメント件数"
 
-#: src/blocks/latest-posts/edit.js:253
+#: src/blocks/latest-posts/edit.js:333
 msgid "Post content settings"
 msgstr "投稿コンテンツ設定"
 
-#: src/blocks/latest-posts/edit.js:255
+#: src/blocks/latest-posts/edit.js:335
 msgid "Post content"
 msgstr "投稿コンテンツ"
 
-#: src/blocks/latest-posts/edit.js:263
+#: src/blocks/latest-posts/edit.js:343
 msgid "Show:"
 msgstr "表示:"
 
-#: src/blocks/latest-posts/edit.js:266
+#: src/blocks/latest-posts/edit.js:346
 msgid "Excerpt"
 msgstr "抜粋"
 
-#: src/blocks/latest-posts/edit.js:268
+#: src/blocks/latest-posts/edit.js:348
 msgid "Full post"
 msgstr "投稿全文"
 
-#: src/blocks/latest-posts/edit.js:282
+#: src/blocks/latest-posts/edit.js:362
 msgid "Max number of words in excerpt"
 msgstr "抜粋内の最大単語数"
 
-#: src/blocks/latest-posts/edit.js:293
+#: src/blocks/latest-posts/edit.js:373
 msgid "Post meta settings"
 msgstr "投稿メタ設定"
 
-#: src/blocks/latest-posts/edit.js:295
+#: src/blocks/latest-posts/edit.js:375
 msgid "Display author name"
 msgstr "投稿者名の表示"
 
-#: src/blocks/latest-posts/edit.js:302
+#: src/blocks/latest-posts/edit.js:382
 msgid "Display post date"
 msgstr "投稿日を表示"
 
-#: src/blocks/latest-posts/edit.js:310
+#: src/blocks/latest-posts/edit.js:390
 msgid "Featured image settings"
 msgstr "アイキャッチ画像設定"
 
-#: src/blocks/latest-posts/edit.js:312
+#: src/blocks/latest-posts/edit.js:392
 msgid "Display featured image"
 msgstr "アイキャッチ画像を表示"
 
-#: src/blocks/latest-posts/edit.js:349
+#: src/blocks/latest-posts/edit.js:429
 msgid "Image alignment"
 msgstr "画像の位置"
 
-#: src/blocks/latest-posts/edit.js:363
+#: src/blocks/latest-posts/edit.js:443
 msgid "Add link to featured image"
 msgstr "アイキャッチ画像のリンクを追加"
 
-#: src/blocks/latest-posts/edit.js:375
+#: src/blocks/latest-posts/edit.js:454
+#: src/blocks/latest-posts/edit.js:459
+msgid "Featured image"
+msgstr "アイキャッチ画像"
+
+#: src/blocks/latest-posts/edit.js:487
+msgid "Set featured image"
+msgstr "アイキャッチ画像を設定"
+
+#: src/blocks/latest-posts/edit.js:501
+msgid "Remove image"
+msgstr "アイキャッチ画像を削除"
+
+#: src/blocks/latest-posts/edit.js:510
 msgid "Sorting and filtering"
 msgstr "並べ替えと絞り込み"
 
-#: src/blocks/latest-posts/edit.js:411
+#: src/blocks/latest-posts/edit.js:546
 msgid "Columns"
 msgstr "カラム"
 
-#: src/blocks/latest-posts/edit.js:446
-#: src/blocks/latest-posts/edit.js:487
+#: src/blocks/latest-posts/edit.js:581
+#: src/blocks/latest-posts/edit.js:622
 msgid "Latest Posts (Custom Post Type)"
 msgstr "最新の記事 (カスタム投稿タイプ)"
 
-#: src/blocks/latest-posts/edit.js:450
+#: src/blocks/latest-posts/edit.js:585
 msgid "No posts found."
 msgstr "投稿はありません"
 
-#: src/blocks/latest-posts/edit.js:466
+#: src/blocks/latest-posts/edit.js:601
 msgid "List view"
 msgstr "リスト表示"
 
-#: src/blocks/latest-posts/edit.js:472
+#: src/blocks/latest-posts/edit.js:607
 msgid "Grid view"
 msgstr "グリッド表示"
 
-#: src/blocks/latest-posts/edit.js:491
+#: src/blocks/latest-posts/edit.js:623
 msgid "Not displayed if postType is All."
 msgstr "ポストタイプが「すべて」の場合、表示しません。"
 
-#: src/blocks/latest-posts/edit.js:558
+#: src/blocks/latest-posts/edit.js:696
 msgid " … "
 msgstr " … "
 
-#: src/blocks/latest-posts/edit.js:560
+#: src/blocks/latest-posts/edit.js:702
 msgid "Read more"
 msgstr "もっと読む"
 
-#: src/blocks/search/edit.js:193
+#: src/blocks/search/edit.js:209
 msgid "Button outside"
 msgstr "ボタン外側"
 
-#: src/blocks/search/edit.js:204
+#: src/blocks/search/edit.js:220
 msgid "Button inside"
 msgstr "ボタン内側"
 
-#: src/blocks/search/edit.js:215
+#: src/blocks/search/edit.js:231
 msgid "No button"
 msgstr "ボタンなし"
 
-#: src/blocks/search/edit.js:264
+#: src/blocks/search/edit.js:280
 msgid "Optional placeholder text"
 msgstr "任意のプレスホルダーテキスト"
 
-#: src/blocks/search/edit.js:269
+#: src/blocks/search/edit.js:285
 msgid "Optional placeholder…"
 msgstr "任意のプレスホルダー…"
 
-#: src/blocks/search/edit.js:310
+#: src/blocks/search/edit.js:326
 msgid "Button text"
 msgstr "ボタンのテキスト"
 
-#: src/blocks/search/edit.js:311
+#: src/blocks/search/edit.js:327
 msgid "Add button text…"
 msgstr "ボタンのテキストを追加…"
 
-#: src/blocks/search/edit.js:328
+#: src/blocks/search/edit.js:344
 msgid "Toggle search label"
 msgstr "検索ラベルを切り替え"
 
-#: src/blocks/search/edit.js:339
+#: src/blocks/search/edit.js:355
 msgid "Change button position"
 msgstr "ボタンの位置を変更"
 
-#: src/blocks/search/edit.js:344
+#: src/blocks/search/edit.js:360
 msgid "Use button with icon"
 msgstr "アイコン付きのボタンを使用"
 
-#: src/blocks/search/edit.js:360
+#: src/blocks/search/edit.js:376
 msgid "Search settings"
 msgstr "設定"
 
-#: src/blocks/search/edit.js:370
+#: src/blocks/search/edit.js:386
 msgid "Width"
 msgstr "幅"
 
-#: src/blocks/search/edit.js:404
+#: src/blocks/search/edit.js:420
 msgid "Percentage Width"
 msgstr "パーセント幅"
 
-#: src/blocks/search/edit.js:495
+#: src/blocks/search/edit.js:511
 msgid "Label text"
 msgstr "ラベルテキスト"
 
-#: src/blocks/search/edit.js:496
+#: src/blocks/search/edit.js:512
 msgid "Add label…"
 msgstr "ラベルを追加…"
 

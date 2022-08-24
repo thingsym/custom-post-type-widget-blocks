@@ -84,6 +84,9 @@
     "addLinkToFeaturedImage": {
       "type": "boolean",
       "default": false
+    },
+    "featuredImageId": {
+      "type": "number"
     }
   },
   "supports": {
