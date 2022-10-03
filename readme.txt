@@ -7,7 +7,7 @@ Stable tag: 1.5.0
 Tested up to: 6.0.0
 Requires at least: 5.8.0
 Requires PHP: 7.1
-License: GPL2 or later
+License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: block, block editor, gutenberg, widget, widgets, custom post type, taxonomy
 
