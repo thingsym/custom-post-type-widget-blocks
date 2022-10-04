@@ -121,6 +121,7 @@
   "scripts": {
     "makepot:wpcli": "wp i18n make-pot . ./languages/custom-post-type-widget-blocks.pot --include=inc,src --exclude=dist,bin,tests,node_modules,vendor",
     "msgfmt:ja": "msgfmt languages/custom-post-type-widget-blocks-ja.po -o languages/custom-post-type-widget-blocks-ja.mo",
+    "msgmerge:ja": "msgmerge --update --backup off ./languages/${npm_package_name}-ja.po ./languages/${npm_package_name}.pot",
     "msgfmt": "run-p msgfmt:*",
     "po2json:ja": "po2json languages/custom-post-type-widget-blocks-ja.po languages/custom-post-type-widget-blocks-ja-custom-post-type-widget-blocks-editor-script.json -f jed",
     "po2json:wpcli:ja": "wp i18n make-json languages/custom-post-type-widget-blocks-ja.po --no-purge",
