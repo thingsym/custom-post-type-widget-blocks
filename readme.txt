@@ -11,11 +11,13 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: block, block editor, gutenberg, widget, widgets, custom post type, taxonomy
 
-Custom Post Type Widgets for the Block Editor (Gutenberg). This WordPress plugin adds default Custom Post Type Widget to the Block Editor.
+Custom Post Type Widgets for the Block Editor (Gutenberg). This WordPress plugin adds default Custom Post Type Widgets to the Block Editor.
 
 == Description ==
 
+Custom Post Type Widgets for the Block Editor (Gutenberg).
 This WordPress plugin adds default Custom Post Type Widgets to the Block Editor.
+
 You can filter by registered Custom Post Type or Taxonomy on the Block Editor.
 
 = Compatibility =
@@ -59,16 +61,41 @@ Custom Post Type Widgets has its own hooks. See the reference for details.
 
 Reference: [https://github.com/thingsym/custom-post-type-widget-blocks#hooks](https://github.com/thingsym/custom-post-type-widgets#hooks)
 
-= Test Matrix =
+= Support =
 
-For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
+If you have any trouble, you can use the forums or report bugs.
+
+* Forum: [https://wordpress.org/support/plugin/custom-post-type-widget-blocks/](https://wordpress.org/support/plugin/custom-post-type-widget-blocks/)
+* Issues: [https://github.com/thingsym/custom-post-type-widget-blocks/issues](https://github.com/thingsym/custom-post-type-widget-blocks/issues)
 
 = Contribution =
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [custom-post-type-widget-blocks - GitHub](https://github.com/thingsym/custom-post-type-widget-blocks)
-* [Custom Post Type Widget Blocks - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widget-blocks/)
+Translating a plugin takes a lot of time, effort, and patience. I really appreciate the hard work from these contributors.
+
+If you have created or updated your own language pack, you can send gettext PO and MO files to author. I can bundle it into plugin.
+
+* [VCS - GitHub](https://github.com/thingsym/custom-post-type-widget-blocks)
+* [Homepage - WordPress Plugin](https://wordpress.org/plugins/custom-post-type-widget-blocks/)
+* [Translate Custom Post Type Widget Blocks into your language.](https://translate.wordpress.org/projects/wp-plugins/custom-post-type-widget-blocks)
+
+You can also contribute by answering issues on the forums.
+
+* Forum: [https://wordpress.org/support/plugin/custom-post-type-widget-blocks/](https://wordpress.org/support/plugin/custom-post-type-widget-blocks/)
+* Issues: [https://github.com/thingsym/custom-post-type-widget-blocks/issues](https://github.com/thingsym/custom-post-type-widget-blocks/issues)
+
+= Patches and Bug Fixes =
+
+Forking on Github is another good way. You can send a pull request.
+
+1. Fork [Custom Post Type Widget Blocks](https://github.com/thingsym/custom-post-type-widget-blocks) from GitHub repository
+2. Create a feature branch: git checkout -b my-new-feature
+3. Commit your changes: git commit -am 'Add some feature'
+4. Push to the branch: git push origin my-new-feature
+5. Create new Pull Request
+
+= Contribute guidlines =
 
 If you would like to contribute, here are some notes and guidlines.
 
@@ -76,6 +103,10 @@ If you would like to contribute, here are some notes and guidlines.
 * The **master** branch only contains tagged releases
 * If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
 * See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+= Test Matrix =
+
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/custom-post-type-widget-blocks/actions).
 
 == Installation ==
 
