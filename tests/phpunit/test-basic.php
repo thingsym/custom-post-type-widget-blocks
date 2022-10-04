@@ -107,16 +107,40 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
-		$result = $this->custom_post_type_widget_blocks->load_textdomain();
-		$this->assertNull( $result );
+		$loaded = $this->custom_post_type_widget_blocks->load_textdomain();
+		$this->assertFalse( $loaded );
+
+		unload_textdomain( 'custom-post-type-widget-blocks' );
+
+		add_filter( 'locale', [ $this, '_change_locale' ] );
+		add_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ], 10, 2 );
+
+		$loaded = $this->custom_post_type_widget_blocks->load_textdomain();
+		$this->assertTrue( $loaded );
+
+		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
+		remove_filter( 'locale', [ $this, '_change_locale' ] );
+
+		unload_textdomain( 'custom-post-type-widget-blocks' );
 	}
 
 	/**
-	 * @test
-	 * @group basic
+	 * hook for load_textdomain
 	 */
-	public function plugin_metadata_links() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	function _change_locale( $locale ) {
+		return 'ja';
+	}
+
+	function _change_textdomain_mofile( $mofile, $domain ) {
+		if ( $domain === 'custom-post-type-widget-blocks' ) {
+			$locale = determine_locale();
+			$mofile = plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'languages/custom-post-type-widget-blocks-' . $locale . '.mo';
+
+			$this->assertSame( $locale, get_locale() );
+			$this->assertFileExists( $mofile );
+		}
+
+		return $mofile;
 	}
 
 	/**
@@ -124,7 +148,22 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function set_block_editor_translations() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$result = $this->custom_post_type_widget_blocks->set_block_editor_translations();
+		$this->assertTrue( $result );
+
+		$this->assertArrayHasKey( 'custom-post-type-widget-blocks-editor-script', wp_scripts()->registered );
+		$this->assertSame( wp_scripts()->registered[ 'custom-post-type-widget-blocks-editor-script' ]->textdomain, 'custom-post-type-widget-blocks' );
+		$this->assertSame( wp_scripts()->registered[ 'custom-post-type-widget-blocks-editor-script' ]->translations_path, plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . 'languages' );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function plugin_metadata_links() {
+		$links = $this->custom_post_type_widget_blocks->plugin_metadata_links( array(), plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) );
+		$this->assertContains( '<a href="https://github.com/sponsors/thingsym">Become a sponsor</a>', $links );
+
 	}
 
 	/**
