@@ -23,6 +23,13 @@ jobs:
         os: [ ubuntu-20.04 ]
         php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
         wordpress: [ latest, nightly, '5.8' ]
+        include:
+          - allow_failures: "true"
+            php: '8.0'
+            wordpress: '5.8'
+          - allow_failures: "true"
+            php: '8.1'
+            wordpress: '5.8'
 
     env:
       PHP_VERSION: ${{ matrix.php }}
@@ -97,6 +104,7 @@ jobs:
 
       - name: Run PHPUnit - WordPress ${{ matrix.wordpress }}
         run: composer run phpunit
+        continue-on-error: ${{ matrix.allow_failures == 'true' }}
 
       - name: Run Jest unit test - WordPress ${{ matrix.wordpress }}
         run: npm run test:jest
