@@ -1,12 +1,12 @@
 {
   "description": "composer.json for testing WordPress theme/plugin",
-  "license": "GPL2 or later",
+  "license": "GPLv2 or later",
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "wp-coding-standards/wpcs": "2.*",
     "phpmd/phpmd": "2.*",
     "phpstan/phpstan": "*",
-    "phpunit/phpunit": "^7",
+    "phpunit/phpunit": "^8",
     "phpcompatibility/phpcompatibility-wp": "*",
     "yoast/phpunit-polyfills": "^1.0.3"
   },

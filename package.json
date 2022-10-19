@@ -1,6 +1,6 @@
 {
   "name": "custom-post-type-widget-blocks",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Custom Post Type Widgets for Block Editor (Gutenberg).",
   "author": "Thingsym",
   "license": "GPL-2.0-or-later",
@@ -119,11 +119,12 @@
     ]
   },
   "scripts": {
-    "makepot:wpcli": "wp i18n make-pot . ./languages/custom-post-type-widget-blocks.pot --include=inc,src --exclude=dist,bin,tests,node_modules,vendor",
-    "msgfmt:ja": "msgfmt languages/custom-post-type-widget-blocks-ja.po -o languages/custom-post-type-widget-blocks-ja.mo",
+    "makepot:wpcli": "wp i18n make-pot ./ ./languages/${npm_package_name}.pot --exclude=dist,bin,tests,node_modules,vendor",
+    "msgmerge:ja": "msgmerge --update --backup off ./languages/${npm_package_name}-ja.po ./languages/${npm_package_name}.pot",
+    "msgfmt:ja": "msgfmt languages/${npm_package_name}-ja.po -o languages/${npm_package_name}-ja.mo",
     "msgfmt": "run-p msgfmt:*",
-    "po2json:ja": "po2json languages/custom-post-type-widget-blocks-ja.po languages/custom-post-type-widget-blocks-ja-custom-post-type-widget-blocks-editor-script.json -f jed",
-    "po2json:wpcli:ja": "wp i18n make-json languages/custom-post-type-widget-blocks-ja.po --no-purge",
+    "po2json:ja": "po2json languages/${npm_package_name}-ja.po languages/${npm_package_name}-ja-${npm_package_name}-editor-script.json -f jed",
+    "po2json:wpcli:ja": "wp i18n make-json languages/${npm_package_name}-ja.po --no-purge",
     "po2json": "run-p po2json:*",
     "sass:blocks:style": "sass src/scss/blocks.scss dist/css/blocks.css --style expanded --no-source-map && postcss --use autoprefixer --no-map -r dist/css/blocks.css",
     "sass:blocks:style:minify": "sass src/scss/blocks.scss dist/css/blocks.min.css --style expanded --no-source-map && postcss --use autoprefixer --use cssnano --no-map -r dist/css/blocks.min.css",
@@ -147,7 +148,6 @@
     "test:e2e:help": "wp-scripts test-e2e --help",
     "test": "run-p lint test:jest",
     "format:js": "wp-scripts format-js ./src/blocks",
-    "watch": "wp-scripts start src/js/blocks --output-path=dist/js",
     "archive:package": "mkdir -p ./custom-post-type-widget-blocks && cpy '**/*' '!./.DS_Store' '!./bin' '!./vendor' '!./composer.json' '!./composer.lock' '!./node_modules' '!./README.md' '!./package.json' '!./package-lock.json' '!./phpcs.ruleset.xml' '!./phpmd.ruleset.xml' '!./phpstan.neon' '!./phpunit.xml' '!./README.md' '!./webpack.config.js' '!./jest.config.js' '!./jest-puppeteer.config.js' '!./src' '!./tests' '!./custom-post-type-widget-blocks-v*.zip' './custom-post-type-widget-blocks' --parents",
     "archive:zip": "zip -9 -qmr custom-post-type-widget-blocks-v$npm_package_version.zip ./custom-post-type-widget-blocks",
     "archive": "run-s build archive:package archive:zip"

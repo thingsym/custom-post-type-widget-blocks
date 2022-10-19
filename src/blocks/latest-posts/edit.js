@@ -136,9 +136,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		media,
 	} = useSelect(
 		( select ) => {
-			const { getEntityRecords, getMedia, getUsers } = select(
-				coreStore
-			);
+			const { getEntityRecords, getMedia, getUsers } = select( coreStore );
 			const { getSettings } = select( blockEditorStore );
 			const { imageSizes, imageDimensions } = getSettings();
 			const catIds =
@@ -148,7 +146,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 
 			let latestPostsParam = {
 				author: selectedAuthor,
-				order,
+				order: order,
 				orderby: orderBy,
 				per_page: postsToShow,
 			};
@@ -224,9 +222,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				),
 				authorList: getUsers( USERS_LIST_QUERY ),
 				postTypes: select( coreStore ).getPostTypes(),
-				media: featuredImageId ?
-					getMedia( featuredImageId, { context: 'view' } )
-					: null,
+				media: featuredImageId ? getMedia( featuredImageId, { context: 'view' } ) : null,
 			};
 		},
 		[
@@ -328,6 +324,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 	};
 
 	const hasPosts = !! latestPosts?.length;
+
 	const inspectorControls = (
 		<InspectorControls>
 			<PanelBody title={ __( 'Post content settings', 'custom-post-type-widget-blocks' ) }>
@@ -493,15 +490,15 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							</MediaUploadCheck>
 							{ !! featuredImageId && (
 								<MediaUploadCheck>
-								<Button
-									onClick={ onRemoveImage }
-									variant="link"
-									isDestructive
-								>
-									{ __( 'Remove image', 'custom-post-type-widget-blocks' ) }
-								</Button>
-							</MediaUploadCheck>
-						) }
+									<Button
+										onClick={ onRemoveImage }
+										variant="link"
+										isDestructive
+									>
+										{ __( 'Remove image', 'custom-post-type-widget-blocks' ) }
+									</Button>
+								</MediaUploadCheck>
+							) }
 						</BaseControl>
 					</>
 				) }

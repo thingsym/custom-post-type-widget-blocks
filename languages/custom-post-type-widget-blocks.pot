@@ -1,21 +1,21 @@
 # Copyright (C) 2022 thingsym
-# This file is distributed under the GPL2 or later.
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.5.0\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-widget-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-24T06:51:26+00:00\n"
+"POT-Creation-Date: 2022-10-19T07:39:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: custom-post-type-widget-blocks\n"
 
 #. Plugin Name of the plugin
-#: inc/class-custom-post-type-widget-blocks.php:142
+#: inc/class-custom-post-type-widget-blocks.php:144
 msgid "Custom Post Type Widget Blocks"
 msgstr ""
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "https://www.thingslabo.com/"
 msgstr ""
 
-#: inc/class-custom-post-type-widget-blocks.php:210
+#: inc/class-custom-post-type-widget-blocks.php:212
 msgid "Become a sponsor"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 
 #: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:39
 #: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:87
-#: src/blocks/latest-posts/edit.js:729
+#: src/blocks/latest-posts/edit.js:726
 msgid "(no title)"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 
 #. translators: byline. %s: current author.
 #: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:156
-#: src/blocks/latest-posts/edit.js:736
+#: src/blocks/latest-posts/edit.js:733
 msgid "by %s"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 #: src/blocks/archives/edit.js:65
 #: src/blocks/calendar/edit.js:132
 #: src/blocks/latest-comments/edit.js:86
-#: src/blocks/latest-posts/edit.js:512
+#: src/blocks/latest-posts/edit.js:509
 #: src/blocks/search/edit.js:378
 msgid "Post Type"
 msgstr ""
@@ -263,105 +263,105 @@ msgstr ""
 msgid "Number of Comments"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:333
+#: src/blocks/latest-posts/edit.js:330
 msgid "Post content settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:335
+#: src/blocks/latest-posts/edit.js:332
 msgid "Post content"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:343
+#: src/blocks/latest-posts/edit.js:340
 msgid "Show:"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:346
+#: src/blocks/latest-posts/edit.js:343
 msgid "Excerpt"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:348
+#: src/blocks/latest-posts/edit.js:345
 msgid "Full post"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:362
+#: src/blocks/latest-posts/edit.js:359
 msgid "Max number of words in excerpt"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:373
+#: src/blocks/latest-posts/edit.js:370
 msgid "Post meta settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:375
+#: src/blocks/latest-posts/edit.js:372
 msgid "Display author name"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:382
+#: src/blocks/latest-posts/edit.js:379
 msgid "Display post date"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:390
+#: src/blocks/latest-posts/edit.js:387
 msgid "Featured image settings"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:392
+#: src/blocks/latest-posts/edit.js:389
 msgid "Display featured image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:429
+#: src/blocks/latest-posts/edit.js:426
 msgid "Image alignment"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:443
+#: src/blocks/latest-posts/edit.js:440
 msgid "Add link to featured image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:454
-#: src/blocks/latest-posts/edit.js:459
+#: src/blocks/latest-posts/edit.js:451
+#: src/blocks/latest-posts/edit.js:456
 msgid "Featured image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:487
+#: src/blocks/latest-posts/edit.js:484
 msgid "Set featured image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:501
+#: src/blocks/latest-posts/edit.js:498
 msgid "Remove image"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:510
+#: src/blocks/latest-posts/edit.js:507
 msgid "Sorting and filtering"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:546
+#: src/blocks/latest-posts/edit.js:543
 msgid "Columns"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:581
-#: src/blocks/latest-posts/edit.js:622
+#: src/blocks/latest-posts/edit.js:578
+#: src/blocks/latest-posts/edit.js:619
 msgid "Latest Posts (Custom Post Type)"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:585
+#: src/blocks/latest-posts/edit.js:582
 msgid "No posts found."
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:601
+#: src/blocks/latest-posts/edit.js:598
 msgid "List view"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:607
+#: src/blocks/latest-posts/edit.js:604
 msgid "Grid view"
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:623
+#: src/blocks/latest-posts/edit.js:620
 msgid "Not displayed if postType is All."
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:696
+#: src/blocks/latest-posts/edit.js:693
 msgid " … "
 msgstr ""
 
-#: src/blocks/latest-posts/edit.js:702
+#: src/blocks/latest-posts/edit.js:699
 msgid "Read more"
 msgstr ""
 

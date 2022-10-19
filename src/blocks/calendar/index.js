@@ -9,14 +9,14 @@ import { calendar as icon } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
- import metadata from './block.json';
- import edit from './edit';
+import metadata from './block.json';
+import edit from './edit';
 
- const { name } = metadata;
+const { name } = metadata;
 
- export { metadata, name };
+export { metadata, name };
 
- export const settings = {
-	 icon,
-	 edit,
- };
+export const settings = {
+	icon,
+	edit,
+};
