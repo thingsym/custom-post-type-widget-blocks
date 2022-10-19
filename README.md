@@ -169,6 +169,20 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.5.1] - 2022.10.19
+
+* fix workflows for php 8.0
+* fix composer.json
+* fix compatible with setUp(): void
+* update japanese translation
+* update pot
+* fix indent and line-break
+* fix npm scripts
+* fix load_textdomain and set_block_editor_translations methods for testability
+* add msgmerge to npm scripts
+* add support section and enhance contribution section
+* fix license
+
 ### [1.5.0] - 2022.08.24
 
 * update japanese translation
