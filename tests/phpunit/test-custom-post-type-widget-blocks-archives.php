@@ -7,7 +7,7 @@
 
 class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->custom_post_type_widget_blocks_archives = new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Archives();
 	}

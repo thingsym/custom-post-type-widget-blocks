@@ -7,7 +7,7 @@
 
 class Test_Custom_Post_Type_Widget_Blocks_Latest_Posts extends WP_UnitTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->custom_post_type_widget_blocks_latest_posts = new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Latest_Posts();
 	}
