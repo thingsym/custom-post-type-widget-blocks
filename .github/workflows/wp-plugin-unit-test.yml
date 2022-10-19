@@ -63,12 +63,25 @@ jobs:
       - name: Install gettext library
         run: sudo apt-get install gettext
 
-      - name: Update composer dependencies for lock file
-        # Your lock file does not contain a compatible set of packages. Please run composer update.
-        run: composer update
+      - name: Install PHPUnit
+        run: |
+          # for PHP Compatibility - https://phpunit.de/supported-versions.html
+          if [[ $PHP_VERSION == "7.0" ]] ; then
+            composer global require "phpunit/phpunit=5.7.*|6.*"
+          # for WP_VERSION < 4.6 due to PHP Fatal error: Class 'PHPUnit_Framework_TestCase' not found
+          elif [[ ${PHP_VERSION:0:1} == "7" ]] && [[ "$WP_VERSION" < 4.6* ]] ; then
+            composer global require "phpunit/phpunit=5.7.*"
+          # for WP_VERSION < 5.0 due to Fatal error: Class PHPUnit_Util_Test may not inherit from final class (PHPUnit\Util\Test)
+          elif [[ ${PHP_VERSION:0:1} == "7" ]] && [[ "$WP_VERSION" < 5.0* ]] ; then
+            composer global require "phpunit/phpunit=5.7.*|6.*"
+          elif [[ ${PHP_VERSION:0:1} == "8" ]] ; then
+            composer global require "phpunit/phpunit=8.*"
+          else
+            composer global require "phpunit/phpunit=4.8.*|5.4.*|5.7.*|6.*|7.*"
+          fi
 
-      - name: Install composer dependencies
-        run: composer install
+      - name: Install PHPUnit Polyfills library
+        run: composer global require "yoast/phpunit-polyfills=1.0.3"
 
       - name: Install wp tests
         run: bash bin/install-wp-tests.sh wordpress_test root root 0.0.0.0:3306 $WP_VERSION
