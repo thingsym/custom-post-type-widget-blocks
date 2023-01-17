@@ -72,8 +72,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Posts extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_latest_posts->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#http://example\.org/\?p=#', $render );
-
+		$this->assertMatchesRegularExpression( '#http://example\.org/\?p=#', $render );
 	}
 
 	/**
@@ -155,7 +154,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Posts extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_latest_posts->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#http://example\.org/\?test=#', $render );
 
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+		$this->assertMatchesRegularExpression( '/is\-grid/', $render );
 	}
+
 }

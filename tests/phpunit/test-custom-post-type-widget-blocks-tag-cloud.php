@@ -61,13 +61,12 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#http://example\.org/\?tag=sample\-tag\-1#', $render );
-		$this->assertRegExp( '#Sample tag 1#', $render );
-		$this->assertRegExp( '#http://example\.org/\?tag=sample\-tag\-2#', $render );
-		$this->assertRegExp( '#Sample tag 2#', $render );
-		$this->assertRegExp( '#http://example\.org/\?tag=sample\-tag\-3#', $render );
-		$this->assertRegExp( '#Sample tag 3#', $render );
-
+		$this->assertMatchesRegularExpression( '#http://example\.org/\?tag=sample\-tag\-1#', $render );
+		$this->assertMatchesRegularExpression( '#Sample tag 1#', $render );
+		$this->assertMatchesRegularExpression( '#http://example\.org/\?tag=sample\-tag\-2#', $render );
+		$this->assertMatchesRegularExpression( '#Sample tag 2#', $render );
+		$this->assertMatchesRegularExpression( '#http://example\.org/\?tag=sample\-tag\-3#', $render );
+		$this->assertMatchesRegularExpression( '#Sample tag 3#', $render );
 	}
 
 	/**
@@ -83,8 +82,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#Your site doesn&\#8217;t have any tags, so there&\#8217;s nothing to display here at the moment.#', $render );
-
+		$this->assertMatchesRegularExpression( '#There&\#8217;s no content to show here yet.#', $render );
 	}
 
 	/**

@@ -62,10 +62,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_categories->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#Sample Category 1#', $render );
-		$this->assertRegExp( '#Sample Category 2#', $render );
-		$this->assertRegExp( '#Sample Category 3#', $render );
-
+		$this->assertMatchesRegularExpression( '#Sample Category 1#', $render );
+		$this->assertMatchesRegularExpression( '#Sample Category 2#', $render );
+		$this->assertMatchesRegularExpression( '#Sample Category 3#', $render );
 	}
 
 	/**
@@ -85,7 +84,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_categories->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#Uncategorized#', $render );
+		$this->assertMatchesRegularExpression( '#Uncategorized#', $render );
 
 		$attributes = [
 			'taxonomy'          => 'category',
@@ -97,8 +96,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_categories->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#Uncategorized#', $render );
-
+		$this->assertMatchesRegularExpression( '#Uncategorized#', $render );
 	}
 
 	/**
