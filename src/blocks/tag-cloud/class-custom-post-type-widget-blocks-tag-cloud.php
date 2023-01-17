@@ -34,10 +34,17 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 	}
 
 	public function render_callback( $attributes ) {
-		$args = [
+		$smallest_font_size = $attributes['smallestFontSize'];
+		$unit               = ( preg_match( '/^[0-9.]+(?P<unit>[a-z%]+)$/i', $smallest_font_size, $m ) ? $m['unit'] : 'pt' );
+
+		$args      = [
 			'echo'       => false,
+			'unit'       => $unit,
 			'taxonomy'   => $attributes['taxonomy'],
 			'show_count' => $attributes['showTagCounts'],
+			'number'     => $attributes['numberOfTags'],
+			'smallest'   => floatVal( $attributes['smallestFontSize'] ),
+			'largest'    => floatVal( $attributes['largestFontSize'] ),
 		];
 
 		/**
@@ -56,14 +63,7 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 		$tag_cloud = wp_tag_cloud( apply_filters( 'custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args', $args ) );
 
 		if ( ! $tag_cloud ) {
-			$labels    = get_taxonomy_labels( get_taxonomy( $attributes['taxonomy'] ) );
-			$tag_cloud = esc_html(
-				sprintf(
-					/* translators: %s: taxonomy name */
-					__( 'Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display here at the moment.', 'custom-post-type-widget-blocks' ),
-					strtolower( $labels->name )
-				)
-			);
+			$tag_cloud = __( 'There&#8217;s no content to show here yet.' );
 		}
 
 		$wrapper_attributes = get_block_wrapper_attributes();
