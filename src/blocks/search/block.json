@@ -11,56 +11,75 @@
       "type": "string",
       "default": "any"
     },
-		"label": {
-			"type": "string",
-			"__experimentalRole": "content"
-		},
-		"showLabel": {
-			"type": "boolean",
-			"default": true
-		},
-		"placeholder": {
-			"type": "string",
-			"default": "",
-			"__experimentalRole": "content"
-		},
-		"width": {
-			"type": "number"
-		},
-		"widthUnit": {
-			"type": "string"
-		},
-		"buttonText": {
-			"type": "string",
-			"__experimentalRole": "content"
-		},
-		"buttonPosition": {
-			"type": "string",
-			"default": "button-outside"
-		},
-		"buttonUseIcon": {
-			"type": "boolean",
-			"default": false
-		}
+    "label": {
+      "type": "string",
+      "__experimentalRole": "content"
+    },
+    "showLabel": {
+      "type": "boolean",
+      "default": true
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "",
+      "__experimentalRole": "content"
+    },
+    "width": {
+      "type": "number"
+    },
+    "widthUnit": {
+      "type": "string"
+    },
+    "buttonText": {
+      "type": "string",
+      "__experimentalRole": "content"
+    },
+    "buttonPosition": {
+      "type": "string",
+      "default": "button-outside"
+    },
+    "buttonUseIcon": {
+      "type": "boolean",
+      "default": false
+    }
   },
   "supports": {
-		"align": [ "left", "center", "right" ],
-		"color": {
-			"gradients": true,
-			"__experimentalSkipSerialization": true
-		},
-		"__experimentalBorder": {
-			"color": true,
-			"radius": true,
-			"width": true,
-			"__experimentalSkipSerialization": true,
-			"__experimentalDefaultControls": {
-				"color": true,
-				"radius": true,
-				"width": true
-			}
-		},
-		"html": false
+    "align": [ "left", "center", "right" ],
+    "color": {
+      "gradients": true,
+      "__experimentalSkipSerialization": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "typography": {
+      "__experimentalSkipSerialization": true,
+      "__experimentalSelector": ".wp-block-search__label, .wp-block-search__input, .wp-block-search__button",
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "width": true,
+      "__experimentalSkipSerialization": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "width": true
+      }
+    },
+    "html": false
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",
   "editorStyle": "custom-post-type-widget-blocks-editor-style",
