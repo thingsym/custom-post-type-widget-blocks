@@ -31,8 +31,12 @@
     }
   },
   "supports": {
-    "align": true,
-    "html": false
+    "align": [ "wide", "full" ],
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",
   "editorStyle": "custom-post-type-widget-blocks-editor-style",
