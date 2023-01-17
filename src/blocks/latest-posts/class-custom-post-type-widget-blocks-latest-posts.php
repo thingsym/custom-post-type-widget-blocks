@@ -214,10 +214,6 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 
 		$classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__list';
 
-		if ( isset( $attributes['align'] ) ) {
-			$classnames[] = 'align' . $attributes['align'];
-		}
-
 		if ( isset( $attributes['postLayout'] ) && 'grid' === $attributes['postLayout'] ) {
 			$classnames[] = 'is-grid';
 		}
