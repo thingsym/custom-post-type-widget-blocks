@@ -54,8 +54,11 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 		$this->factory->post->create( [ 'tags_input' => [ $term_3->term_id ] ] );
 
 		$attributes = [
-			'taxonomy'      => 'post_tag',
-			'showTagCounts' => false,
+			'taxonomy'         => 'post_tag',
+			'showTagCounts'    => false,
+			'numberOfTags'     => 45,
+			'smallestFontSize' => '8pt',
+			'largestFontSize'  => '22pt',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
@@ -75,8 +78,11 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 	 */
 	function render_callback_no_tag() {
 		$attributes = [
-			'taxonomy'      => 'post_tag',
-			'showTagCounts' => false,
+			'taxonomy'         => 'post_tag',
+			'showTagCounts'    => false,
+			'numberOfTags'     => 45,
+			'smallestFontSize' => '8pt',
+			'largestFontSize'  => '22pt',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
