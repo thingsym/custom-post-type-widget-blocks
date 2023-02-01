@@ -169,6 +169,22 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.6.0] - 2023.02.01
+
+* fix test case
+* apply textdomain to styles for block.json
+* update japanese translation
+* update pot
+* fix npm scripts
+* fix composer scripts
+* improve tag-cloud widget block
+* add showRedirectionPreventedNotice and using dangerouslySetInnerHTML
+* add return value if post is empty
+* update package.json
+* fix block.json
+* change from assertRegExp to assertMatchesRegularExpression
+* update github actions, Node.js 12 actions are deprecated
+
 ### [1.5.1] - 2022.10.19
 
 * fix workflows for php 8.0
