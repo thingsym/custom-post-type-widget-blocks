@@ -94,7 +94,7 @@ jobs:
         run: bash bin/install-wp-tests.sh wordpress_test root root 0.0.0.0:3306 $WP_VERSION
 
       - name: Apply a patch
-        run: cp tests/phpunit/patch/class-wp-block-supports.php /tmp/wordpress/wp-includes/class-wp-block-supports.php
+        run: cp ./tests/phpunit/patch/class-wp-block-supports.php /tmp/wordpress/wp-includes/class-wp-block-supports.php
 
       - name: Install Node.js package dependencies
         run: npm install
