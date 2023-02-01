@@ -154,7 +154,7 @@ Forking on Github is another good way. You can send a pull request.
 4. Push to the branch: git push origin my-new-feature
 5. Create new Pull Request
 
-### Contribute guidlines =
+### Contribute guidlines
 
 If you would like to contribute, here are some notes and guidlines.
 
