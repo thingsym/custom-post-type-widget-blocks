@@ -56,8 +56,15 @@ const applyTextdomainMetadata = ( metadata, settings ) => {
 			settings.description = metadata.description;
 		}
 		if ( !! metadata.keywords ) {
-			metadata.keywords = __( metadata.keywords, 'custom-post-type-widget-blocks' );
+			metadata.keywords = _x( metadata.keywords, 'custom-post-type-widget-blocks' );
 			settings.keywords = metadata.keywords;
+		}
+
+		if ( !! metadata.styles ) {
+			metadata.styles.forEach( ( style, index ) => {
+				metadata.styles[index].label = _x( style.label, 'block style label', 'custom-post-type-widget-blocks' );
+			});
+			settings.styles = metadata.styles;
 		}
 	}
 

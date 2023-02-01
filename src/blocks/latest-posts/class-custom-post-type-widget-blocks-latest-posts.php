@@ -77,6 +77,10 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 		 */
 		$recent_posts = get_posts( apply_filters( 'custom_post_type_widget_blocks/latest_posts/widget_posts_args', $args ) );
 
+		if ( empty( $recent_posts ) ) {
+			return '';
+		}
+
 		$list_items_markup = '';
 
 		foreach ( $recent_posts as $post ) {
@@ -209,10 +213,6 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 		wp_reset_postdata();
 
 		$classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__list';
-
-		if ( isset( $attributes['align'] ) ) {
-			$classnames[] = 'align' . $attributes['align'];
-		}
 
 		if ( isset( $attributes['postLayout'] ) && 'grid' === $attributes['postLayout'] ) {
 			$classnames[] = 'is-grid';

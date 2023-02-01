@@ -8,6 +8,12 @@
   "version": "1.3.0",
   "textdomain": "custom-post-type-widget-blocks",
   "attributes": {
+    "numberOfTags": {
+      "type": "number",
+      "default": 45,
+      "minimum": 1,
+      "maximum": 100
+    },
     "taxonomy": {
       "type": "string",
       "default": "post_tag"
@@ -15,11 +21,36 @@
     "showTagCounts": {
       "type": "boolean",
       "default": false
+    },
+    "smallestFontSize": {
+      "type": "string",
+      "default": "8pt"
+    },
+    "largestFontSize": {
+      "type": "string",
+      "default": "22pt"
     }
   },
+  "styles": [
+    { "name": "default", "label": "Default", "isDefault": true },
+    { "name": "outline", "label": "Outline" },
+    { "name": "hash-tag", "label": "Hash tag" }
+  ],
   "supports": {
-    "align": true,
-    "html": false
+    "align": [ "wide", "full" ],
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalLetterSpacing": true
+    }
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",
   "editorStyle": "custom-post-type-widget-blocks-editor-style",

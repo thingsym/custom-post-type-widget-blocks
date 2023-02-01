@@ -56,7 +56,6 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 		$render = $this->custom_post_type_widget_blocks_latest_comments->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-
 	}
 
 	/**
@@ -75,8 +74,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 		$render = $this->custom_post_type_widget_blocks_latest_comments->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#No comments to show.#', $render );
-
+		$this->assertMatchesRegularExpression( '#No comments to show.#', $render );
 	}
 
 	/**

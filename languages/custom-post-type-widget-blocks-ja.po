@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Type Widget Blocks 1.5.1\n"
+"Project-Id-Version: Custom Post Type Widget Blocks 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-"
 "widget-blocks\n"
-"POT-Creation-Date: 2022-10-19T07:39:33+00:00\n"
+"POT-Creation-Date: 2023-01-23T09:20:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,8 +94,8 @@ msgid "Select Category"
 msgstr "カテゴリーを選択"
 
 #: src/blocks/latest-comments/class-custom-post-type-widget-blocks-latest-comments.php:39
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:87
-#: src/blocks/latest-posts/edit.js:726
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:91
+#: src/blocks/latest-posts/edit.js:737
 msgid "(no title)"
 msgstr "(タイトルなし)"
 
@@ -109,13 +109,13 @@ msgid "%1$s on %2$s"
 msgstr "%2$s に %1$s より"
 
 #. translators: byline. %s: current author.
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:156
-#: src/blocks/latest-posts/edit.js:733
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:160
+#: src/blocks/latest-posts/edit.js:743
 msgid "by %s"
 msgstr "投稿者: %s"
 
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:178
-#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:194
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:182
+#: src/blocks/latest-posts/class-custom-post-type-widget-blocks-latest-posts.php:198
 msgid "This content is password protected."
 msgstr "この投稿内容はパスワードで保護されています。"
 
@@ -125,13 +125,6 @@ msgstr "この投稿内容はパスワードで保護されています。"
 #: src/blocks/search/variations.js:11 src/blocks/search/variations.js:12
 msgid "Search"
 msgstr "検索"
-
-#. translators: %s: taxonomy name
-#: src/blocks/tag-cloud/class-custom-post-type-widget-blocks-tag-cloud.php:63
-msgid ""
-"Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display "
-"here at the moment."
-msgstr "サイトには%sがないため、表示するものはありません。"
 
 #: src/blocks/archives/edit.js:38 src/blocks/latest-comments/edit.js:58
 #: src/blocks/latest-posts/edit.js:106 src/blocks/search/edit.js:97
@@ -173,7 +166,7 @@ msgid "Display as Dropdown"
 msgstr "ドロップダウン表示"
 
 #: src/blocks/archives/edit.js:107 src/blocks/categories/edit.js:205
-#: src/blocks/tag-cloud/edit.js:70
+#: src/blocks/tag-cloud/edit.js:136
 msgid "Show Post Counts"
 msgstr "投稿数を表示"
 
@@ -190,7 +183,7 @@ msgid "ASC"
 msgstr "過去から"
 
 #: src/blocks/calendar/edit.js:53 src/blocks/categories/edit.js:89
-#: src/blocks/tag-cloud/edit.js:37
+#: src/blocks/tag-cloud/edit.js:79
 msgid "- Select -"
 msgstr "- 選択 -"
 
@@ -218,7 +211,7 @@ msgstr "カテゴリー"
 msgid "Categories settings"
 msgstr "カテゴリー設定"
 
-#: src/blocks/categories/edit.js:194 src/blocks/tag-cloud/edit.js:62
+#: src/blocks/categories/edit.js:194 src/blocks/tag-cloud/edit.js:128
 msgid "Taxonomy (slug)"
 msgstr "分類 (スラッグ)"
 
@@ -420,7 +413,7 @@ msgstr "ラベルテキスト"
 msgid "Add label…"
 msgstr "ラベルを追加…"
 
-#: src/blocks/tag-cloud/edit.js:60
+#: src/blocks/tag-cloud/edit.js:126
 msgid "Tag Cloud settings"
 msgstr "タグクラウド設定"
 
@@ -518,3 +511,18 @@ msgstr "タグクラウド (カスタム投稿タイプ)"
 msgctxt "block description"
 msgid "A cloud of your most used tags."
 msgstr "よく使用されているタグの羅列。"
+
+#: src/blocks/tag-cloud/block.json
+msgctxt "block style label"
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/blocks/tag-cloud/block.json
+msgctxt "block style label"
+msgid "Outline"
+msgstr "アウトライン"
+
+#: src/blocks/tag-cloud/block.json
+msgctxt "block style label"
+msgid "Hash tag"
+msgstr "ハッシュタグ"

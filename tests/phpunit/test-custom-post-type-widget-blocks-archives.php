@@ -58,7 +58,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#post_type=post#', $render );
+		$this->assertMatchesRegularExpression( '#post_type=post#', $render );
 
 	}
 
@@ -77,7 +77,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
 
-		$this->assertRegExp( '#No archives to show.#', $render );
+		$this->assertMatchesRegularExpression( '#No archives to show.#', $render );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#post_type=test#', $render );
+		$this->assertMatchesRegularExpression( '#post_type=test#', $render );
 
 		$attributes = [
 			'postType'          => 'test',
@@ -124,7 +124,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#post_type=test#', $render );
+		$this->assertMatchesRegularExpression( '#post_type=test#', $render );
 
 	}
 

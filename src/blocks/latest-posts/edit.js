@@ -711,6 +711,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 										<a
 											href={ post.link }
 											rel="noreferrer noopener"
+											onClick={
+												showRedirectionPreventedNotice
+											}
 										>
 											{ featuredImage }
 										</a>
@@ -719,12 +722,19 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 									) }
 								</div>
 							) }
-							<a href={ post.link } rel="noreferrer noopener">
-								{ titleTrimmed ? (
-									<RawHTML>{ titleTrimmed }</RawHTML>
-								) : (
-									__( '(no title)', 'custom-post-type-widget-blocks' )
-								) }
+							<a
+								href={ post.link }
+								rel="noreferrer noopener"
+								dangerouslySetInnerHTML={
+									!! titleTrimmed
+										? {
+												__html: titleTrimmed,
+										  }
+										: undefined
+								}
+								onClick={ showRedirectionPreventedNotice }
+							>
+								{ ! titleTrimmed ? __( '(no title)', 'custom-post-type-widget-blocks' ) : null }
 							</a>
 							{ displayAuthor && currentAuthor && (
 								<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-author">
@@ -751,11 +761,12 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								) }
 							{ displayPostContent &&
 								displayPostContentRadio === 'full_post' && (
-									<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content">
-										<RawHTML key="html">
-											{ post.content.raw.trim() }
-										</RawHTML>
-									</div>
+									<div
+										className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content"
+										dangerouslySetInnerHTML={ {
+											__html: post.content.raw.trim(),
+										} }
+									/>
 								) }
 						</li>
 					);

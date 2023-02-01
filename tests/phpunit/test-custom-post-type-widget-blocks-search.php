@@ -55,9 +55,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_search->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#name="post_type" value="post"#', $render );
-
+		$this->assertMatchesRegularExpression( '#name="post_type" value="post"#', $render );
 	}
+
 	/**
 	 * @test
 	 * @group custom_post_type_widget_blocks_search
@@ -73,7 +73,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_search->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#name="post_type" value="test"#', $render );
+		$this->assertMatchesRegularExpression( '#name="post_type" value="test"#', $render );
 
 		$attributes = [
 			'postType'    => 'test',
@@ -85,7 +85,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_search->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertRegExp( '#name="post_type" value="test"#', $render );
+		$this->assertMatchesRegularExpression( '#name="post_type" value="test"#', $render );
 	}
 
 }

@@ -163,7 +163,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 	 * @return string The classnames used in the block.
 	 */
 	public function get_classnames( $attributes ) {
-		$classnames = [];
+		$classnames   = [];
 		$classnames[] = 'wp-block-search';
 
 		if ( ! empty( $attributes['buttonPosition'] ) ) {

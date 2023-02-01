@@ -47,7 +47,8 @@
     },
     "postLayout": {
       "type": "string",
-      "default": "list"
+      "default": "list",
+      "enum": [ "list", "grid" ]
     },
     "columns": {
       "type": "number",
@@ -90,8 +91,34 @@
     }
   },
   "supports": {
-    "align": true,
-    "html": false
+    "align": [ "wide", "full" ],
+    "html": false,
+    "color": {
+      "gradients": true,
+      "link": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true,
+        "link": true
+      }
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    }
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",
   "editorStyle": "custom-post-type-widget-blocks-editor-style",
