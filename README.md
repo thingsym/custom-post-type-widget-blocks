@@ -169,6 +169,13 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.6.1] - 2023.04.21
+
+* tested up to 6.2.0
+* fix jest config
+* update npm dependencies
+* change permission to 744 for cpy
+
 ### [1.6.0] - 2023.02.01
 
 * fix test case
