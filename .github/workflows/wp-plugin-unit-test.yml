@@ -21,14 +21,16 @@ jobs:
 
       matrix:
         os: [ ubuntu-20.04 ]
-        php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
+        php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
         wordpress: [ latest, nightly, '5.8' ]
-        include:
-          - allow_failures: "true"
-            php: '8.0'
+
+        exclude:
+          # PHP 8.0+ is not compatible with PHPUnit 7.x. on WordPress versions prior to 5.8 and should not be tested.
+          - php: '8.0'
             wordpress: '5.8'
-          - allow_failures: "true"
-            php: '8.1'
+          - php: '8.1'
+            wordpress: '5.8'
+          - php: '8.2'
             wordpress: '5.8'
 
     env:
@@ -88,7 +90,7 @@ jobs:
           fi
 
       - name: Install PHPUnit Polyfills library
-        run: composer global require "yoast/phpunit-polyfills=1.0.3"
+        run: composer global require "yoast/phpunit-polyfills=1.1.0"
 
       - name: Install wp tests
         run: bash bin/install-wp-tests.sh wordpress_test root root 0.0.0.0:3306 $WP_VERSION
