@@ -169,6 +169,17 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.6.2] - 2023.11.28
+
+* tested up to 6.4.1
+* fix npm scripts
+* fix npm dependencies
+* fix github workflows
+* add php 8.2 to ci
+* fix phpunit.xml config
+* phpunit-polyfills bump up
+* fix __experimentalGetSettings deprecated
+
 ### [1.6.1] - 2023.04.21
 
 * tested up to 6.2.0
