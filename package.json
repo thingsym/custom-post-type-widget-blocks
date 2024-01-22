@@ -43,7 +43,7 @@
     "@wordpress/scripts": "^26.17.0",
     "@wordpress/stylelint-config": "^21.29.0",
     "autoprefixer": "^10.4.16",
-    "cpy-cli": "^3.1.1",
+    "cpy-cli": "^5.0.0",
     "cssnano": "^6.0.1",
     "enzyme": "^3.11.0",
     "eslint": "^8.54.0",
@@ -151,7 +151,7 @@
     "test": "run-p lint test:jest",
     "format:js": "wp-scripts format-js ./src/blocks",
     "ncu": "ncu",
-    "archive:package": "mkdir -p ./custom-post-type-widget-blocks && cpy '**/*' '!./.DS_Store' '!./bin' '!./vendor' '!./composer.json' '!./composer.lock' '!./node_modules' '!./README.md' '!./package.json' '!./package-lock.json' '!./phpcs.ruleset.xml' '!./phpmd.ruleset.xml' '!./phpstan.neon' '!./phpunit.xml' '!./README.md' '!./webpack.config.js' '!./jest.config.js' '!./jest-puppeteer.config.js' '!./src' '!./tests' '!./custom-post-type-widget-blocks-v*.zip' './custom-post-type-widget-blocks' --parents",
+    "archive:package": "mkdir -p ./custom-post-type-widget-blocks && cpy '.' '!./.DS_Store' '!./.git' '!./.gitignore' '!./.editorconfig' '!./.markdownlint.json' '!./.github' '!./bin' '!./vendor' '!./composer.json' '!./composer.lock' '!./node_modules' '!./README.md' '!./package.json' '!./package-lock.json' '!./phpcs.ruleset.xml' '!./phpmd.ruleset.xml' '!./phpstan.neon' '!./phpunit.xml' '!./webpack.config.js' '!./playwright.config.ts' '!./jest.config.js' '!./jest-puppeteer.config.js' '!./src' '!./tests'  '!./*.zip' './custom-post-type-widget-blocks'",
     "archive:zip": "zip -9 -qmr custom-post-type-widget-blocks-v$npm_package_version.zip ./custom-post-type-widget-blocks",
     "archive": "run-s build archive:package archive:zip"
   }
