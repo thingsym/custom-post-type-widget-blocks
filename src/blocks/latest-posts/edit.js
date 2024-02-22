@@ -221,7 +221,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					CATEGORIES_LIST_QUERY
 				),
 				authorList: getUsers( USERS_LIST_QUERY ),
-				postTypes: select( coreStore ).getPostTypes(),
+				postTypes: select( coreStore ).getPostTypes({
+					per_page: -1
+				}),
 				media: featuredImageId ? getMedia( featuredImageId, { context: 'view' } ) : null,
 			};
 		},
