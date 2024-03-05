@@ -49,7 +49,9 @@ export default function LatestComments( { attributes, setAttributes } ) {
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
-			postTypes: select( coreStore ).getPostTypes(),
+			postTypes: select( coreStore ).getPostTypes({
+				per_page: -1
+			}),
 		};
 	}, [] );
 

@@ -88,7 +88,9 @@ export default function SearchEdit( {
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
-			postTypes: select( coreStore ).getPostTypes(),
+			postTypes: select( coreStore ).getPostTypes({
+				per_page: -1
+			}),
 		};
 	}, [] );
 
