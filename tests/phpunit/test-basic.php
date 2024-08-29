@@ -10,6 +10,8 @@
  */
 class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 
+	public $custom_post_type_widget_blocks;
+
 	public function setUp(): void {
 		parent::setUp();
 		$this->custom_post_type_widget_blocks = new \Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks();
