@@ -20,6 +20,7 @@ import {
 	Spinner,
 	ToggleControl,
 	SelectControl,
+	Disabled,
 	VisuallyHidden,
 } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
@@ -233,12 +234,14 @@ export default function CategoriesEdit( {
 					) }
 				</p>
 			) }
-			{ ! isRequesting &&
-				categories != null &&
-				categories.length > 0 &&
-				( displayAsDropdown
-					? renderCategoryDropdown()
-					: renderCategoryList() ) }
+			<Disabled>
+				{ ! isRequesting &&
+					categories != null &&
+					categories.length > 0 &&
+					( displayAsDropdown
+						? renderCategoryDropdown()
+						: renderCategoryList() ) }
+			</Disabled>
 		</div>
 	);
 }

@@ -710,69 +710,71 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 
 					return (
 						<li key={ i }>
-							{ renderFeaturedImage && (
-								<div className={ imageClasses }>
-									{ addLinkToFeaturedImage ? (
-										<a
-											href={ post.link }
-											rel="noreferrer noopener"
-											onClick={
-												showRedirectionPreventedNotice
+							<Disabled>
+								{ renderFeaturedImage && (
+									<div className={ imageClasses }>
+										{ addLinkToFeaturedImage ? (
+											<a
+												href={ post.link }
+												rel="noreferrer noopener"
+												onClick={
+													showRedirectionPreventedNotice
+												}
+											>
+												{ featuredImage }
+											</a>
+										) : (
+											featuredImage
+										) }
+									</div>
+								) }
+								<a
+									href={ post.link }
+									rel="noreferrer noopener"
+									dangerouslySetInnerHTML={
+										!! titleTrimmed
+											? {
+												__html: titleTrimmed,
 											}
-										>
-											{ featuredImage }
-										</a>
-									) : (
-										featuredImage
-									) }
-								</div>
-							) }
-							<a
-								href={ post.link }
-								rel="noreferrer noopener"
-								dangerouslySetInnerHTML={
-									!! titleTrimmed
-										? {
-											__html: titleTrimmed,
-										}
-										: undefined
-								}
-								onClick={ showRedirectionPreventedNotice }
-							>
-								{ ! titleTrimmed ? __( '(no title)', 'custom-post-type-widget-blocks' ) : null }
-							</a>
-							{ displayAuthor && currentAuthor && (
-								<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-author">
-									{ sprintf(
-										/* translators: byline. %s: current author. */
-										__( 'by %s', 'custom-post-type-widget-blocks' ),
-										currentAuthor.name,
-									) }
-								</div>
-							) }
-							{ displayPostDate && post.date_gmt && (
-								<time
-									dateTime={ format( 'c', post.date_gmt ) }
-									className="wp-block-custom-post-type-widget-blocks-latest-posts__post-date"
+											: undefined
+									}
+									onClick={ showRedirectionPreventedNotice }
 								>
-									{ dateI18n( dateFormat, post.date_gmt ) }
-								</time>
-							) }
-							{ displayPostContent &&
-								displayPostContentRadio === 'excerpt' && (
-								<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
-									{ postExcerpt }
-								</div>
-							) }
-							{ displayPostContent &&
-								displayPostContentRadio === 'full_post' && (
-								<div
-									className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content"
-									dangerouslySetInnerHTML={ {
-										__html: post.content.raw.trim(),
-									} }
-								/>
-							) }
+									{ ! titleTrimmed ? __( '(no title)', 'custom-post-type-widget-blocks' ) : null }
+								</a>
+								{ displayAuthor && currentAuthor && (
+									<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-author">
+										{ sprintf(
+											/* translators: byline. %s: current author. */
+											__( 'by %s', 'custom-post-type-widget-blocks' ),
+											currentAuthor.name,
+										) }
+									</div>
+								) }
+								{ displayPostDate && post.date_gmt && (
+									<time
+										dateTime={ format( 'c', post.date_gmt ) }
+										className="wp-block-custom-post-type-widget-blocks-latest-posts__post-date"
+									>
+										{ dateI18n( dateFormat, post.date_gmt ) }
+									</time>
+								) }
+								{ displayPostContent &&
+									displayPostContentRadio === 'excerpt' && (
+									<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
+										{ postExcerpt }
+									</div>
+								) }
+								{ displayPostContent &&
+									displayPostContentRadio === 'full_post' && (
+									<div
+										className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content"
+										dangerouslySetInnerHTML={ {
+											__html: post.content.raw.trim(),
+										} }
+									/>
+								) }
+							</Disabled>
 						</li>
 					);
 				} ) }
