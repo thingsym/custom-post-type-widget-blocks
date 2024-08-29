@@ -183,6 +183,8 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Posts extends WP_UnitTestCase {
 			'featuredImageSizeSlug'   => 'thumbnail',
 			'featuredImageSizeWidth'  => null,
 			'featuredImageSizeHeight' => null,
+			'align'                   => 'wide',
+			'className'               => 'insertedclass',
 		];
 
 		$render = $this->custom_post_type_widget_blocks_latest_posts->render_callback( $attributes );
