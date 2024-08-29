@@ -5,8 +5,8 @@ import { get, includes, invoke, isUndefined, pickBy, map, filter, remove } from 
 import classnames from 'classnames';
 
 /**
-* WordPress dependencies
-*/
+ * WordPress dependencies
+ */
 import { RawHTML } from '@wordpress/element';
 import {
 	BaseControl,
@@ -42,8 +42,8 @@ import { store as coreStore } from '@wordpress/core-data';
 import { store as noticeStore } from '@wordpress/notices';
 
 /**
-* Internal dependencies
-*/
+ * Internal dependencies
+ */
 import {
 	MIN_EXCERPT_LENGTH,
 	MAX_EXCERPT_LENGTH,
@@ -51,8 +51,8 @@ import {
 } from './constants';
 
 /**
-* Module Constants
-*/
+ * Module Constants
+ */
 const CATEGORIES_LIST_QUERY = {
 	per_page: -1,
 	context: 'view',
@@ -117,13 +117,13 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					value: postType.slug,
 					label: postType.name,
 				};
-			}
+			},
 		);
 
 		remove( postTypeOptions, { value: 'attachment' } );
 
 		return [ selectOption, ...postTypeOptions ];
-	}
+	};
 
 	const {
 		imageSizeOptions,
@@ -137,51 +137,52 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 	} = useSelect(
 		( select ) => {
 			const { getEntityRecords, getMedia, getUsers } = select( coreStore );
-			const { getSettings } = select( blockEditorStore );
-			const { imageSizes, imageDimensions } = getSettings();
+			// const { getSettings } = select( blockEditorStore );
+			const { imageSizes, imageDimensions } = select( blockEditorStore ).getSettings();
 			const catIds =
 				categories && categories.length > 0
 					? categories.map( ( cat ) => cat.id )
 					: [];
 
-			let latestPostsParam = {
+			const latestPostsParam = {
 				author: selectedAuthor,
 				order: order,
 				orderby: orderBy,
 				per_page: postsToShow,
 			};
 
-			let taxonomy = undefined;
+			let taxonomy;
+			taxonomy = undefined;
 
 			if ( postType === 'post' ) {
-				latestPostsParam[categories] = catIds;
+				latestPostsParam[ categories ] = catIds;
 				taxonomy = 'category';
 			} else {
-				latestPostsParam[taxonomy] = categories;
+				latestPostsParam[ taxonomy ] = categories;
 				taxonomy = 'category';
 			}
 
 			const latestPostsQuery = pickBy(
 				latestPostsParam,
-				( value ) => !isUndefined( value )
+				( value ) => ! isUndefined( value ),
 			);
 
 			const posts = getEntityRecords(
 				'postType',
 				postType,
-				latestPostsQuery
+				latestPostsQuery,
 			);
 
 			return {
 				defaultImageWidth: get(
 					imageDimensions,
 					[ featuredImageSizeSlug, 'width' ],
-					0
+					0,
 				),
 				defaultImageHeight: get(
 					imageDimensions,
 					[ featuredImageSizeSlug, 'height' ],
-					0
+					0,
 				),
 				imageSizeOptions: imageSizes
 					.filter( ( { slug } ) => slug !== 'full' )
@@ -192,38 +193,40 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				latestPosts: ! Array.isArray( posts )
 					? posts
 					: posts.map( ( post ) => {
-							if ( ! post.featured_media ) return post;
+						if ( ! post.featured_media ) {
+							return post;
+						}
 
-							const image = getMedia( post.featured_media );
-							let url = get(
-								image,
-								[
-									'media_details',
-									'sizes',
-									featuredImageSizeSlug,
-									'source_url',
-								],
-								null
-							);
-							if ( ! url ) {
-								url = get( image, 'source_url', null );
-							}
-							const featuredImageInfo = {
-								url,
-								// eslint-disable-next-line camelcase
-								alt: image?.alt_text,
-							};
-							return { ...post, featuredImageInfo };
-						} ),
+						const image = getMedia( post.featured_media );
+						let url = get(
+							image,
+							[
+								'media_details',
+								'sizes',
+								featuredImageSizeSlug,
+								'source_url',
+							],
+							null,
+						);
+						if ( ! url ) {
+							url = get( image, 'source_url', null );
+						}
+						const featuredImageInfo = {
+							url,
+							// eslint-disable-next-line camelcase
+							alt: image?.alt_text,
+						};
+						return { ...post, featuredImageInfo };
+					} ),
 				categoriesList: getEntityRecords(
 					'taxonomy',
 					taxonomy,
-					CATEGORIES_LIST_QUERY
+					CATEGORIES_LIST_QUERY,
 				),
 				authorList: getUsers( USERS_LIST_QUERY ),
-				postTypes: select( coreStore ).getPostTypes({
-					per_page: -1
-				}),
+				postTypes: select( coreStore ).getPostTypes( {
+					per_page: -1,
+				} ),
 				media: featuredImageId ? getMedia( featuredImageId, { context: 'view' } ) : null,
 			};
 		},
@@ -236,7 +239,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 			selectedAuthor,
 			postType,
 			featuredImageId,
-		]
+		],
 	);
 
 	const categorySuggestions =
@@ -245,13 +248,13 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				...accumulator,
 				[ category.name ]: category,
 			} ),
-			{}
+			{},
 		) ?? {};
 
 	const selectCategories = ( tokens ) => {
 		const hasNoSuggestion = tokens.some(
 			( token ) =>
-				typeof token === 'string' && ! categorySuggestions[ token ]
+				typeof token === 'string' && ! categorySuggestions[ token ],
 		);
 		if ( hasNoSuggestion ) {
 			return;
@@ -290,7 +293,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 		if ( ! media || ! media.url ) {
 			setAttributes( {
 				featuredImageUrl: undefined,
-				featuredImageId: undefined
+				featuredImageId: undefined,
 			} );
 			return;
 		}
@@ -357,16 +360,16 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 				) }
 				{ displayPostContent &&
 					displayPostContentRadio === 'excerpt' && (
-						<RangeControl
-							label={ __( 'Max number of words in excerpt', 'custom-post-type-widget-blocks' ) }
-							value={ excerptLength }
-							onChange={ ( value ) =>
-								setAttributes( { excerptLength: value } )
-							}
-							min={ MIN_EXCERPT_LENGTH }
-							max={ MAX_EXCERPT_LENGTH }
-						/>
-					) }
+					<RangeControl
+						label={ __( 'Max number of words in excerpt', 'custom-post-type-widget-blocks' ) }
+						value={ excerptLength }
+						onChange={ ( value ) =>
+							setAttributes( { excerptLength: value } )
+						}
+						min={ MIN_EXCERPT_LENGTH }
+						max={ MAX_EXCERPT_LENGTH }
+					/>
+				) }
 			</PanelBody>
 
 			<PanelBody title={ __( 'Post meta settings', 'custom-post-type-widget-blocks' ) }>
@@ -470,21 +473,21 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 												}
 												onClick={ open }
 											>
-											{ !! featuredImageId && mediaSizes && (
-												<ResponsiveWrapper
-													naturalWidth={ mediaSizes[ 'thumbnail' ].width }
-													naturalHeight={ mediaSizes[ 'thumbnail' ].height }
-													isInline
-												>
-													<img
-														src={ mediaSizes[ 'thumbnail' ].source_url }
-														alt=""
-													/>
-												</ResponsiveWrapper>
-											) }
-											{ ! featuredImageId &&
-												( __( 'Set featured image', 'custom-post-type-widget-blocks' ) )
-											}
+												{ !! featuredImageId && mediaSizes && (
+													<ResponsiveWrapper
+														naturalWidth={ mediaSizes.thumbnail.width }
+														naturalHeight={ mediaSizes.thumbnail.height }
+														isInline
+													>
+														<img
+															src={ mediaSizes.thumbnail.source_url }
+															alt=""
+														/>
+													</ResponsiveWrapper>
+												) }
+												{ ! featuredImageId &&
+													( __( 'Set featured image', 'custom-post-type-widget-blocks' ) )
+												}
 											</Button>
 										</div>
 									) }
@@ -552,9 +555,9 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							! hasPosts
 								? MAX_POSTS_COLUMNS
 								: Math.min(
-										MAX_POSTS_COLUMNS,
-										latestPosts.length
-									)
+									MAX_POSTS_COLUMNS,
+									latestPosts.length,
+								)
 						}
 						required
 					/>
@@ -640,7 +643,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					] );
 					let excerpt = post.excerpt.rendered;
 					const currentAuthor = authorList?.find(
-						( author ) => author.id === post.author
+						( author ) => author.id === post.author,
 					);
 
 					const excerptElement = document.createElement( 'div' );
@@ -730,8 +733,8 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								dangerouslySetInnerHTML={
 									!! titleTrimmed
 										? {
-												__html: titleTrimmed,
-										  }
+											__html: titleTrimmed,
+										}
 										: undefined
 								}
 								onClick={ showRedirectionPreventedNotice }
@@ -743,7 +746,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 									{ sprintf(
 										/* translators: byline. %s: current author. */
 										__( 'by %s', 'custom-post-type-widget-blocks' ),
-										currentAuthor.name
+										currentAuthor.name,
 									) }
 								</div>
 							) }
@@ -757,19 +760,19 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							) }
 							{ displayPostContent &&
 								displayPostContentRadio === 'excerpt' && (
-									<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
-										{ postExcerpt }
-									</div>
-								) }
+								<div className="wp-block-custom-post-type-widget-blocks-latest-posts__post-excerpt">
+									{ postExcerpt }
+								</div>
+							) }
 							{ displayPostContent &&
 								displayPostContentRadio === 'full_post' && (
-									<div
-										className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content"
-										dangerouslySetInnerHTML={ {
-											__html: post.content.raw.trim(),
-										} }
-									/>
-								) }
+								<div
+									className="wp-block-custom-post-type-widget-blocks-latest-posts__post-full-content"
+									dangerouslySetInnerHTML={ {
+										__html: post.content.raw.trim(),
+									} }
+								/>
+							) }
 						</li>
 					);
 				} ) }

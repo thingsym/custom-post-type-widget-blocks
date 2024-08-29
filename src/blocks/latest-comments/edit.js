@@ -49,9 +49,9 @@ export default function LatestComments( { attributes, setAttributes } ) {
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
-			postTypes: select( coreStore ).getPostTypes({
-				per_page: -1
-			}),
+			postTypes: select( coreStore ).getPostTypes( {
+				per_page: -1,
+			} ),
 		};
 	}, [] );
 
@@ -71,13 +71,13 @@ export default function LatestComments( { attributes, setAttributes } ) {
 					value: postType.slug,
 					label: postType.name,
 				};
-			}
+			},
 		);
 
 		remove( postTypeOptions, { value: 'attachment' } );
 
 		return [ selectOption, ...postTypeOptions ];
-	}
+	};
 
 	return (
 		<div { ...useBlockProps() }>
@@ -100,7 +100,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Display Date',  'custom-post-type-widget-blocks' ) }
+						label={ __( 'Display Date', 'custom-post-type-widget-blocks' ) }
 						checked={ displayDate }
 						onChange={ () =>
 							setAttributes( { displayDate: ! displayDate } )

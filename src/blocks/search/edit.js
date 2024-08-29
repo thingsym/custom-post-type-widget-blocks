@@ -103,7 +103,6 @@ export default function SearchEdit( {
 		const postTypeOptions = map(
 			filter( postTypes, {
 				viewable: true,
-				hierarchical: false,
 			} ),
 			( postType ) => {
 				return {
