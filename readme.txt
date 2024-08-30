@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Tested up to: 6.6.1
 Requires at least: 5.8.0
 Requires PHP: 7.1
@@ -125,6 +125,20 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.6.3 - 2024.08.30 =
+* tested up to 6.6.1
+* update github workflows
+* fix eslintConfig
+* update composer dependencies
+* update npm dependencies
+* add Disabled
+* improve build npm scripts
+* some fixes and fix style
+* fix test case
+* fix Deprecated: Creation of dynamic property for test
+* custom post types may not be available in post type selector in gutenberg editor[#19]
+* bump up version cpy-cli and fix npm scripts
 
 = 1.6.2 - 2023.11.28 =
 * tested up to 6.4.1
