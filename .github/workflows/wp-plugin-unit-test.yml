@@ -20,8 +20,8 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ ubuntu-20.04 ]
-        php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        os: [ ubuntu-22.04 ]
+        php: [ '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
         wordpress: [ latest, nightly, '5.8' ]
 
         exclude:
@@ -31,6 +31,8 @@ jobs:
           - php: '8.1'
             wordpress: '5.8'
           - php: '8.2'
+            wordpress: '5.8'
+          - php: '8.3'
             wordpress: '5.8'
 
     env:
@@ -46,7 +48,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP v${{ matrix.php }}
         uses: shivammathur/setup-php@v2
@@ -55,12 +57,12 @@ jobs:
           extensions: mbstring, intl, php-mysql
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -110,4 +112,4 @@ jobs:
 
       - name: Run Jest unit test - WordPress ${{ matrix.wordpress }}
         run: npm run test:jest
-        if: ${{ matrix.php == '7.4' && matrix.wordpress == 'latest' }}
+        if: ${{ matrix.php == '8.2' && matrix.wordpress == 'latest' }}
