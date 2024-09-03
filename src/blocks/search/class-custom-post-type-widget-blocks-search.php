@@ -61,7 +61,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 		$input_id        = 'wp-block-custom-post-type-widget-blocks-search__input-' . ( ++self::$block_id );
 		$classnames      = $this->get_classnames( $attributes );
-		$post_type        = ( ! empty( $attributes['postType'] ) ) ? $attributes['postType'] : '';
+		$post_type       = ( ! empty( $attributes['postType'] ) ) ? $attributes['postType'] : '';
 		$show_label      = ( ! empty( $attributes['showLabel'] ) ) ? true : false;
 		$use_icon_button = ( ! empty( $attributes['buttonUseIcon'] ) ) ? true : false;
 		$show_input      = ( ! empty( $attributes['buttonPosition'] ) && 'button-only' === $attributes['buttonPosition'] ) ? false : true;
@@ -95,7 +95,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 		if ( $show_input ) {
 			$input_classes = ! $is_button_inside ? $border_color_classes : '';
-			$input_markup = sprintf(
+			$input_markup  = sprintf(
 				'<input type="search" id="%s" class="wp-block-search__input %s" name="s" value="%s" placeholder="%s" %s required />',
 				$input_id,
 				esc_attr( $input_classes ),
@@ -138,7 +138,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 		}
 
 		$field_markup_classes = $is_button_inside ? $border_color_classes : '';
-		$field_markup       = sprintf(
+		$field_markup         = sprintf(
 			'<div class="wp-block-search__inside-wrapper wp-block-custom-post-type-widget-blocks-search__inside-wrapper %s" %s>%s</div>',
 			esc_attr( $field_markup_classes ),
 			$inline_styles['wrapper'],

@@ -208,7 +208,7 @@ class Custom_Post_Type_Widget_Blocks {
 	 * @since 1.2.1
 	 */
 	public function plugin_metadata_links( $links, $file ) {
-		if ( $file == plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
+		if ( $file === plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) {
 			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'custom-post-type-widget-blocks' ) . '</a>';
 		}
 

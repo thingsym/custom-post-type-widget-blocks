@@ -46,6 +46,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 			}
 			else {
 				if ( $attributes['taxonomy'] ) {
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 					$args['tax_query'] = [
 						[
 							'taxonomy' => $attributes['taxonomy'],
@@ -83,6 +84,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 
 		$list_items_markup = '';
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		foreach ( $recent_posts as $post ) {
 			$post_link = esc_url( get_permalink( $post ) );
 			$title     = get_the_title( $post );
@@ -105,7 +107,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 					$image_style .= sprintf( 'max-height:%spx;', $attributes['featuredImageSizeHeight'] );
 				}
 
-				$image_classnames = [];
+				$image_classnames   = [];
 				$image_classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__featured-image';
 				if ( isset( $attributes['featuredImageAlign'] ) ) {
 					$image_classnames[] = 'align' . $attributes['featuredImageAlign'];
@@ -120,7 +122,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 						]
 					);
 				}
-				else if ( isset( $attributes['featuredImageId'] ) ) {
+				elseif ( isset( $attributes['featuredImageId'] ) ) {
 					$featured_image = wp_get_attachment_image(
 						$attributes['featuredImageId'],
 						$attributes['featuredImageSizeSlug'],

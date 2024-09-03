@@ -37,7 +37,7 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 		$smallest_font_size = $attributes['smallestFontSize'];
 		$unit               = ( preg_match( '/^[0-9.]+(?P<unit>[a-z%]+)$/i', $smallest_font_size, $m ) ? $m['unit'] : 'pt' );
 
-		$args      = [
+		$args = [
 			'echo'       => false,
 			'unit'       => $unit,
 			'taxonomy'   => $attributes['taxonomy'],
@@ -63,7 +63,7 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 		$tag_cloud = wp_tag_cloud( apply_filters( 'custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args', $args ) );
 
 		if ( ! $tag_cloud ) {
-			$tag_cloud = __( 'There&#8217;s no content to show here yet.' );
+			$tag_cloud = __( 'There&#8217;s no content to show here yet.', 'custom-post-type-widget-blocks' );
 		}
 
 		$wrapper_attributes = get_block_wrapper_attributes();

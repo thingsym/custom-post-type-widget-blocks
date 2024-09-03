@@ -139,6 +139,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		// Quick check. If we have no posts at all, abort!
 		if ( ! $posts ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$gotsome = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT 1 as test FROM $wpdb->posts WHERE post_type = %s AND post_status = 'publish' LIMIT 1",
@@ -152,7 +153,9 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['w'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$w = (int) $_GET['w'];
 		}
 
@@ -168,9 +171,12 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			// We need to get the month from MySQL.
 			$thisyear = (int) substr( $m, 0, 4 );
 			// it seems MySQL's weeks disagree with PHP's.
-			$d         = ( ( $w - 1 ) * 7 ) + 6;
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
+			$d = ( ( $w - 1 ) * 7 ) + 6;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$thismonth = $wpdb->get_var(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')"
+			);
 		}
 		elseif ( ! empty( $m ) ) {
 			$thisyear = (int) substr( $m, 0, 4 );
@@ -190,6 +196,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$last_day  = date( 't', $unixmonth );
 
 		// Get the next and previous month and year with at least one post.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$previous = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
@@ -204,7 +211,8 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				]
 			)
 		);
-		$next     = $wpdb->get_row(
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$next = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
 				FROM $wpdb->posts
@@ -251,6 +259,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$daywithpost = [];
 
 		// Get days with posts.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$dayswithposts = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT DISTINCT DAYOFMONTH(post_date)
@@ -274,7 +283,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		// See how much we should pad in the beginning.
 		/* @phpstan-ignore-next-line */
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
-		if ( 0 != $pad ) {
+		if ( (float) 0 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 		}
@@ -288,18 +297,18 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			}
 			$newrow = false;
 
-			if ( current_time( 'j' ) == $day &&
-				current_time( 'm' ) == $thismonth &&
-				current_time( 'Y' ) == $thisyear ) {
+			if ( current_time( 'j' ) === (string) $day &&
+				current_time( 'm' ) === (string) $thismonth &&
+				current_time( 'Y' ) === (string) $thisyear ) {
 				$calendar_output .= '<td class="today">';
 			}
 			else {
 				$calendar_output .= '<td>';
 			}
 
-			if ( in_array( $day, $daywithpost ) ) {
+			if ( in_array( (string) $day, $daywithpost, true ) ) {
 				// any posts today?
-				$date_format      = date( _x( 'F j, Y', 'daily archives date format', 'custom-post-type-widget-blocks' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
+				$date_format = date( _x( 'F j, Y', 'daily archives date format', 'custom-post-type-widget-blocks' ), strtotime( "{$thisyear}-{$thismonth}-{$day}" ) );
 				/* translators: label: 1: date format */
 				$label            = sprintf( __( 'Posts published on %s', 'custom-post-type-widget-blocks' ), $date_format );
 				$calendar_output .= sprintf(
@@ -315,14 +324,14 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			$calendar_output .= '</td>';
 
 			/* @phpstan-ignore-next-line */
-			if ( 6 == calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
+			if ( (float) 6 === calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
 				$newrow = true;
 			}
 		}
 
 		/* @phpstan-ignore-next-line */
 		$pad = 7 - calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
-		if ( 0 != $pad && 7 != $pad ) {
+		if ( (float) 0 !== $pad && (float) 7 !== $pad ) {
 			/* @phpstan-ignore-next-line */
 			$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
 		}
@@ -412,8 +421,8 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			else {
 				$type_obj = get_post_type_object( $posttype );
 
-				# The priority of the rewrite rule: has_archive < rewrite
-				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				// The priority of the rewrite rule: has_archive < rewrite
+				// See https://developer.wordpress.org/reference/functions/register_post_type/
 				$archive_name = $posttype;
 				if ( is_string( $type_obj->has_archive ) ) {
 					$archive_name = $type_obj->has_archive;
@@ -421,16 +430,16 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
 					$archive_name = $posttype;
 				}
-				else if ( is_array( $type_obj->rewrite ) ) {
+				elseif ( is_array( $type_obj->rewrite ) ) {
 					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
 						$archive_name = $type_obj->rewrite['slug'];
 					}
 				}
 
 				if ( $front ) {
-					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
-					$new_daylink   = str_replace( $front, $new_front . '/' . $archive_name, $new_daylink );
-					$new_daylink   = home_url( user_trailingslashit( $new_daylink, 'day' ) );
+					$new_front   = $type_obj->rewrite['with_front'] ? $front : '';
+					$new_daylink = str_replace( $front, $new_front . '/' . $archive_name, $new_daylink );
+					$new_daylink = home_url( user_trailingslashit( $new_daylink, 'day' ) );
 				}
 				else {
 					$new_daylink = home_url( user_trailingslashit( $archive_name . $new_daylink, 'day' ) );
@@ -495,8 +504,8 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			else {
 				$type_obj = get_post_type_object( $posttype );
 
-				# The priority of the rewrite rule: has_archive < rewrite
-				# See https://developer.wordpress.org/reference/functions/register_post_type/
+				// The priority of the rewrite rule: has_archive < rewrite
+				// See https://developer.wordpress.org/reference/functions/register_post_type/
 				$archive_name = $posttype;
 				if ( is_string( $type_obj->has_archive ) ) {
 					$archive_name = $type_obj->has_archive;
@@ -504,14 +513,14 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 				if ( is_bool( $type_obj->rewrite ) && $type_obj->rewrite === true ) {
 					$archive_name = $posttype;
 				}
-				else if ( is_array( $type_obj->rewrite ) ) {
+				elseif ( is_array( $type_obj->rewrite ) ) {
 					if ( ! empty( $type_obj->rewrite['slug'] ) ) {
 						$archive_name = $type_obj->rewrite['slug'];
 					}
 				}
 
 				if ( $front ) {
-					$new_front = $type_obj->rewrite['with_front'] ? $front : '';
+					$new_front     = $type_obj->rewrite['with_front'] ? $front : '';
 					$new_monthlink = str_replace( $front, $new_front . '/' . $archive_name, $new_monthlink );
 					$new_monthlink = home_url( user_trailingslashit( $new_monthlink, 'month' ) );
 				}
