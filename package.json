@@ -125,13 +125,26 @@
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",
       "@wordpress/no-unsafe-wp-apis": "off",
+      "@wordpress/i18n-no-variables": "off",
       "no-func-assign": "off",
       "no-unused-vars": "off",
       "no-prototype-builtins": "off",
       "no-sparse-arrays": "off",
       "no-undef": "off",
+      "no-nested-ternary": "off",
+      "no-extra-boolean-cast": "off",
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "react-hooks/exhaustive-deps": "warn",
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "only-multiline"
+        }
+      ]
     },
     "ignorePatterns": [
       "node_modules/",
