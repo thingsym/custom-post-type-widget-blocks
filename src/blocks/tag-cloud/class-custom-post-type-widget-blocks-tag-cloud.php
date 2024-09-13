@@ -25,7 +25,7 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 	 * @since 1.3.0
 	 */
 	public function register_block_type() {
-		register_block_type(
+		register_block_type_from_metadata(
 			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/tag-cloud',
 			[
 				'render_callback' => [ $this, 'render_callback' ],
@@ -33,6 +33,15 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 		);
 	}
 
+	/**
+	 * Renders the tag cloud block on server.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the tag cloud for selected taxonomy.
+	 */
 	public function render_callback( $attributes ) {
 		$smallest_font_size = $attributes['smallestFontSize'];
 		$unit               = ( preg_match( '/^[0-9.]+(?P<unit>[a-z%]+)$/i', $smallest_font_size, $m ) ? $m['unit'] : 'pt' );
@@ -63,7 +72,12 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 		$tag_cloud = wp_tag_cloud( apply_filters( 'custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args', $args ) );
 
 		if ( ! $tag_cloud ) {
-			$tag_cloud = __( 'There&#8217;s no content to show here yet.', 'custom-post-type-widget-blocks' );
+			// Display placeholder content when there are no tags only in editor.
+			if ( wp_is_serving_rest_request() ) {
+				$tag_cloud = __( 'There&#8217;s no content to show here yet.', 'custom-post-type-widget-blocks' );
+			} else {
+				return '';
+			}
 		}
 
 		$wrapper_attributes = get_block_wrapper_attributes();

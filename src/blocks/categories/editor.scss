@@ -1,7 +1,9 @@
-.block-editor .wp-block-custom-post-type-widget-blocks-categories ul {
-	padding-left: 2.5em;
+.block-editor {
+	.wp-block-custom-post-type-widget-blocks-categories ul {
+		padding-left: 2.5em;
 
-	ul {
-		margin-top: 6px;
+		ul {
+			margin-top: 6px;
+		}
 	}
 }

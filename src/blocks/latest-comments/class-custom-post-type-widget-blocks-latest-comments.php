@@ -25,7 +25,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 	 * @since 1.3.0
 	 */
 	public function register_block_type() {
-		register_block_type(
+		register_block_type_from_metadata(
 			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/latest-comments',
 			[
 				'render_callback' => [ $this, 'render_callback' ],
@@ -41,6 +41,15 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 		return esc_html( $title );
 	}
 
+	/**
+	 * Renders the latest-comments block on server.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the post content with latest comments added.
+	 */
 	public function render_callback( $attributes ) {
 
 		/**
@@ -63,7 +72,8 @@ class Custom_Post_Type_Widget_Blocks_Latest_Comments {
 					'number'      => $attributes['commentsToShow'],
 					'status'      => 'approve',
 					'post_status' => 'publish',
-				]
+				],
+				[]
 			)
 		);
 

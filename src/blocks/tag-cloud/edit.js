@@ -1,20 +1,11 @@
 'use strict';
 
 /**
- * External dependencies
- */
-import {
-	map,
-	filter,
-} from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import {
 	Flex,
 	FlexItem,
-	Disabled,
 	PanelBody,
 	ToggleControl,
 	SelectControl,
@@ -22,13 +13,15 @@ import {
 	__experimentalUnitControl as UnitControl,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
+	__experimentalVStack as VStack,
+	Disabled,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import {
 	InspectorControls,
 	useBlockProps,
-	useSetting,
+	useSettings,
 } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { store as coreStore } from '@wordpress/core-data';
@@ -59,40 +52,36 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 		largestFontSize,
 	} = attributes;
 
+	const [ availableUnits ] = useSettings( 'spacing.units' );
+
+	// The `pt` unit is used as the default value and is therefore
+	// always considered an available unit.
 	const units = useCustomUnits( {
-		availableUnits: useSetting( 'spacing.units' ) || [
-			'%',
-			'px',
-			'em',
-			'rem',
-		],
+		availableUnits: availableUnits
+			? [ ...availableUnits, 'pt' ]
+			: [ '%', 'px', 'em', 'rem', 'pt' ],
 	} );
 
-	const { taxonomies } = useSelect( ( select ) => {
-		return {
-			taxonomies: select( coreStore ).getTaxonomies( { per_page: -1 } ),
-		};
-	}, [] );
+	const taxonomies = useSelect(
+		( select ) => select( coreStore ).getTaxonomies( { per_page: -1 } ),
+		[]
+	);
 
 	const getTaxonomyOptions = () => {
 		const selectOption = {
-			label: __('- Select -', 'custom-post-type-widget-blocks'),
+			label: __( '- Select -', 'custom-post-type-widget-blocks' ),
 			value: '',
 			disabled: true,
 		};
 
-		const taxonomyOptions = map(
-			filter( taxonomies, {
-				show_cloud: true,
-				hierarchical: false,
-			} ),
-			( item ) => {
+		const taxonomyOptions = ( taxonomies ?? [] )
+			.filter( ( tax ) => !! tax.show_cloud && ! tax.hierarchical )
+			.map( ( item ) => {
 				return {
 					value: item.slug,
 					label: item.name + ' (' + item.slug + ')',
 				};
-			}
-		);
+			} );
 
 		return [ selectOption, ...taxonomyOptions ];
 	};
@@ -121,61 +110,86 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 		setAttributes( updateObj );
 	};
 
+	// Remove border styles from the server-side attributes to prevent duplicate border.
+	const serverSideAttributes = {
+		...attributes,
+		style: {
+			...attributes?.style,
+			border: undefined,
+		},
+	};
+
 	const inspectorControls = (
 		<InspectorControls>
 			<PanelBody title={ __( 'Tag Cloud settings', 'custom-post-type-widget-blocks' ) } >
-				<SelectControl
-					label={ __( 'Taxonomy (slug)', 'custom-post-type-widget-blocks' ) }
-					options={ getTaxonomyOptions() }
-					value={ taxonomy }
-					onChange={ ( selectedTaxonomy ) =>
-						setAttributes( { taxonomy: selectedTaxonomy } )
-					}
-				/>
-				<ToggleControl
-					label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
-					checked={ showTagCounts }
-					onChange={ () =>
-						setAttributes( { showTagCounts: ! showTagCounts } )
-					}
-				/>
-				<RangeControl
-					__nextHasNoMarginBottom
-					label={ __( 'Number of tags' ) }
-					value={ numberOfTags }
-					onChange={ ( value ) =>
-						setAttributes( { numberOfTags: value } )
-					}
-					min={ MIN_TAGS }
-					max={ MAX_TAGS }
-					required
-				/>
-								<Flex>
-					<FlexItem isBlock>
-						<UnitControl
-							label={ __( 'Smallest size' ) }
-							value={ smallestFontSize }
-							onChange={ ( value ) => {
-								onFontSizeChange( 'smallestFontSize', value );
-							} }
-							units={ units }
-							min={ MIN_FONT_SIZE }
-							max={ MAX_FONT_SIZE }
-						/>
-					</FlexItem>
-					<FlexItem isBlock>
-						<UnitControl
-							label={ __( 'Largest size' ) }
-							value={ largestFontSize }
-							onChange={ ( value ) => {
-								onFontSizeChange( 'largestFontSize', value );
-							} }
-							units={ units }
-							min={ MIN_FONT_SIZE }
-							max={ MAX_FONT_SIZE }
-						/>
-					</FlexItem>
-				</Flex>
+				<VStack
+					spacing={ 4 }
+					className="custom-post-type-widget-blocks-tag-cloud__inspector-settings"
+				>
+					<SelectControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ __( 'Taxonomy (slug)', 'custom-post-type-widget-blocks' ) }
+						options={ getTaxonomyOptions() }
+						value={ taxonomy }
+						onChange={ ( selectedTaxonomy ) =>
+							setAttributes( { taxonomy: selectedTaxonomy } )
+						}
+					/>
+					<ToggleControl
+						label={ __( 'Show tag counts', 'custom-post-type-widget-blocks' ) }
+						checked={ showTagCounts }
+						onChange={ () =>
+							setAttributes( { showTagCounts: ! showTagCounts } )
+						}
+					/>
+					<RangeControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+						label={ __( 'Number of tags' ) }
+						value={ numberOfTags }
+						onChange={ ( value ) =>
+							setAttributes( { numberOfTags: value } )
+						}
+						min={ MIN_TAGS }
+						max={ MAX_TAGS }
+						required
+					/>
+					<Flex gap={ 4 }>
+						<FlexItem isBlock>
+							<UnitControl
+								label={ __( 'Smallest size' ) }
+								value={ smallestFontSize }
+								onChange={ ( value ) => {
+									onFontSizeChange(
+										'smallestFontSize',
+										value
+									);
+								} }
+								units={ units }
+								min={ MIN_FONT_SIZE }
+								max={ MAX_FONT_SIZE }
+								size="__unstable-large"
+							/>
+						</FlexItem>
+						<FlexItem isBlock>
+							<UnitControl
+								label={ __( 'Largest size' ) }
+								value={ largestFontSize }
+								onChange={ ( value ) => {
+									onFontSizeChange(
+										'largestFontSize',
+										value
+									);
+								} }
+								units={ units }
+								min={ MIN_FONT_SIZE }
+								max={ MAX_FONT_SIZE }
+								size="__unstable-large"
+							/>
+						</FlexItem>
+					</Flex>
+				</VStack>
 			</PanelBody>
 		</InspectorControls>
 	);
@@ -186,9 +200,10 @@ export default function TagCloudEdit( { attributes, setAttributes } ) {
 			<div { ...useBlockProps() }>
 				<Disabled>
 					<ServerSideRender
+						skipBlockSupportAttributes
 						key="tag-cloud"
 						block="custom-post-type-widget-blocks/tag-cloud"
-						attributes={ attributes }
+						attributes={ serverSideAttributes }
 					/>
 				</Disabled>
 			</div>

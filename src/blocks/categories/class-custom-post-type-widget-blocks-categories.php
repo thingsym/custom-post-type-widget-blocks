@@ -36,7 +36,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	 * @since 1.3.0
 	 */
 	public function register_block_type() {
-		register_block_type(
+		register_block_type_from_metadata(
 			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/categories',
 			[
 				'render_callback' => [ $this, 'render_callback' ],
@@ -44,26 +44,42 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 		);
 	}
 
+	/**
+	 * Generates the inline script for a categories dropdown field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $dropdown_id ID of the dropdown field.
+	 *
+	 * @return string Returns the dropdown onChange redirection script.
+	 */
 	public function build_dropdown_script( $dropdown_id ) {
 		ob_start();
 		?>
-		<script type='text/javascript'>
-		/* <![CDATA[ */
+		<script>
 		( function() {
 			var dropdown = document.getElementById( '<?php echo esc_js( $dropdown_id ); ?>' );
 			function onCatChange() {
-				if ( dropdown.options[ dropdown.selectedIndex ].value != -1 ) {
+				if ( dropdown.options[ dropdown.selectedIndex ].value > 0 ) {
 					return dropdown.form.submit();
 				}
 			}
 			dropdown.onchange = onCatChange;
 		})();
-		/* ]]> */
 		</script>
 		<?php
-		return ob_get_clean();
+		return wp_get_inline_script_tag( str_replace( [ '<script>', '</script>' ], '', ob_get_clean() ) );
 	}
 
+	/**
+	 * Renders the categories block on server.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the categories list/dropdown markup.
+	 */
 	public function render_callback( $attributes ) {
 		self::$block_id++;
 
@@ -74,6 +90,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			'orderby'      => 'name',
 			'show_count'   => ! empty( $attributes['showPostCounts'] ),
 			'title_li'     => '',
+			'hide_empty'   => empty( $attributes['showEmpty'] ),
 		];
 		if ( ! empty( $attributes['showOnlyTopLevel'] ) && $attributes['showOnlyTopLevel'] ) {
 			$args['parent'] = 0;
@@ -105,7 +122,13 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 			$type = 'dropdown';
 
 			if ( ! is_admin() ) {
-				$wrapper_markup .= $this->build_dropdown_script( $id );
+				// Inject the dropdown script immediately after the select dropdown.
+				$items_markup = preg_replace(
+					'#(?<=</form>)#',
+					$this->build_dropdown_script( $id ),
+					$items_markup,
+					1
+				);
 			}
 		} else {
 			$wrapper_markup = '<ul %1$s>%2$s</ul>';

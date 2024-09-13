@@ -9,7 +9,7 @@ const variations = [
 		isDefault: true,
 		attributes: {
 			buttonText: __( 'Search', 'custom-post-type-widget-blocks' ),
-			label: __( 'Search', 'custom-post-type-widget-blocks' )
+			label: __( 'Search', 'custom-post-type-widget-blocks' ),
 		},
 	},
 ];

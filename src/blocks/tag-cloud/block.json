@@ -1,5 +1,6 @@
 {
-  "apiVersion": 2,
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "custom-post-type-widget-blocks/tag-cloud",
   "title": "Tag Cloud (Custom Post Type)",
   "category": "custom-post-type-widget-blocks",
@@ -50,6 +51,21 @@
       "__experimentalFontStyle": true,
       "__experimentalTextTransform": true,
       "__experimentalLetterSpacing": true
+    },
+    "interactivity": {
+      "clientNavigation": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true,
+      "__experimentalDefaultControls": {
+        "radius": true,
+        "color": true,
+        "width": true,
+        "style": true
+      }
     }
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",

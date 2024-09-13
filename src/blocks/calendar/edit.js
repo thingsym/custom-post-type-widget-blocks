@@ -3,12 +3,6 @@
 /**
  * External dependencies
  */
-import {
-	map,
-	filter,
-	remove,
-} from 'lodash';
-import moment from 'moment';
 import memoize from 'memize';
 
 /**
@@ -20,22 +14,30 @@ import {
 	SelectControl,
 	Disabled,
 	Placeholder,
-	Spinner
+	Spinner,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
+import { __ } from '@wordpress/i18n';
 
+/**
+ * Returns the year and month of a specified date.
+ *
+ * @see `WP_REST_Posts_Controller::prepare_date_response()`.
+ *
+ * @param {string} date Date in `ISO8601/RFC3339` format.
+ * @return {Object} Year and date of the specified date.
+ */
 const getYearMonth = memoize( ( date ) => {
 	if ( ! date ) {
 		return {};
 	}
-	const momentDate = moment( date );
+	const dateObj = new Date( date );
 	return {
-		year: momentDate.year(),
-		month: momentDate.month() + 1,
+		year: dateObj.getFullYear(),
+		month: dateObj.getMonth() + 1,
 	};
 } );
 
@@ -44,39 +46,32 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
-			postTypes: select( coreStore ).getPostTypes({
-				per_page: -1
-			}),
+			postTypes: select( coreStore ).getPostTypes( {
+				per_page: -1,
+			} ),
 		};
 	}, [] );
 
 	const getPostTypeOptions = () => {
 		const selectOption = {
-			label: __('- Select -', 'custom-post-type-widget-blocks'),
+			label: __( '- Select -', 'custom-post-type-widget-blocks' ),
 			value: '',
 			disabled: true,
 		};
 
-		const postTypeOptions = map(
-			filter( postTypes, {
-				viewable: true,
-				hierarchical: false,
-			} ),
-			( postType ) => {
+		const postTypeOptions = ( postTypes ?? [] )
+			.filter( ( pty ) => ( !! pty.viewable && ! pty.hierarchical ) && pty.value !== 'attachment' )
+			.map( ( item ) => {
 				return {
-					value: postType.slug,
-					label: postType.name,
+					value: item.slug,
+					label: item.name,
 				};
-			}
-		);
-
-		remove( postTypeOptions, { value: 'attachment' } );
+			} );
 
 		return [ selectOption, ...postTypeOptions ];
-	}
+	};
 
 	const blockProps = useBlockProps();
-
 	const { date, hasPosts, hasPostsResolved } = useSelect( ( select ) => {
 		const { getEntityRecords, hasFinishedResolution } = select( coreStore );
 
@@ -102,11 +97,11 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 		// eslint-disable-next-line @wordpress/data-no-store-string-literals
 		const editorSelectors = select( 'core/editor' );
 		if ( editorSelectors ) {
-			const postType = editorSelectors.getEditedPostAttribute( 'type' );
+			const editedPostType = editorSelectors.getEditedPostAttribute( 'type' );
 			// Dates are used to overwrite year and month used on the calendar.
 			// This overwrite should only happen for 'post' post types.
 			// For other post types the calendar always displays the current month.
-			if ( postType === 'post' ) {
+			if ( editedPostType === 'post' ) {
 				_date = editorSelectors.getEditedPostAttribute( 'date' );
 			}
 		}
@@ -117,18 +112,28 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 			hasPosts: postsResolved && posts?.length === 1,
 		};
 	}, [
-		postType
+		postType,
 	] );
 
+	if ( ! hasPosts ) {
+		return (
+			<div { ...blockProps }>
+				<Placeholder icon={ icon } label={ __( 'Calendar', 'custom-post-type-widget-blocks' ) }>
+					{ ! hasPostsResolved ? (
+						<Spinner />
+					) : (
+						__( 'No published posts found.', 'custom-post-type-widget-blocks' )
+					) }
+				</Placeholder>
+			</div>
+		);
+	}
 
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
 				<PanelBody
-					title={ __(
-						'Calendar settings',
-						'custom-post-type-widget-blocks'
-					) }
+					title={ __( 'Calendar settings', 'custom-post-type-widget-blocks' ) }
 				>
 					<SelectControl
 						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
@@ -140,23 +145,12 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ ! hasPosts && (
-				<Placeholder icon={ icon } label={ __( 'Calendar (Custom Post Type)', 'custom-post-type-widget-blocks' ) }>
-					{ ! hasPostsResolved ? (
-						<Spinner />
-					) : (
-						__( 'No published posts found.', 'custom-post-type-widget-blocks' )
-					) }
-				</Placeholder>
-			) }
-			{ hasPosts && (
-				<Disabled>
-					<ServerSideRender
-						block="custom-post-type-widget-blocks/calendar"
-						attributes={ { ...attributes, ...getYearMonth( date ) } }
-					/>
-				</Disabled>
-			) }
+			<Disabled>
+				<ServerSideRender
+					block="custom-post-type-widget-blocks/calendar"
+					attributes={ { ...attributes, ...getYearMonth( date ) } }
+				/>
+			</Disabled>
 		</div>
 	);
 }

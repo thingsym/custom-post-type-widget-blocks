@@ -1,5 +1,6 @@
 {
-  "apiVersion": 2,
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "custom-post-type-widget-blocks/latest-posts",
   "title": "Latest Posts (Custom Post Type)",
   "category": "custom-post-type-widget-blocks",
@@ -16,7 +17,10 @@
       "default": "category"
     },
     "categories": {
-      "type": "string"
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
     },
     "selectedAuthor": {
       "type": "number"
@@ -118,7 +122,10 @@
       "__experimentalDefaultControls": {
         "fontSize": true
       }
-    }
+    },
+		"interactivity": {
+			"clientNavigation": true
+		}
   },
   "editorScript" : "custom-post-type-widget-blocks-editor-script",
   "editorStyle": "custom-post-type-widget-blocks-editor-style",
