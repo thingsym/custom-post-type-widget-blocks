@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Custom Post Type Widget Blocks 1.6.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-post-type-"
 "widget-blocks\n"
-"POT-Creation-Date: 2024-09-13T08:05:48+00:00\n"
+"POT-Creation-Date: 2024-09-24T09:29:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: custom-post-type-widget-blocks.php
-#: inc/class-custom-post-type-widget-blocks.php:144
+#: inc/class-custom-post-type-widget-blocks.php:146
 msgid "Custom Post Type Widget Blocks"
 msgstr "Custom Post Type Widget Blocks"
 
@@ -42,7 +42,7 @@ msgstr "thingsym"
 msgid "https://www.thingslabo.com/"
 msgstr "https://www.thingslabo.com/"
 
-#: inc/class-custom-post-type-widget-blocks.php:212
+#: inc/class-custom-post-type-widget-blocks.php:214
 msgid "Become a sponsor"
 msgstr "スポンサーになる"
 
@@ -74,27 +74,27 @@ msgstr "投稿を選択"
 msgid "No archives to show."
 msgstr "アーカイブがありません。"
 
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:78
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:93
 msgid "The calendar block is hidden because there are no published posts."
 msgstr "公開された投稿がないため、カレンダーブロックは非表示になっています。"
 
 #. translators: Calendar caption: 1: month name, 2: 4-digit year
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:363
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:397
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%2$s年%1$s"
 
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:443
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:477
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "Y年n月j日"
 
 #. translators: label: 1: date format
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:445
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:479
 msgid "Posts published on %s"
 msgstr "%s に投稿を公開"
 
-#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:473
+#: src/blocks/calendar/class-custom-post-type-widget-blocks-calendar.php:507
 msgid "Previous and next months"
 msgstr "前と次の月"
 
@@ -134,14 +134,25 @@ msgstr "この投稿内容はパスワードで保護されています。"
 msgid ""
 "… <a class=\"wp-block-latest-posts__read-more\" href=\"%1$s\" rel=\"noopener "
 "noreferrer\">Read more<span class=\"screen-reader-text\">: %2$s</span></a>"
-msgstr "… <a class=\"wp-block-latest-posts__read-more\" href=\"%1$s\" rel=\"noopener "
+msgstr ""
+"… <a class=\"wp-block-latest-posts__read-more\" href=\"%1$s\" rel=\"noopener "
 "noreferrer\">続きを読む<span class=\"screen-reader-text\">: %2$s</span></a>"
 
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:66
 #: src/blocks/search/class-custom-post-type-widget-blocks-search.php:67
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:94
 #: src/blocks/search/variations.js:11 src/blocks/search/variations.js:12
 msgid "Search"
 msgstr "検索"
+
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:202
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:226
+msgid "Expand search field"
+msgstr "検索フィールドを展開"
+
+#: src/blocks/search/class-custom-post-type-widget-blocks-search.php:225
+msgid "Submit Search"
+msgstr "送信"
 
 #: src/blocks/tag-cloud/class-custom-post-type-widget-blocks-tag-cloud.php:77
 msgid "There&#8217;s no content to show here yet."
