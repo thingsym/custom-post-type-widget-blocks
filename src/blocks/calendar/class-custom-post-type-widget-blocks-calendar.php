@@ -31,8 +31,8 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		// We only want to register these functions and actions when
 		// we are on single sites. On multi sites we use `post_count` option.
 		if ( ! is_multisite() ) {
-			add_action( 'delete_post', [ $this, 'block_core_calendar_update_has_published_post_on_delete' ] );
-			add_action( 'transition_post_status', [ $this, 'block_core_calendar_update_has_published_post_on_transition_post_status' ], 10, 3 );
+			add_action( 'delete_post', [ $this, 'update_has_published_post_on_delete' ] );
+			add_action( 'transition_post_status', [ $this, 'update_has_published_post_on_transition_post_status' ], 10, 3 );
 		}
 	}
 
@@ -51,7 +51,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	}
 
 	/**
-		 * Renders the calendar block on server.
+	 * Renders the calendar block on server.
 	 *
 	 * @global int $monthnum.
 	 * @global int $year.
@@ -73,7 +73,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		// Calendar shouldn't be rendered
 		// when there are no published posts on the site.
-		if ( ! $this->block_core_calendar_has_published_posts( $this->posttype ) ) {
+		if ( ! $this->has_published_posts( $this->posttype ) ) {
 			if ( is_user_logged_in() ) {
 				return '<div>' . __( 'The calendar block is hidden because there are no published posts.', 'custom-post-type-widget-blocks' ) . '</div>';
 			}
@@ -155,7 +155,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 *
 	 * @return bool Has any published posts or not.
 	 */
-	public function block_core_calendar_has_published_posts( $posttype ) {
+	public function has_published_posts( $posttype ) {
 		// Multisite already has an option that stores the count of the published posts.
 		// Let's use that for multisites.
 		if ( is_multisite() ) {
@@ -163,13 +163,20 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		}
 
 		// On single sites we try our own cached option first.
-		$has_published_posts = get_option( 'wp_calendar_block_has_published_posts', null );
+		$option_has_published_posts = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
+
+		if ( is_null( $option_has_published_posts ) || ! isset( $option_has_published_posts[ $posttype ] ) ) {
+			return;
+		}
+
+		$has_published_posts = $option_has_published_posts[ $posttype ];
+
 		if ( null !== $has_published_posts ) {
 			return (bool) $has_published_posts;
 		}
 
 		// No cache hit, let's update the cache and return the cached value.
-		return $this->block_core_calendar_update_has_published_posts(  $posttype  );
+		return $this->update_has_published_posts( $posttype );
 	}
 
 	/**
@@ -182,29 +189,41 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 *
 	 * @return bool Has any published posts or not.
 	 */
-	public function block_core_calendar_update_has_published_posts( $posttype ) {
+	public function update_has_published_posts( $posttype ) {
 		global $wpdb;
-		$has_published_posts = (bool) $wpdb->get_var( "SELECT 1 as test FROM {$wpdb->posts} WHERE post_type = '{$posttype}' AND post_status = 'publish' LIMIT 1" );
-		update_option( 'wp_calendar_block_has_published_posts', $has_published_posts );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$has_published_posts = (bool) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT 1 as test FROM {$wpdb->posts} WHERE post_type = %s AND post_status = 'publish' LIMIT 1",
+				[ $posttype ]
+			)
+		);
+
+		$option_has_published_posts = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
+		$option_has_published_posts[ $posttype ] = $has_published_posts;
+
+		update_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', $option_has_published_posts );
+
 		return $has_published_posts;
 	}
 
-		/**
+	/**
 	 * Handler for updating the has published posts flag when a post is deleted.
 	 *
 	 * @since 5.9.0
 	 *
 	 * @param int $post_id Deleted post ID.
 	 */
-	public function block_core_calendar_update_has_published_post_on_delete( $post_id ) {
-		$post     = get_post( $post_id );
-		$posttype = $post->post_type;
+	public function update_has_published_post_on_delete( $post_id ) {
+		$post = get_post( $post_id );
 
 		if ( ! $post || 'publish' !== $post->post_status ) {
 			return;
 		}
 
-		$this->block_core_calendar_update_has_published_posts( $posttype );
+		$posttype = get_post_type( $post );
+
+		return $this->update_has_published_posts( $posttype );
 	}
 
 	/**
@@ -216,7 +235,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 * @param string  $old_status The status the post is changing from.
 	 * @param WP_Post $post       Post object.
 	 */
-	public function block_core_calendar_update_has_published_post_on_transition_post_status( $new_status, $old_status, $post ) {
+	public function update_has_published_post_on_transition_post_status( $new_status, $old_status, $post ) {
 		if ( $new_status === $old_status ) {
 			return;
 		}
@@ -227,7 +246,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$posttype = get_post_type( $post );
 
-		$this->block_core_calendar_update_has_published_posts( $posttype );
+		return $this->update_has_published_posts( $posttype );
 	}
 
 	/**
