@@ -321,6 +321,7 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 	 */
 	public function block_core_latest_posts_migrate_categories( $block ) {
 		if (
+			! empty( $block['blockName'] ) &&
 			'custom-post-type-widget-blocks/latest-posts' === $block['blockName'] &&
 			! empty( $block['attrs']['categories'] ) &&
 			is_string( $block['attrs']['categories'] )

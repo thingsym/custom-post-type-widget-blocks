@@ -68,7 +68,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 			]
 		);
 
-		$input_id            = wp_unique_id( 'wp-block-custom-post-type-widget-blocks-search__input-' );
+		$input_id        = wp_unique_id( 'wp-block-custom-post-type-widget-blocks-search__input-' );
 		$classnames      = $this->classnames_for_block_core_search( $attributes );
 		$post_type       = ( ! empty( $attributes['postType'] ) ) ? $attributes['postType'] : '';
 		$show_label      = ( ! empty( $attributes['showLabel'] ) ) ? true : false;
@@ -76,6 +76,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 		$show_button     = ( ! empty( $attributes['buttonPosition'] ) && 'no-button' === $attributes['buttonPosition'] ) ? false : true;
 		$button_position = $show_button ? $attributes['buttonPosition'] : null;
 		$query_params    = ( ! empty( $attributes['query'] ) ) ? $attributes['query'] : [];
+
 		$button              = '';
 		$query_params_markup = '';
 		$inline_styles       = $this->styles_for_block_core_search( $attributes );
@@ -83,13 +84,14 @@ class Custom_Post_Type_Widget_Blocks_Search {
 		$typography_classes  = $this->get_typography_classes_for_block_core_search( $attributes );
 		$is_button_inside    = ! empty( $attributes['buttonPosition'] ) &&
 			'button-inside' === $attributes['buttonPosition'];
+
 		// Border color classes need to be applied to the elements that have a border color.
 		$border_color_classes = $this->get_border_color_classes_for_block_core_search( $attributes );
 		// This variable is a constant and its value is always false at this moment.
 		// It is defined this way because some values depend on it, in case it changes in the future.
 		$open_by_default = false;
 
-		$label_inner_html = empty( $attributes['label'] ) ? __( 'Search' ) : wp_kses_post( $attributes['label'] );
+		$label_inner_html = empty( $attributes['label'] ) ? __( 'Search', 'custom-post-type-widget-blocks' ) : wp_kses_post( $attributes['label'] );
 		$label            = new \WP_HTML_Tag_Processor( sprintf( '<label %1$s>%2$s</label>', $inline_styles['label'], $label_inner_html ) );
 		if ( $label->next_tag() ) {
 			$label->set_attribute( 'for', $input_id );
@@ -197,7 +199,7 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 					// Adding these attributes manually is needed until the Interactivity
 					// API SSR logic is added to core.
-					$button->set_attribute( 'aria-label', __( 'Expand search field' ) );
+					$button->set_attribute( 'aria-label', __( 'Expand search field', 'custom-post-type-widget-blocks' ) );
 					$button->set_attribute( 'aria-controls', 'wp-block-search__input-' . $input_id );
 					$button->set_attribute( 'aria-expanded', 'false' );
 					$button->set_attribute( 'type', 'button' );
@@ -220,8 +222,8 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 	// If it's interactive, add the directives.
 	if ( $is_expandable_searchfield ) {
-		$aria_label_expanded  = __( 'Submit Search' );
-		$aria_label_collapsed = __( 'Expand search field' );
+		$aria_label_expanded  = __( 'Submit Search', 'custom-post-type-widget-blocks' );
+		$aria_label_collapsed = __( 'Expand search field', 'custom-post-type-widget-blocks' );
 		$form_context         = wp_interactivity_data_wp_context(
 			[
 				'isSearchInputVisible' => $open_by_default,
