@@ -45,6 +45,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 
 		$this->assertSame( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'init' ] ) );
 		$this->assertSame( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_dynamic_blocks' ] ) );
+
+		$uninstallable_plugins = (array) get_option( 'uninstall_plugins' );
+		$this->assertSame( array( 'Custom_Post_Type_Widget_Blocks\Custom_Post_Type_Widget_Blocks', 'uninstall' ), $uninstallable_plugins[ plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ] );
 	}
 
 	/**
@@ -218,7 +221,9 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function uninstall() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		update_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', 1 );
+		$this->custom_post_type_widget_blocks->uninstall();
+		$this->assertFalse( get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts' ) );
 	}
 
 }

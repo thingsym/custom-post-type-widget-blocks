@@ -196,4 +196,23 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Posts extends WP_UnitTestCase {
 		$this->assertMatchesRegularExpression( '/is\-grid/', $render );
 	}
 
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_latest_posts
+	 */
+	public function block_core_latest_posts_get_excerpt_length() {
+		$block_core_latest_posts_excerpt_length = $this->custom_post_type_widget_blocks_latest_posts->block_core_latest_posts_get_excerpt_length();
+		$this->assertSame( 0, $block_core_latest_posts_excerpt_length );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_latest_posts
+	 */
+	public function block_core_latest_posts_migrate_categories() {
+		$block = $this->custom_post_type_widget_blocks_latest_posts->block_core_latest_posts_migrate_categories( [] );
+		$this->assertSame( [], $block );
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	}
+
 }

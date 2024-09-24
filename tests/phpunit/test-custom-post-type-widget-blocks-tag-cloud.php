@@ -89,7 +89,10 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
 
 		$this->assertIsString( $render );
-		$this->assertMatchesRegularExpression( '#There&\#8217;s no content to show here yet.#', $render );
+		$this->assertEmpty( $render );
+
+		// TODO: wp_is_serving_rest_request
+		// $this->assertMatchesRegularExpression( '#There&\#8217;s no content to show here yet.#', $render );
 	}
 
 	/**
