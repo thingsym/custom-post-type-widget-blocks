@@ -37,6 +37,21 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	}
 
 	/**
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
+	 *
+	 * @access public static
+	 *
+	 * @return void
+	 *
+	 * @since 1.7.0
+	 */
+	public static function uninstall() {
+		delete_option( 'custom_post_type_widget_blocks_calendar_has_published_posts' );
+	}
+
+	/**
 	 * register block_type from metadata
 	 *
 	 * @since 1.3.0
