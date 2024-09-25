@@ -115,20 +115,6 @@ export default function CalendarEdit( { attributes, setAttributes } ) {
 		postType,
 	] );
 
-	if ( ! hasPosts ) {
-		return (
-			<div { ...blockProps }>
-				<Placeholder icon={ icon } label={ __( 'Calendar', 'custom-post-type-widget-blocks' ) }>
-					{ ! hasPostsResolved ? (
-						<Spinner />
-					) : (
-						__( 'No published posts found.', 'custom-post-type-widget-blocks' )
-					) }
-				</Placeholder>
-			</div>
-		);
-	}
-
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
