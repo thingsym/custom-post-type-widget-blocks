@@ -86,15 +86,6 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		global $monthnum, $year;
 		$this->posttype = $attributes['postType'];
 
-		// Calendar shouldn't be rendered
-		// when there are no published posts on the site.
-		if ( ! $this->has_published_posts( $this->posttype ) ) {
-			if ( is_user_logged_in() ) {
-				return '<div>' . __( 'The calendar block is hidden because there are no published posts.', 'custom-post-type-widget-blocks' ) . '</div>';
-			}
-			return '';
-		}
-
 		$previous_monthnum = $monthnum;
 		$previous_year     = $year;
 
