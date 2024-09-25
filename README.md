@@ -171,6 +171,7 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ### [1.7.0] - 2024.09.25
 
+* change to Requires at least 6.2.0
 * remove no published posts
 * remove has_published_posts
 * fix filter
@@ -397,6 +398,8 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Upgrade Notice
 
+* Version 1.7.0
+	* Requires at least version 6.2.0 of the WordPress
 * Version 1.3.0
 	* Requires at least version 5.8.0 of the WordPress
 

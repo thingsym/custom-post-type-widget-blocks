@@ -5,7 +5,7 @@ Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
 Stable tag: 1.7.0
 Tested up to: 6.6.1
-Requires at least: 5.8.0
+Requires at least: 6.2.0
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -337,5 +337,7 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Upgrade Notice ==
 
+= 1.7.0 =
+* Requires at least version 6.2.0 of the WordPress
 = 1.3.0 =
 * Requires at least version 5.8.0 of the WordPress
