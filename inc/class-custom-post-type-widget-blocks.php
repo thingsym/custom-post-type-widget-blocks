@@ -39,6 +39,8 @@ class Custom_Post_Type_Widget_Blocks {
 
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 		add_action( 'plugins_loaded', [ $this, 'load_dynamic_blocks' ] );
+
+		register_uninstall_hook( CUSTOM_POST_TYPE_WIDGET_BLOCKS, array( __CLASS__, 'uninstall' ) );
 	}
 
 	public function init() {
@@ -213,6 +215,22 @@ class Custom_Post_Type_Widget_Blocks {
 		}
 
 		return $links;
+	}
+
+	/**
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
+	 *
+	 * @access public static
+	 *
+	 * @return void
+	 *
+	 * @since 1.7.0
+	 */
+	public static function uninstall() {
+		$custom_post_type_widget_blocks_calendar = new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
+		$custom_post_type_widget_blocks_calendar->uninstall();
 	}
 
 }

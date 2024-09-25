@@ -1,15 +1,6 @@
 'use strict';
 
 /**
- * External dependencies
- */
-import {
-	map,
-	filter,
-	remove,
-} from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
@@ -20,9 +11,9 @@ import {
 	ToggleControl,
 	SelectControl,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
@@ -47,6 +38,14 @@ export default function LatestComments( { attributes, setAttributes } ) {
 		displayExcerpt,
 	} = attributes;
 
+	const serverSideAttributes = {
+		...attributes,
+		style: {
+			...attributes?.style,
+			spacing: undefined,
+		},
+	};
+
 	const { postTypes } = useSelect( ( select ) => {
 		return {
 			postTypes: select( coreStore ).getPostTypes( {
@@ -61,20 +60,14 @@ export default function LatestComments( { attributes, setAttributes } ) {
 			value: 'any',
 		};
 
-		const postTypeOptions = map(
-			filter( postTypes, {
-				viewable: true,
-				hierarchical: false,
-			} ),
-			( postType ) => {
+		const postTypeOptions = ( postTypes ?? [] )
+			.filter( ( pty ) => ( !! pty.viewable && ! pty.hierarchical ) && pty.slug !== 'attachment' )
+			.map( ( item ) => {
 				return {
-					value: postType.slug,
-					label: postType.name,
+					value: item.slug,
+					label: item.name,
 				};
-			},
-		);
-
-		remove( postTypeOptions, { value: 'attachment' } );
+			} );
 
 		return [ selectOption, ...postTypeOptions ];
 	};
@@ -82,9 +75,9 @@ export default function LatestComments( { attributes, setAttributes } ) {
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Latest comments settings', 'custom-post-type-widget-blocks' ) } >
+				<PanelBody title={ __( 'Latest comments settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
+						__nextHasNoMarginBottom
 						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
 						options={ getPostTypeOptions() }
 						value={ postType }
@@ -93,6 +86,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display Avatar', 'custom-post-type-widget-blocks' ) }
 						checked={ displayAvatar }
 						onChange={ () =>
@@ -100,6 +94,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display Date', 'custom-post-type-widget-blocks' ) }
 						checked={ displayDate }
 						onChange={ () =>
@@ -107,6 +102,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display Excerpt', 'custom-post-type-widget-blocks' ) }
 						checked={ displayExcerpt }
 						onChange={ () =>
@@ -116,6 +112,8 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<RangeControl
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
 						label={ __( 'Number of Comments', 'custom-post-type-widget-blocks' ) }
 						value={ commentsToShow }
 						onChange={ ( value ) =>
@@ -130,7 +128,11 @@ export default function LatestComments( { attributes, setAttributes } ) {
 			<Disabled>
 				<ServerSideRender
 					block="custom-post-type-widget-blocks/latest-comments"
-					attributes={ attributes }
+					attributes={ serverSideAttributes }
+					// The preview uses the site's locale to make it more true to how
+					// the block appears on the frontend. Setting the locale
+					// explicitly prevents any middleware from setting it to 'user'.
+					urlQueryArgs={ { _locale: 'site' } }
 				/>
 			</Disabled>
 		</div>

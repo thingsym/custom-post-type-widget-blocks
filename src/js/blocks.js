@@ -6,7 +6,7 @@
 import {
 	registerBlockType,
 	unstable__bootstrapServerSideBlockDefinitions,
- } from '@wordpress/blocks';
+} from '@wordpress/blocks';
 import { __, _x } from '@wordpress/i18n';
 
 /**
@@ -24,9 +24,7 @@ import * as custom_post_type_widget_blocks_tag_cloud from '../blocks/tag-cloud/i
 
 /**
  * Function to register an individual block.
- *
  * @param {Object} block The block to be registered.
- *
  */
 const registerBlock = ( block ) => {
 	if ( ! block ) {
@@ -37,7 +35,7 @@ const registerBlock = ( block ) => {
 
 	if ( metadata ) {
 		// for ServerSide Blocks
-		unstable__bootstrapServerSideBlockDefinitions({ [name]: metadata });
+		unstable__bootstrapServerSideBlockDefinitions( { [ name ]: metadata } );
 	}
 
 	[ metadata, settings ] = applyTextdomainMetadata( metadata, settings );
@@ -62,14 +60,14 @@ const applyTextdomainMetadata = ( metadata, settings ) => {
 
 		if ( !! metadata.styles ) {
 			metadata.styles.forEach( ( style, index ) => {
-				metadata.styles[index].label = _x( style.label, 'block style label', 'custom-post-type-widget-blocks' );
+				metadata.styles[ index ].label = _x( style.label, 'block style label', 'custom-post-type-widget-blocks' );
 			});
 			settings.styles = metadata.styles;
 		}
 	}
 
 	return [ metadata, settings ];
-}
+};
 
 [
 	// Common blocks are grouped at the top to prioritize their display

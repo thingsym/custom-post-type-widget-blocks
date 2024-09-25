@@ -27,6 +27,28 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
+
+		// We only want to register these functions and actions when
+		// we are on single sites. On multi sites we use `post_count` option.
+		if ( ! is_multisite() ) {
+			add_action( 'delete_post', [ $this, 'update_has_published_post_on_delete' ] );
+			add_action( 'transition_post_status', [ $this, 'update_has_published_post_on_transition_post_status' ], 10, 3 );
+		}
+	}
+
+	/**
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
+	 *
+	 * @access public static
+	 *
+	 * @return void
+	 *
+	 * @since 1.7.0
+	 */
+	public static function uninstall() {
+		delete_option( 'custom_post_type_widget_blocks_calendar_has_published_posts' );
 	}
 
 	/**
@@ -43,6 +65,16 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		);
 	}
 
+	/**
+	 * Renders the calendar block on server.
+	 *
+	 * @global int $monthnum.
+	 * @global int $year.
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the block content.
+	 */
 	public function render_callback( $attributes ) {
 		$disable_get_links = 0;
 		if ( defined( 'CUSTOM_POST_TYPE_WIDGET_BLOCKS_DISABLE_LINKS_CALENDAR' ) ) {
@@ -75,14 +107,35 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			add_filter( 'day_link', [ $this, 'get_day_link_custom_post_type' ], 10, 4 );
 		}
 
-		$classnames[] = 'wp-block-calendar';
+		$color_block_styles = [];
 
-		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
+		// Text color.
+		$preset_text_color          = array_key_exists( 'textColor', $attributes ) ? "var:preset|color|{$attributes['textColor']}" : null;
+		$custom_text_color          = $attributes['style']['color']['text'] ?? null;
+		$color_block_styles['text'] = $preset_text_color ? $preset_text_color : $custom_text_color;
+
+		// Background Color.
+		$preset_background_color          = array_key_exists( 'backgroundColor', $attributes ) ? "var:preset|color|{$attributes['backgroundColor']}" : null;
+		$custom_background_color          = $attributes['style']['color']['background'] ?? null;
+		$color_block_styles['background'] = $preset_background_color ? $preset_background_color : $custom_background_color;
+
+		// Generate color styles and classes.
+		$styles        = wp_style_engine_get_styles( [ 'color' => $color_block_styles ], [ 'convert_vars_to_classnames' => true ] );
+		$inline_styles = empty( $styles['css'] ) ? '' : sprintf( ' style="%s"', esc_attr( $styles['css'] ) );
+		$classnames    = empty( $styles['classnames'] ) ? '' : ' ' . esc_attr( $styles['classnames'] );
+		if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
+			$classnames .= ' has-link-color';
+		}
+		// Apply color classes and styles to the calendar.
+		$calendar = str_replace( '<table', '<table' . $inline_styles, $this->get_custom_post_type_calendar( true, false ) );
+		$calendar = str_replace( 'class="wp-calendar-table', 'class="wp-calendar-table' . $classnames, $calendar );
+
+		$wrapper_attributes = get_block_wrapper_attributes();
 
 		$output = sprintf(
 			'<div %1$s>%2$s</div>',
 			$wrapper_attributes,
-			$this->get_custom_post_type_calendar( true, false )
+			$calendar
 		);
 
 		if ( ! $disable_get_links ) {
@@ -96,6 +149,110 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		$year = $previous_year;
 
 		return $output;
+	}
+
+	/**
+	 * Returns whether or not there are any published posts.
+	 *
+	 * Used to hide the calendar block when there are no published posts.
+	 * This compensates for a known Core bug: https://core.trac.wordpress.org/ticket/12016
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool Has any published posts or not.
+	 */
+	public function has_published_posts( $posttype ) {
+		// Multisite already has an option that stores the count of the published posts.
+		// Let's use that for multisites.
+		if ( is_multisite() ) {
+			return 0 < (int) get_option( 'post_count' );
+		}
+
+		// On single sites we try our own cached option first.
+		$option_has_published_posts = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
+
+		if ( is_null( $option_has_published_posts ) || ! isset( $option_has_published_posts[ $posttype ] ) ) {
+			return;
+		}
+
+		$has_published_posts = $option_has_published_posts[ $posttype ];
+
+		if ( null !== $has_published_posts ) {
+			return (bool) $has_published_posts;
+		}
+
+		// No cache hit, let's update the cache and return the cached value.
+		return $this->update_has_published_posts( $posttype );
+	}
+
+	/**
+	 * Queries the database for any published post and saves
+	 * a flag whether any published post exists or not.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @global wpdb $wpdb WordPress database abstraction object.
+	 *
+	 * @return bool Has any published posts or not.
+	 */
+	public function update_has_published_posts( $posttype ) {
+		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$has_published_posts = (bool) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT 1 as test FROM {$wpdb->posts} WHERE post_type = %s AND post_status = 'publish' LIMIT 1",
+				[ $posttype ]
+			)
+		);
+
+		$option_has_published_posts = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
+		$option_has_published_posts[ $posttype ] = $has_published_posts;
+
+		update_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', $option_has_published_posts );
+
+		return $has_published_posts;
+	}
+
+	/**
+	 * Handler for updating the has published posts flag when a post is deleted.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @param int $post_id Deleted post ID.
+	 */
+	public function update_has_published_post_on_delete( $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post || 'publish' !== $post->post_status ) {
+			return;
+		}
+
+		$posttype = get_post_type( $post );
+
+		return $this->update_has_published_posts( $posttype );
+	}
+
+	/**
+	 * Handler for updating the has published posts flag when a post status changes.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @param string  $new_status The status the post is changing to.
+	 * @param string  $old_status The status the post is changing from.
+	 * @param WP_Post $post       Post object.
+	 */
+	public function update_has_published_post_on_transition_post_status( $new_status, $old_status, $post ) {
+		if ( $new_status === $old_status ) {
+			return;
+		}
+
+		if ( 'publish' !== $new_status && 'publish' !== $old_status ) {
+			return;
+		}
+
+		$posttype = get_post_type( $post );
+
+		return $this->update_has_published_posts( $posttype );
 	}
 
 	/**

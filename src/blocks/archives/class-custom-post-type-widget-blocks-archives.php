@@ -43,6 +43,17 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		);
 	}
 
+	/**
+	 * Renders the archives block on server.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see WP_Widget_Archives
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the post content with archives added.
+	 */
 	public function render_callback( $attributes ) {
 		$this->posttype = $attributes['postType'];
 
@@ -54,14 +65,14 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 		}
 
 		$show_post_count = ! empty( $attributes['showPostCounts'] );
-		$archive_type    = ! empty( $attributes['archiveType'] ) ? $attributes['archiveType'] : 'monthly';
-		$order           = ! empty( $attributes['order'] ) ? $attributes['order'] : 'DESC';
+		$archive_type    = isset( $attributes['archiveType'] ) ? $attributes['archiveType'] : 'monthly';
+		$order           = isset( $attributes['order'] ) ? $attributes['order'] : 'DESC';
 
 		if ( ! empty( $attributes['displayAsDropdown'] ) ) {
 
 			$classnames[] = 'wp-block-custom-post-type-widget-blocks-archives-dropdown';
 
-			$dropdown_id = esc_attr( uniqid( 'wp-block-custom-post-type-widget-blocks-archives-' ) );
+			$dropdown_id = esc_attr( wp_unique_id( 'wp-block-custom-post-type-widget-blocks-archives-' ) );
 			$title       = __( 'Archives', 'custom-post-type-widget-blocks' );
 
 			/**
@@ -123,11 +134,9 @@ class Custom_Post_Type_Widget_Blocks_Archives {
 					break;
 			}
 
-			$label = esc_attr( $label );
-
-			$block_content = '<label class="screen-reader-text" for="' . $dropdown_id . '">' . $title . '</label>
+			$block_content = '<label class="screen-reader-text" for="' . $dropdown_id . '">' . esc_html( $title ) . '</label>
 			<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-			<option value="">' . $label . '</option>' . $archives . '</select>';
+			<option value="">' . esc_html( $label ) . '</option>' . $archives . '</select>';
 
 			$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
 

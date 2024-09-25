@@ -1,5 +1,6 @@
 {
-  "apiVersion": 1,
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "custom-post-type-widget-blocks/categories",
   "title": "Categories (Custom Post Type)",
   "category": "custom-post-type-widget-blocks",
@@ -26,14 +27,22 @@
     "showOnlyTopLevel": {
       "type": "boolean",
       "default": false
-    }
+    },
+		"showEmpty": {
+			"type": "boolean",
+			"default": false
+		}
   },
   "supports": {
     "align": [ "wide", "full" ],
     "html": false,
     "spacing": {
       "margin": true,
-      "padding": true
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "margin": false,
+        "padding": false
+      }
     },
     "typography": {
       "fontSize": true,
@@ -46,6 +55,21 @@
       "__experimentalLetterSpacing": true,
       "__experimentalDefaultControls": {
         "fontSize": true
+      }
+    },
+    "interactivity": {
+      "clientNavigation": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true,
+      "__experimentalDefaultControls": {
+        "radius": true,
+        "color": true,
+        "width": true,
+        "style": true
       }
     }
   },

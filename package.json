@@ -29,8 +29,7 @@
     "@wordpress/primitives": "^4.6.0",
     "@wordpress/server-side-render": "^5.6.0",
     "@wordpress/url": "^4.6.0",
-    "classnames": "^2.5.1",
-    "lodash": "^4.17.21"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.46.1",
@@ -125,13 +124,26 @@
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",
       "@wordpress/no-unsafe-wp-apis": "off",
+      "@wordpress/i18n-no-variables": "off",
       "no-func-assign": "off",
       "no-unused-vars": "off",
       "no-prototype-builtins": "off",
       "no-sparse-arrays": "off",
       "no-undef": "off",
+      "no-nested-ternary": "off",
+      "no-extra-boolean-cast": "off",
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "react-hooks/exhaustive-deps": "warn",
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "only-multiline"
+        }
+      ]
     },
     "ignorePatterns": [
       "node_modules/",

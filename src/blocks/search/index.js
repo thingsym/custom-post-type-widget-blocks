@@ -19,6 +19,7 @@ export { metadata, name };
 
 export const settings = {
 	icon,
+	example: {},
 	variations,
 	edit,
 };

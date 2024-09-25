@@ -1,15 +1,6 @@
 'use strict';
 
 /**
- * External dependencies
- */
-import {
-	map,
-	filter,
-	remove,
-} from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import {
@@ -18,52 +9,48 @@ import {
 	SelectControl,
 	Disabled,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
+import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
 export default function ArchivesEdit( { attributes, setAttributes } ) {
-	const { postType, archiveType, showPostCounts, displayAsDropdown, order } = attributes;
+	const { postType, showPostCounts, displayAsDropdown, archiveType, order } = attributes;
 
 	const { postTypes } = useSelect( ( select ) => {
 		return {
-			postTypes: select( coreStore ).getPostTypes({
-				per_page: -1
-			}),
+			postTypes: select( coreStore ).getPostTypes( {
+				per_page: -1,
+			} ),
 		};
 	}, [] );
 
 	const getPostTypeOptions = () => {
 		const selectOption = {
-			label: __( 'All', 'custom-post-type-widget-blocks' ),
-			value: 'any',
+			label: __( '- Select -', 'custom-post-type-widget-blocks' ),
+			value: '',
 		};
 
-		const postTypeOptions = map(
-			filter( postTypes, {
-				viewable: true,
-				hierarchical: false,
-			} ),
-			( postType ) => {
+		const postTypeOptions = ( postTypes ?? [] )
+			.filter( ( pty ) => ( !! pty.viewable && ! pty.hierarchical ) && pty.slug !== 'attachment' )
+			.map( ( item ) => {
 				return {
-					value: postType.slug,
-					label: postType.name,
+					value: item.slug,
+					label: item.name,
 				};
-			}
-		);
-
-		remove( postTypeOptions, { value: 'attachment' } );
+			} );
 
 		return [ selectOption, ...postTypeOptions ];
-	}
+	};
 
 	return (
-		<div { ...useBlockProps() }>
+		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Archives settings', 'custom-post-type-widget-blocks' ) } >
 					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						label={ __( 'Post Type', 'custom-post-type-widget-blocks' ) }
 						options={ getPostTypeOptions() }
 						value={ postType }
@@ -72,6 +59,8 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						label={ __( 'Archive Type', 'custom-post-type-widget-blocks' ) }
 						options={ [
 							{
@@ -97,6 +86,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display as Dropdown', 'custom-post-type-widget-blocks' ) }
 						checked={ displayAsDropdown }
 						onChange={ () =>
@@ -106,6 +96,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Show Post Counts', 'custom-post-type-widget-blocks' ) }
 						checked={ showPostCounts }
 						onChange={ () =>
@@ -115,6 +106,8 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 						}
 					/>
 					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						label={ __( 'Order', 'custom-post-type-widget-blocks' ) }
 						options={ [
 							{
@@ -124,7 +117,7 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 							{
 								value: 'ASC',
 								label: __( 'ASC', 'custom-post-type-widget-blocks' ),
-							}
+							},
 						] }
 						value={ order }
 						onChange={ ( selectedOrder ) =>
@@ -133,12 +126,15 @@ export default function ArchivesEdit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<Disabled>
-				<ServerSideRender
-					block="custom-post-type-widget-blocks/archives"
-					attributes={ attributes }
-				/>
-			</Disabled>
-		</div>
+			<div { ...useBlockProps() }>
+				<Disabled>
+					<ServerSideRender
+						block="custom-post-type-widget-blocks/archives"
+						skipBlockSupportAttributes
+						attributes={ attributes }
+					/>
+				</Disabled>
+			</div>
+		</>
 	);
 }

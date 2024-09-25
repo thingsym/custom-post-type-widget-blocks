@@ -17,10 +17,44 @@ namespace Custom_Post_Type_Widget_Blocks\Blocks;
 class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_block_type' ] );
+
+		add_filter( 'render_block_data', [ $this, 'block_core_latest_posts_migrate_categories' ] );
+
+		/**
+		 * The excerpt length set by the Latest Posts core block
+		 * set at render time and used by the block itself.
+		 *
+		 * @var int
+		 */
+		global $block_core_latest_posts_excerpt_length;
+		$block_core_latest_posts_excerpt_length = 0;
 	}
 
+	/**
+	 * Callback for the excerpt_length filter used by
+	 * the Latest Posts block at render time.
+	 *
+	 * @since 5.4.0
+	 *
+	 * @return int Returns the global $block_core_latest_posts_excerpt_length variable
+	 *             to allow the excerpt_length filter respect the Latest Block setting.
+	 */
+	public function block_core_latest_posts_get_excerpt_length() {
+		global $block_core_latest_posts_excerpt_length;
+		return $block_core_latest_posts_excerpt_length;
+	}
+
+	/**
+	 * Renders the latest-posts block on server.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the post content with latest posts added.
+	 */
 	public function register_block_type() {
-		register_block_type(
+		register_block_type_from_metadata(
 			plugin_dir_path( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) . '/dist/blocks/latest-posts',
 			[
 				'render_callback' => [ $this, 'render_callback' ],
@@ -29,20 +63,24 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 	}
 
 	public function render_callback( $attributes ) {
-		global $post;
+		global $post, $block_core_latest_posts_excerpt_length;
 
 		$args = [
-			'post_type'        => $attributes['postType'],
-			'posts_per_page'   => $attributes['postsToShow'],
-			'post_status'      => 'publish',
-			'order'            => $attributes['order'],
-			'orderby'          => $attributes['orderBy'],
-			'suppress_filters' => false,
+			'post_type'           => $attributes['postType'],
+			'posts_per_page'      => $attributes['postsToShow'],
+			'post_status'         => 'publish',
+			'order'               => $attributes['order'],
+			'orderby'             => $attributes['orderBy'],
+			'suppress_filters'    => false,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
 		];
 
-		if ( isset( $attributes['categories'] ) ) {
-			if ( 'post' === $attributes['postType'] && 'category' === $attributes['taxonomy'] ) {
-				$args['category'] = $attributes['categories'];
+		$block_core_latest_posts_excerpt_length = $attributes['excerptLength'];
+		add_filter( 'excerpt_length', [ $this, 'block_core_latest_posts_get_excerpt_length' ], 20 );
+		if ( ! empty( $attributes['categories'] ) ) {
+				if ( 'post' === $attributes['postType'] && 'category' === $attributes['taxonomy'] ) {
+				$args['category__in'] = array_column( $attributes['categories'], 'id' );
 			}
 			else {
 				if ( $attributes['taxonomy'] ) {
@@ -76,10 +114,15 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 		 *
 		 * @param array  $args     An array of arguments used to retrieve the recent posts.
 		 */
-		$recent_posts = get_posts( apply_filters( 'custom_post_type_widget_blocks/latest_posts/widget_posts_args', $args ) );
+		$query        = new \WP_Query();
+		$recent_posts = $query->query( apply_filters( 'custom_post_type_widget_blocks/latest_posts/widget_posts_args', $args ) );
 
 		if ( empty( $recent_posts ) ) {
 			return '';
+		}
+
+		if ( isset( $attributes['displayFeaturedImage'] ) && $attributes['displayFeaturedImage'] ) {
+			update_post_thumbnail_cache( $query );
 		}
 
 		$list_items_markup = '';
@@ -185,6 +228,24 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				}
 				else {
 					$trimmed_excerpt = get_the_excerpt( $post );
+
+					/*
+					* Adds a "Read more" link with screen reader text.
+					* [&hellip;] is the default excerpt ending from wp_trim_excerpt() in Core.
+					*/
+					if ( str_ends_with( $trimmed_excerpt, ' [&hellip;]' ) ) {
+						/** This filter is documented in wp-includes/formatting.php */
+						$excerpt_length = (int) apply_filters( 'excerpt_length', $block_core_latest_posts_excerpt_length );
+						if ( $excerpt_length <= $block_core_latest_posts_excerpt_length ) {
+							$trimmed_excerpt  = substr( $trimmed_excerpt, 0, -11 );
+							$trimmed_excerpt .= sprintf(
+								/* translators: 1: A URL to a post, 2: Hidden accessibility text: Post title */
+								__( '… <a class="wp-block-latest-posts__read-more" href="%1$s" rel="noopener noreferrer">Read more<span class="screen-reader-text">: %2$s</span></a>', 'custom-post-type-widget-blocks' ),
+								esc_url( $post_link ),
+								esc_html( $title )
+							);
+						}
+					}
 				}
 
 				$list_items_markup .= sprintf(
@@ -214,30 +275,62 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 
 		wp_reset_postdata();
 
-		$classnames[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__list';
-
+		$classes[] = 'wp-block-custom-post-type-widget-blocks-latest-posts__list';
 		if ( isset( $attributes['postLayout'] ) && 'grid' === $attributes['postLayout'] ) {
-			$classnames[] = 'is-grid';
+			$classes[] = 'is-grid';
 		}
-
 		if ( isset( $attributes['columns'] ) && 'grid' === $attributes['postLayout'] ) {
-			$classnames[] = 'columns-' . $attributes['columns'];
+			$classes[] = 'columns-' . $attributes['columns'];
 		}
-
 		if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
-			$classnames[] = 'has-dates';
+			$classes[] = 'has-dates';
 		}
-
 		if ( isset( $attributes['displayAuthor'] ) && $attributes['displayAuthor'] ) {
-			$classnames[] = 'has-author';
+			$classes[] = 'has-author';
+		}
+		if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
+			$classes[] = 'has-link-color';
 		}
 
-		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classnames ) ] );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => implode( ' ', $classes ) ] );
 
 		return sprintf(
 			'<ul %1$s>%2$s</ul>',
 			$wrapper_attributes,
 			$list_items_markup
 		);
+	}
+
+	/**
+	 * Handles outdated versions of the `custom-post-type-widget-blocks/latest-posts` block by converting
+	 * attribute `categories` from a numeric string to an array with key `id`.
+	 *
+	 * This is done to accommodate the changes introduced in #20781 that sought to
+	 * add support for multiple categories to the block. However, given that this
+	 * block is dynamic, the usual provisions for block migration are insufficient,
+	 * as they only act when a block is loaded in the editor.
+	 *
+	 * TODO: Remove when and if the bottom client-side deprecation for this block
+	 * is removed.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param array $block A single parsed block object.
+	 *
+	 * @return array The migrated block object.
+	 */
+	public function block_core_latest_posts_migrate_categories( $block ) {
+		if (
+			! empty( $block['blockName'] ) &&
+			'custom-post-type-widget-blocks/latest-posts' === $block['blockName'] &&
+			! empty( $block['attrs']['categories'] ) &&
+			is_string( $block['attrs']['categories'] )
+		) {
+			$block['attrs']['categories'] = [
+				[ 'id' => absint( $block['attrs']['categories'] ) ],
+			];
+		}
+
+		return $block;
 	}
 }

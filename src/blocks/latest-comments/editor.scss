@@ -1,17 +1,11 @@
 // Included Modules
 @use "../../scss/helper";
 
-.wp-block-custom-post-type-widget-blocks-latest-comments.has-avatars .avatar {
-	margin-right: 10px;
-}
-
-.wp-block-custom-post-type-widget-blocks-latest-comments__comment-excerpt p {
-	font-size: 14px;
-	line-height: helper.$editor-line-height;
-	margin: 5px 0 20px;
-	padding-top: 0;
-}
-
-.wp-block-custom-post-type-widget-blocks-latest-comments.has-avatars .wp-block-custom-post-type-widget-blocks-latest-comments__comment {
-	min-height: 36px;
+.wp-block-custom-post-type-widget-blocks-latest-comments.has-avatars {
+	.avatar {
+		margin-right: 10px;
+	}
+	.wp-block-custom-post-type-widget-blocks-latest-comments__comment {
+		margin-block-end: 0.8rem;
+	}
 }

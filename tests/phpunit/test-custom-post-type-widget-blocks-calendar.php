@@ -24,6 +24,15 @@ class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group custom_post_type_widget_blocks_latest_comments
+	 */
+	function uninstall() {
+		$this->custom_post_type_widget_blocks_calendar->uninstall();
+		$this->assertFalse( get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts' ) );
+	}
+
+	/**
+	 * @test
 	 * @group custom_post_type_widget_blocks_calendar
 	 */
 	function register_block_type() {
@@ -200,6 +209,66 @@ class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 		];
 
 		register_post_type( "test", $args );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_calendar
+	 */
+	public function has_published_posts() {
+		delete_option( 'custom_post_type_widget_blocks_calendar_has_published_posts' );
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->has_published_posts( 'post' );
+		$this->assertNull( $has_published_posts );
+
+		$this->factory->post->create();
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->has_published_posts( 'post' );
+		$this->assertTrue( $has_published_posts );
+
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->has_published_posts( 'abc' );
+		$this->assertNull( $has_published_posts );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_calendar
+	 */
+	public function update_has_published_posts() {
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_posts( 'post' );
+		$this->assertFalse( $has_published_posts );
+
+		$this->factory->post->create();
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_posts( 'post' );
+		$this->assertTrue( $has_published_posts );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_calendar
+	 */
+	public function update_has_published_post_on_delete() {
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_post_on_delete( 1 );
+		$this->assertNull( $has_published_posts );
+
+		$id = $this->factory->post->create();
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_post_on_delete( $id );
+		$this->assertTrue( $has_published_posts );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_calendar
+	 */
+	public function update_has_published_post_on_transition_post_status() {
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_post_on_transition_post_status( 'publish', 'publish', null );
+		$this->assertNull( $has_published_posts );
+
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_post_on_transition_post_status( 'draft', 'draft', null );
+		$this->assertNull( $has_published_posts );
+
+		$id = $this->factory->post->create();
+		$post = get_post( $id );
+		$has_published_posts = $this->custom_post_type_widget_blocks_calendar->update_has_published_post_on_transition_post_status( 'draft', 'publish', $post );
+		$this->assertTrue( $has_published_posts );
 	}
 
 }
