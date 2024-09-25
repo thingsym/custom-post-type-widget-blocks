@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.6.3
+Stable tag: 1.7.0
 Tested up to: 6.6.1
 Requires at least: 5.8.0
 Requires PHP: 7.1
@@ -125,6 +125,26 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.7.0 - 2024.09.25 =
+* remove no published posts
+* remove has_published_posts
+* fix filter
+* add uninstall method
+* change the data structure 'option_has_published_posts' for Custom Post
+* add test case
+* update japanese translation
+* update pot
+* refine code, compliant with the latest source code for standard widget blocks
+* remove lodash
+* fix eslintConfig rules
+* replace from classnames to clsx
+* specify the type
+* fix code verification
+* improve code with phpcs
+* fix github workflows
+* fix composer installation
+* add phpcs job
 
 = 1.6.3 - 2024.08.30 =
 * tested up to 6.6.1

@@ -169,6 +169,27 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.7.0] - 2024.09.25
+
+* remove no published posts
+* remove has_published_posts
+* fix filter
+* add uninstall method
+* change the data structure 'option_has_published_posts' for Custom Post
+* add test case
+* update japanese translation
+* update pot
+* refine code, compliant with the latest source code for standard widget blocks
+* remove lodash
+* fix eslintConfig rules
+* replace from classnames to clsx
+* specify the type
+* fix code verification
+* improve code with phpcs
+* fix github workflows
+* fix composer installation
+* add phpcs job
+
 ### [1.6.3] - 2024.08.30
 
 * tested up to 6.6.1
