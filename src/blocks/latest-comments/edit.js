@@ -61,7 +61,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 		};
 
 		const postTypeOptions = ( postTypes ?? [] )
-			.filter( ( pty ) => ( !! pty.viewable && ! pty.hierarchical ) && pty.value !== 'attachment' )
+			.filter( ( pty ) => ( !! pty.viewable && ! pty.hierarchical ) && pty.slug !== 'attachment' )
 			.map( ( item ) => {
 				return {
 					value: item.slug,
