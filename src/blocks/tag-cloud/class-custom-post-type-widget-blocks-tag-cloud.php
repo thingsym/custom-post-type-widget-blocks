@@ -73,7 +73,8 @@ class Custom_Post_Type_Widget_Blocks_Tag_Cloud {
 
 		if ( ! $tag_cloud ) {
 			// Display placeholder content when there are no tags only in editor.
-			if ( wp_is_serving_rest_request() ) {
+			// https://developer.wordpress.org/reference/functions/wp_is_serving_rest_request/
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 				$tag_cloud = __( 'There&#8217;s no content to show here yet.', 'custom-post-type-widget-blocks' );
 			} else {
 				return '';

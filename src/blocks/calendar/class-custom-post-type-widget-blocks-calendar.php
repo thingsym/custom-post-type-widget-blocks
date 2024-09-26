@@ -205,7 +205,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			)
 		);
 
-		$option_has_published_posts = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
+		$option_has_published_posts              = get_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', null );
 		$option_has_published_posts[ $posttype ] = $has_published_posts;
 
 		update_option( 'custom_post_type_widget_blocks_calendar_has_published_posts', $option_has_published_posts );
