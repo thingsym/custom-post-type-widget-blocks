@@ -9,7 +9,7 @@ Requires at least: 6.2.0
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: block, block editor, gutenberg, widget, widgets, custom post type, taxonomy
+Tags: block, block editor, widget, custom post type, taxonomy
 
 Custom Post Type Widgets for the Block Editor (Gutenberg). This WordPress plugin adds default Custom Post Type Widgets to the Block Editor.
 
