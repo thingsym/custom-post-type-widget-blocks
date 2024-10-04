@@ -4,3 +4,6 @@ vendor/
 dist/
 tests/report/
 *.zip
+
+playwright-screenshot.png
+tests/playwright-report/

@@ -32,7 +32,7 @@
     "clsx": "^2.1.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.46.1",
+    "@playwright/test": "^1.47.2",
     "@wordpress/browserslist-config": "^6.6.0",
     "@wordpress/e2e-test-utils": "^11.6.0",
     "@wordpress/e2e-test-utils-playwright": "^1.6.0",
@@ -177,8 +177,12 @@
     "lint:md": "wp-scripts lint-md-docs ./README.md",
     "lint": "run-p lint:*",
     "test:jest": "wp-scripts test-unit-js --config jest.config.js",
-    "test:e2e": "wp-scripts test-e2e --config jest-puppeteer.config.js",
-    "test:e2e:help": "wp-scripts test-e2e --help",
+    "test:playwright": "npx playwright test",
+    "test:playwright:custom-post-type-widget-blocks": "npx playwright test -g @custom-post-type-widget-blocks",
+    "test:playwright:initial": "npx playwright test -g @initial",
+    "test:playwright:codegen": "npx playwright codegen http://localhost:8080",
+    "test:playwright:report": "npx playwright show-report",
+    "test:playwright:trace": "npx playwright show-trace",
     "test": "run-p lint test:jest",
     "format:js": "wp-scripts format-js ./src/blocks",
     "ncu": "ncu",
