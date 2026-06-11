@@ -34,7 +34,7 @@ class Custom_Post_Type_Widget_Blocks {
 	public $asset_file = [];
 
 	public function __construct() {
-		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
+		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
 		add_action( 'plugins_loaded', [ $this, 'load_asset_file' ] );
 
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
@@ -48,7 +48,7 @@ class Custom_Post_Type_Widget_Blocks {
 			return;
 		}
 
-		add_action( 'init', [ $this, 'load_textdomain' ] );
+		add_action( 'init', [ $this, 'load_plugin_data' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'set_block_editor_translations' ] );
 
 		add_action( 'init', [ $this, 'register_block_editor_scripts' ] );
