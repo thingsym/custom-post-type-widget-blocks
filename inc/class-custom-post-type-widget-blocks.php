@@ -103,7 +103,7 @@ class Custom_Post_Type_Widget_Blocks {
 		return load_plugin_textdomain(
 			'custom-post-type-widget-blocks',
 			false,
-			dirname( plugin_basename( CUSTOM_POST_TYPE_WIDGET_BLOCKS ) ) . '/languages'
+			'custom-post-type-widget-blocks/languages'
 		);
 	}
 
