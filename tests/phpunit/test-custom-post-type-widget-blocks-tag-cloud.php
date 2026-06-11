@@ -103,4 +103,37 @@ class Test_Custom_Post_Type_Widget_Blocks_Tag_Cloud extends WP_UnitTestCase {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_tag_cloud
+	 */
+	function render_callback_case_options() {
+		$this->custom_post_type_widget_blocks_tag_cloud->register_block_type();
+
+		$term_1 = $this->factory->term->create_and_get( [ 'name' => 'Sample tag 1' ] );
+		$this->factory->post->create( [ 'tags_input' => [ $term_1->term_id ] ] );
+		$term_2 = $this->factory->term->create_and_get( [ 'name' => 'Sample tag 2' ] );
+		$this->factory->post->create( [ 'tags_input' => [ $term_2->term_id ] ] );
+		$term_3 = $this->factory->term->create_and_get( [ 'name' => 'Sample tag 3' ] );
+		$this->factory->post->create( [ 'tags_input' => [ $term_3->term_id ] ] );
+
+		$attributes = [
+			'taxonomy'         => 'post_tag',
+			'showTagCounts'    => true,
+			'numberOfTags'     => 45,
+			'smallestFontSize' => '8pt',
+			'largestFontSize'  => '22pt',
+
+			'align'            => 'wide',
+			'className'        => 'insertedclass',
+		];
+
+		$render = $this->custom_post_type_widget_blocks_tag_cloud->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+	}
+
 }
