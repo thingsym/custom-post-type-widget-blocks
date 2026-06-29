@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        wordpress: [ latest, nightly, '6.2' ]
+        wordpress: [ latest, nightly ]
         os: [ ubuntu-24.04 ]
         # PHP Compatibility and WordPress Versions - https://make.wordpress.org/core/handbook/references/php-compatibility-and-wordpress-versions/
         php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
@@ -106,7 +106,7 @@ jobs:
       matrix:
         os: [ ubuntu-24.04 ]
         php: [ '7.4' ]
-        wordpress: [ '5.9', '6.3' ]
+        wordpress: [ '6.2', '6.3' ]
         multisite: [ 0 ]
 
     env:
