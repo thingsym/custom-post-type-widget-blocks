@@ -337,6 +337,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Upgrade Notice ==
 
+= 1.7.1 =
+* Requires PHP version 7.4
 = 1.7.0 =
 * Requires at least version 6.2.0 of the WordPress
 = 1.3.0 =

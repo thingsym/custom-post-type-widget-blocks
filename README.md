@@ -398,10 +398,12 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Upgrade Notice
 
+* Version 1.7.1
+  * Requires PHP version 7.4
 * Version 1.7.0
-	* Requires at least version 6.2.0 of the WordPress
+  * Requires at least version 6.2.0 of the WordPress
 * Version 1.3.0
-	* Requires at least version 5.8.0 of the WordPress
+  * Requires at least version 5.8.0 of the WordPress
 
 ## License
 
