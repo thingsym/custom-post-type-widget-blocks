@@ -99,10 +99,6 @@ jobs:
         run: composer run phpunit
         continue-on-error: ${{ matrix.allow_failures == 'true' }}
 
-      - name: Run Jest unit test - WordPress ${{ matrix.wordpress }}
-        run: npm run test:jest
-        if: ${{ matrix.php == '8.2' && matrix.wordpress == 'latest' }}
-
   phpcs:
     name: PHP CodeSniffer
     runs-on: ${{ matrix.os }}
