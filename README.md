@@ -109,18 +109,6 @@ composer run --list
 composer run phpunit
 ```
 
-### Javascript unit testing with Jest
-
-```console
-cd /path/to/custom-post-type-widget-blocks
-
-# Install npm package
-npm intall
-
-# Run test
-npm run test:jest
-```
-
 ## Support
 
 If you have any trouble, you can use the forums or report bugs.
