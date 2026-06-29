@@ -232,5 +232,4 @@ class Custom_Post_Type_Widget_Blocks {
 		$custom_post_type_widget_blocks_calendar = new \Custom_Post_Type_Widget_Blocks\Blocks\Custom_Post_Type_Widget_Blocks_Calendar();
 		$custom_post_type_widget_blocks_calendar->uninstall();
 	}
-
 }

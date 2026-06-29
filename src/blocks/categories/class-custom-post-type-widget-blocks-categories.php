@@ -81,7 +81,7 @@ class Custom_Post_Type_Widget_Blocks_Categories {
 	 * @return string Returns the categories list/dropdown markup.
 	 */
 	public function render_callback( $attributes ) {
-		self::$block_id++;
+		++self::$block_id;
 
 		$args = [
 			'echo'         => false,

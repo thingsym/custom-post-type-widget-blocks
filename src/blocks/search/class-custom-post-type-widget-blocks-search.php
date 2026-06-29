@@ -635,5 +635,4 @@ class Custom_Post_Type_Widget_Blocks_Search {
 
 		return implode( ' ', $classnames );
 	}
-
 }

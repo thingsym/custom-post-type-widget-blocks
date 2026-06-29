@@ -261,9 +261,9 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 	 * @since 1.0.0
 	 *
 	 * @param boolean $initial
-	 * @param boolean $echo
+	 * @param boolean $echo_output
 	 */
-	public function get_custom_post_type_calendar( $initial = true, $echo = true ) {
+	public function get_custom_post_type_calendar( $initial = true, $echo_output = true ) {
 		global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
 		$posttype = $this->posttype;
@@ -281,7 +281,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 			*/
 			$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $cache[ $key ] );
 
-			if ( $echo ) {
+			if ( $echo_output ) {
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $output;
 				return;
@@ -438,7 +438,6 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 		}
 
 		// See how much we should pad in the beginning.
-		/* @phpstan-ignore-next-line */
 		$pad = calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
 		if ( (float) 0 !== $pad ) {
 			/* @phpstan-ignore-next-line */
@@ -523,7 +522,7 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		$output = apply_filters( 'custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar', $calendar_output );
 
-		if ( $echo ) {
+		if ( $echo_output ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $calendar_output;
 			return;
@@ -703,5 +702,4 @@ class Custom_Post_Type_Widget_Blocks_Calendar {
 
 		return apply_filters( 'custom_post_type_widget_blocks/archive/get_month_link_custom_post_type', $new_monthlink, $year, $month, $old_monthlink );
 	}
-
 }

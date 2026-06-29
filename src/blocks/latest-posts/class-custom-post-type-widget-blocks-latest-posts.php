@@ -82,19 +82,17 @@ class Custom_Post_Type_Widget_Blocks_Latest_Posts {
 				if ( 'post' === $attributes['postType'] && 'category' === $attributes['taxonomy'] ) {
 				$args['category__in'] = array_column( $attributes['categories'], 'id' );
 			}
-			else {
-				if ( $attributes['taxonomy'] ) {
-					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-					$args['tax_query'] = [
-						[
-							'taxonomy' => $attributes['taxonomy'],
-							'field'    => 'term_id',
-							'terms'    => [
-								$attributes['categories'],
-							],
+			elseif ( $attributes['taxonomy'] ) {
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				$args['tax_query'] = [
+					[
+						'taxonomy' => $attributes['taxonomy'],
+						'field'    => 'term_id',
+						'terms'    => [
+							$attributes['categories'],
 						],
-					];
-				}
+					],
+				];
 			}
 		}
 
