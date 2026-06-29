@@ -25,8 +25,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 ## Compatibility
 
-- WordPress version 5.8 or later
-- Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
+* WordPress version 5.8 or later
+* Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
 
 ## Descriptions of Widget Blocks
 
@@ -64,14 +64,14 @@ Custom Post Type Widget Blocks has its own hooks.
 
 ### Filter hooks
 
-- custom_post_type_widget_blocks/archives/widget_archives_dropdown_args
-- custom_post_type_widget_blocks/archives/widget_archives_args
-- custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar
-- custom_post_type_widget_blocks/latest-comments/widget_comments_args
-- custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
-- custom_post_type_widget_blocks/categories/widget_categories_args
-- custom_post_type_widget_blocks/latest_posts/widget_posts_args
-- custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args
+* custom_post_type_widget_blocks/archives/widget_archives_dropdown_args
+* custom_post_type_widget_blocks/archives/widget_archives_args
+* custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar
+* custom_post_type_widget_blocks/latest-comments/widget_comments_args
+* custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
+* custom_post_type_widget_blocks/categories/widget_categories_args
+* custom_post_type_widget_blocks/latest_posts/widget_posts_args
+* custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args
 
 ## WordPress Plugin Directory
 
