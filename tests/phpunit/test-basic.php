@@ -40,7 +40,7 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function constructor() {
-		$this->assertSame( 10, has_filter( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_plugin_data' ] ) );
+		$this->assertSame( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
 		$this->assertSame( 10, has_filter( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'load_asset_file' ] ) );
 
 		$this->assertSame( 10, has_action( 'plugins_loaded', [ $this->custom_post_type_widget_blocks, 'init' ] ) );
@@ -57,12 +57,12 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	function init() {
 		$this->custom_post_type_widget_blocks->init();
 
+		$this->assertSame( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'load_plugin_data' ] ) );
+		$this->assertSame( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
+
 		$this->assertSame( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_styles' ] ) );
 		$this->assertSame( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_scripts' ] ) );
 		$this->assertSame( 10, has_filter( 'init', [ $this->custom_post_type_widget_blocks, 'register_block_editor_styles' ] ) );
-
-		$this->assertSame( 10, has_action( 'init', [ $this->custom_post_type_widget_blocks, 'load_textdomain' ] ) );
-		$this->assertSame( 10, has_filter( 'enqueue_block_editor_assets', [ $this->custom_post_type_widget_blocks, 'set_block_editor_translations' ] ) );
 
 		$this->assertSame( 10, has_filter( 'block_categories_all', [ $this->custom_post_type_widget_blocks, 'add_block_categories' ] ) );
 
@@ -112,10 +112,23 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
+		global $wp_version;
 		$loaded = $this->custom_post_type_widget_blocks->load_textdomain();
-		$this->assertFalse( $loaded );
+		if ( version_compare( (string) $wp_version, '6.7', '>=' ) ) {
+			$this->assertTrue( $loaded );
+		}
+		else {
+			$this->assertFalse( $loaded );
+		}
+	}
 
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function load_textdomain_change() {
 		unload_textdomain( 'custom-post-type-widget-blocks' );
+		$this->assertFalse( isset( $l10n[ 'custom-post-type-widget-blocks' ] ) );
 
 		add_filter( 'locale', [ $this, '_change_locale' ] );
 		add_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ], 10, 2 );
@@ -123,10 +136,13 @@ class Test_Custom_Post_Type_Widget_Blocks_Basic extends WP_UnitTestCase {
 		$loaded = $this->custom_post_type_widget_blocks->load_textdomain();
 		$this->assertTrue( $loaded );
 
+		$this->assertSame( 'ja', get_locale() );
+
 		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
 		remove_filter( 'locale', [ $this, '_change_locale' ] );
 
 		unload_textdomain( 'custom-post-type-widget-blocks' );
+		$this->assertFalse( isset( $l10n[ 'custom-post-type-widget-blocks' ] ) );
 	}
 
 	/**

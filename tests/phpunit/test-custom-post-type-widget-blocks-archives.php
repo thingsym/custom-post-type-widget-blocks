@@ -134,6 +134,31 @@ class Test_Custom_Post_Type_Widget_Blocks_Archives extends WP_UnitTestCase {
 	 * @test
 	 * @group custom_post_type_widget_blocks_archives
 	 */
+	function render_callback_case_options() {
+		$posts = $this->factory->post->create_many( 5 );
+
+		$attributes = [
+			'postType'          => 'post',
+			'archiveType'       => 'monthly',
+			'displayAsDropdown' => false,
+			'showPostCounts'    => false,
+			'order'             => 'DESC',
+			'align'             => 'wide',
+			'className'         => 'insertedclass',
+		];
+
+		$render = $this->custom_post_type_widget_blocks_archives->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_archives
+	 */
 	function get_year_link_custom_post_type() {
 		$this->_register_post_type();
 

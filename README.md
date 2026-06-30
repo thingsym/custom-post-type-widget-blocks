@@ -25,8 +25,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 ## Compatibility
 
-- WordPress version 5.8 or later
-- Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
+* WordPress version 5.8 or later
+* Gutenberg version 10.7 or later ([Versions in WordPress](https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/))
 
 ## Descriptions of Widget Blocks
 
@@ -64,14 +64,14 @@ Custom Post Type Widget Blocks has its own hooks.
 
 ### Filter hooks
 
-- custom_post_type_widget_blocks/archives/widget_archives_dropdown_args
-- custom_post_type_widget_blocks/archives/widget_archives_args
-- custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar
-- custom_post_type_widget_blocks/latest-comments/widget_comments_args
-- custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
-- custom_post_type_widget_blocks/categories/widget_categories_args
-- custom_post_type_widget_blocks/latest_posts/widget_posts_args
-- custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args
+* custom_post_type_widget_blocks/archives/widget_archives_dropdown_args
+* custom_post_type_widget_blocks/archives/widget_archives_args
+* custom_post_type_widget_blocks/calendar/get_custom_post_type_calendar
+* custom_post_type_widget_blocks/latest-comments/widget_comments_args
+* custom_post_type_widget_blocks/categories/widget_categories_dropdown_args
+* custom_post_type_widget_blocks/categories/widget_categories_args
+* custom_post_type_widget_blocks/latest_posts/widget_posts_args
+* custom_post_type_widget_blocks/tag_cloud/widget_tag_cloud_args
 
 ## WordPress Plugin Directory
 
@@ -107,18 +107,6 @@ composer run --list
 
 # Run test
 composer run phpunit
-```
-
-### Javascript unit testing with Jest
-
-```console
-cd /path/to/custom-post-type-widget-blocks
-
-# Install npm package
-npm intall
-
-# Run test
-npm run test:jest
 ```
 
 ## Support
@@ -398,10 +386,12 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Upgrade Notice
 
+* Version 1.7.1
+  * Requires PHP version 7.4
 * Version 1.7.0
-	* Requires at least version 6.2.0 of the WordPress
+  * Requires at least version 6.2.0 of the WordPress
 * Version 1.3.0
-	* Requires at least version 5.8.0 of the WordPress
+  * Requires at least version 5.8.0 of the WordPress
 
 ## License
 

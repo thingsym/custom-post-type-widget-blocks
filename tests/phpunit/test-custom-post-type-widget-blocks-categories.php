@@ -109,4 +109,33 @@ class Test_Custom_Post_Type_Widget_Blocks_Categories extends WP_UnitTestCase {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_categories
+	 */
+	function render_callback_case_options() {
+		$cat_1 = $this->factory->category->create_and_get( [ 'name' => 'Sample Category 1' ] );
+		$this->factory->post->create( [ 'post_category' => [ $cat_1->term_id ] ] );
+		$cat_2 = $this->factory->category->create_and_get( [ 'name' => 'Sample Category 2' ] );
+		$this->factory->post->create( [ 'post_category' => [ $cat_2->term_id ] ] );
+		$cat_3 = $this->factory->category->create_and_get( [ 'name' => 'Sample Category 3' ] );
+		$this->factory->post->create( [ 'post_category' => [ $cat_3->term_id ] ] );
+
+		$attributes = [
+			'taxonomy'          => 'category',
+			'displayAsDropdown' => false,
+			'showHierarchy'     => false,
+			'showPostCounts'    => false,
+			'align'             => 'wide',
+			'className'         => 'insertedclass',
+		];
+
+		$render = $this->custom_post_type_widget_blocks_categories->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+	}
+
 }

@@ -4,9 +4,9 @@ Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
 Stable tag: 1.7.0
-Tested up to: 6.6.1
+Tested up to: 7.0
 Requires at least: 6.2.0
-Requires PHP: 7.1
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: block, block editor, widget, custom post type, taxonomy
@@ -337,6 +337,8 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 
 == Upgrade Notice ==
 
+= 1.7.1 =
+* Requires PHP version 7.4
 = 1.7.0 =
 * Requires at least version 6.2.0 of the WordPress
 = 1.3.0 =

@@ -106,7 +106,32 @@ class Test_Custom_Post_Type_Widget_Blocks_Calendar extends WP_UnitTestCase {
 
 		$this->assertIsString( $render );
 		$this->assertMatchesRegularExpression( '#post_type=test#', $render );
+	}
 
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_calendar
+	 */
+	function render_callback_case_options() {
+		$posts = $this->factory->post->create_many( 5 );
+
+		$attributes = [
+			'postType'  => 'post',
+			'month'     => null,
+			'year'      => null,
+			'align'     => 'wide',
+			'className' => 'insertedclass',
+		];
+
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '' );
+
+		$render = $this->custom_post_type_widget_blocks_calendar->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
 	}
 
 	/**

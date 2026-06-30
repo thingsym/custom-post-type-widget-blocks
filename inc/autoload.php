@@ -23,7 +23,8 @@ spl_autoload_register( // @phpstan-ignore-line
 	 * @param string $class The fully-qualified class name.
 	 * @return void
 	 */
-	function( $class ) {
+	// phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.classFound
+	function ( $class ) {
 		/* plugin-specific namespace prefix */
 		$prefix = 'Custom_Post_Type_Widget_Blocks\\';
 		$len    = strlen( $prefix );

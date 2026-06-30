@@ -44,7 +44,9 @@
   <rule ref="WordPress.WP.I18n">
     <properties>
       <!-- Value: replace the text domain used. -->
-      <property name="text_domain" type="array" value="custom-post-type-widget-blocks" />
+      <property name="text_domain" type="array">
+        <element value="custom-post-type-widget-blocks"/>
+      </property>
     </properties>
   </rule>
 
@@ -55,10 +57,6 @@
     <exclude name="Squiz.Commenting.VariableComment.Missing" />
     <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
     <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
-
-    <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
-    <exclude name="WordPress.DateTime.RestrictedFunctions.date_date"/>
-    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
 
     <exclude name="Squiz.Commenting.FileComment.Missing" />
     <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
@@ -71,6 +69,10 @@
     <exclude name="Generic.Commenting.DocComment" />
 
     <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+
+    <exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
+    <exclude name="WordPress.DateTime.RestrictedFunctions.date_date"/>
+    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
   </rule>
 
   <rule ref="PHPCompatibilityWP">

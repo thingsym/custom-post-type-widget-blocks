@@ -1,8 +1,9 @@
 parameters:
   level: 5
+  treatPhpDocTypesAsCertain: false
   paths:
     - ./
-  excludes_analyse:
+  excludePaths:
     - ./tests
     - ./vendor
     - ./node_modules

@@ -97,6 +97,29 @@ class Test_Custom_Post_Type_Widget_Blocks_Search extends WP_UnitTestCase {
 	 * @test
 	 * @group custom_post_type_widget_blocks_search
 	 */
+	function render_callback_case_options() {
+		$attributes = [
+			'postType'    => 'post',
+			'label'       => 'Search',
+			'placeholder' => '',
+			'buttonText'  => 'Search',
+			'buttonPosition' => '',
+			'align'       => 'wide',
+			'className'   => 'insertedclass',
+		];
+
+		$render = $this->custom_post_type_widget_blocks_search->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+	}
+
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_search
+	 */
 	public function classnames_for_block_core_search() {
 		$attributes = [];
 		$classnames = $this->custom_post_type_widget_blocks_search->classnames_for_block_core_search( $attributes );

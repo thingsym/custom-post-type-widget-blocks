@@ -87,4 +87,27 @@ class Test_Custom_Post_Type_Widget_Blocks_Latest_Comments extends WP_UnitTestCas
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
+	/**
+	 * @test
+	 * @group custom_post_type_widget_blocks_latest_comments
+	 */
+	function render_callback_case_options() {
+		$attributes = [
+			'postType'       => 'any',
+			'commentsToShow' => 5,
+			'displayAvatar'  => true,
+			'displayDate'    => true,
+			'displayExcerpt' => true,
+			'align'          => 'wide',
+			'className'      => 'insertedclass',
+		];
+
+		$render = $this->custom_post_type_widget_blocks_latest_comments->render_callback( $attributes );
+
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
+		// $this->assertMatchesRegularExpression( '/insertedclass/', $render );
+		// $this->assertMatchesRegularExpression( '/alignwide/', $render );
+	}
+
 }

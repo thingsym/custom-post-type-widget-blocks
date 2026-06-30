@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   bootstrap="tests/phpunit/bootstrap.php"
   backupGlobals="false"
   colors="true"
@@ -7,17 +8,17 @@
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
   cacheResult="false"
-  >
-  <testsuites>
-    <testsuite name="default">
-      <directory prefix="test-" suffix=".php">./tests/</directory>
-    </testsuite>
-  </testsuites>
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+>
+  <coverage processUncoveredFiles="true">
+    <include>
       <file>./custom-post-type-widget-blocks.php</file>
       <directory suffix=".php">./inc</directory>
-      <directory suffix=".php">./dist/blocks</directory>
-    </whitelist>
-  </filter>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="default">
+      <directory prefix="test-" suffix=".php">./tests/phpunit/</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
