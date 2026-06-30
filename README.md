@@ -157,6 +157,25 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+### [1.7.1] - 2026.06.30
+
+* tested up to 7.0
+* update github workflows
+* change requires to PHP 7.4
+* improve code with phpcs
+* remove jest
+* update patch for test
+* update npm dependencies
+* fix test case
+* change translations to init action, Notice: Function _load_textdomain_just_in_time was called incorrectly
+* fix plugin_textdomain rel path
+* update phpunit v9 and wpcs v3
+* update composer dependencies
+* update wp-tests script
+* add playwright
+* remove e2e test
+* fix README to limit your plugin to 5 tags
+
 ### [1.7.0] - 2024.09.25
 
 * change to Requires at least 6.2.0

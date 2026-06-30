@@ -3,7 +3,7 @@
 Contributors: thingsym
 Link: https://github.com/thingsym/custom-post-type-widget-blocks
 Donate link: https://github.com/sponsors/thingsym
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Tested up to: 7.0
 Requires at least: 6.2.0
 Requires PHP: 7.4
@@ -125,6 +125,24 @@ And try the following: [Custom Post Type Rewrite](https://wordpress.org/plugins/
 1. Block category 'Custom Post Type Widget Blocks'
 
 == Changelog ==
+
+= 1.7.1 - 2026.06.30 =
+* tested up to 7.0
+* update github workflows
+* change requires to PHP 7.4
+* improve code with phpcs
+* remove jest
+* update patch for test
+* update npm dependencies
+* fix test case
+* change translations to init action, Notice: Function _load_textdomain_just_in_time was called incorrectly
+* fix plugin_textdomain rel path
+* update phpunit v9 and wpcs v3
+* update composer dependencies
+* update wp-tests script
+* add playwright
+* remove e2e test
+* fix README to limit your plugin to 5 tags
 
 = 1.7.0 - 2024.09.25 =
 * remove no published posts
